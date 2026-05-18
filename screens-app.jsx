@@ -803,41 +803,50 @@ function ResumenScreen({ theme = 'light', onTab }) {
   const categories = window.useCategories();
   const getCatColor = (id) => categories.find(c => c.id === id)?.color || '#999';
   const daysData = window.useDays() || {};
+  const activities = window.useActivities();
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  
+  const currentDayOfWeek = today.getDay(); // 0 is Sun
+  const diffToMonday = today.getDate() - currentDayOfWeek + (currentDayOfWeek === 0 ? -6 : 1);
+  const monday = new Date(today.setDate(diffToMonday));
+  monday.setHours(0,0,0,0);
 
-  const dailyBars = React.useMemo(() => {
-    const bars = [];
-    const dayNames = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+  const weekDates = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    weekDates.push(d);
+  }
+  
+  const dateStrings = weekDates.map(d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+  const dayLabels = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
+  
+  const realTodayStr = new Date().toDateString();
+  let foundToday = false;
+
+  const daysDataList = weekDates.map((d, i) => {
+    const dateStr = dateStrings[i];
+    const isToday = d.toDateString() === realTodayStr;
+    if (isToday) foundToday = true;
+    const isFuture = !isToday && foundToday;
     
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const dStr = d.toISOString().split('T')[0];
-      const dData = daysData[dStr];
-      const dayLabel = dayNames[d.getDay()];
-      
-      let pct = 0;
-      let topCat = 'otro';
-      
-      if (dData && dData.blocks) {
-        const trackable = dData.blocks.filter(b => !b.locked && !b.skipped && b.type);
-        const done = trackable.filter(b =>
-          (b.type === 'check' && b.done) ||
-          (b.type === 'quant' && b.current >= b.goal) ||
-          (b.type === 'progress' && b.pct >= 100)
-        ).length;
-        pct = trackable.length ? Math.round((done / trackable.length) * 100) : 0;
-        
-        const cats = {};
-        trackable.forEach(b => { cats[b.cat] = (cats[b.cat] || 0) + 1; });
-        topCat = Object.keys(cats).sort((a,b) => cats[b] - cats[a])[0] || 'otro';
-      }
-      
-      bars.push({ l: dayLabel, pct, cat: topCat });
-    }
-    return bars;
-  }, [daysData, today]);
+    const dayData = daysData[dateStr] || { blocks: [] };
+    const completionData = window.trackingUtils.calculateDayCompletion(dayData.blocks, activities, isFuture);
+    return { ...completionData, l: dayLabels[i], isToday };
+  });
+
+  const weekCompletion = window.trackingUtils.calculateWeekCompletion(daysDataList);
+
+  const dailyBars = weekCompletion.dailyPcts.map(d => ({
+    l: d.l,
+    pct: d.displayPct,
+    cat: d.dominantCategory,
+    isFuture: d.isFuture,
+    isFree: d.planlessOrFree,
+    isToday: d.isToday
+  }));
+
+  const activeHours = weekCompletion.dailyPcts.reduce((acc, curr) => acc + (curr.isFuture || curr.planlessOrFree ? 0 : curr.completedTime), 0) / 60;
 
   const streaks = React.useMemo(() => {
     const s = [];
@@ -899,52 +908,13 @@ function ResumenScreen({ theme = 'light', onTab }) {
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:14}}>
           <div className="k-card" style={{padding:14}}>
             <div style={{fontSize:11, color:'var(--k-text-3)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:6}}>Completado</div>
-            <div style={{fontSize:28, fontWeight:600, letterSpacing:'-0.03em'}}>{(() => {
-              let totalTrackable = 0, totalDone = 0;
-              for (let i = 0; i < 7; i++) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i);
-                const dStr = d.toISOString().split('T')[0];
-                const dData = daysData[dStr];
-                if (dData && dData.blocks) {
-                  dData.blocks.forEach(b => {
-                    if (!b.locked && !b.skipped && b.type) {
-                      totalTrackable++;
-                      const isBDown = (b.type === 'check' && b.done) ||
-                                      (b.type === 'quant' && b.current >= b.goal) ||
-                                      (b.type === 'progress' && b.pct >= 100);
-                      if (isBDown) totalDone++;
-                    }
-                  });
-                }
-              }
-              return totalTrackable ? Math.round((totalDone / totalTrackable) * 100) : 0;
-            })()}<span style={{fontSize:18}}>%</span></div>
+            <div style={{fontSize:28, fontWeight:600, letterSpacing:'-0.03em'}}>{weekCompletion.weeklyPct}<span style={{fontSize:18}}>%</span></div>
             <div style={{fontSize:12, color:'var(--k-text-2)', marginTop:4}}>Esta semana</div>
           </div>
           <div className="k-card" style={{padding:14}}>
-            <div style={{fontSize:11, color:'var(--k-text-3)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:6}}>Bloques hechos</div>
-            <div style={{fontSize:28, fontWeight:600, letterSpacing:'-0.03em'}}>{(() => {
-              let totalDone = 0;
-              for (let i = 0; i < 7; i++) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i);
-                const dStr = d.toISOString().split('T')[0];
-                const dData = daysData[dStr];
-                if (dData && dData.blocks) {
-                  dData.blocks.forEach(b => {
-                    if (!b.locked && !b.skipped && b.type) {
-                      const isBDown = (b.type === 'check' && b.done) ||
-                                      (b.type === 'quant' && b.current >= b.goal) ||
-                                      (b.type === 'progress' && b.pct >= 100);
-                      if (isBDown) totalDone++;
-                    }
-                  });
-                }
-              }
-              return totalDone;
-            })()}</div>
-            <div style={{fontSize:12, color:'var(--k-text-2)', marginTop:4}}>Total completados</div>
+            <div style={{fontSize:11, color:'var(--k-text-3)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:6}}>Horas Activas</div>
+            <div style={{fontSize:28, fontWeight:600, letterSpacing:'-0.03em'}}>{activeHours.toFixed(1)}<span style={{fontSize:18}}>h</span></div>
+            <div style={{fontSize:12, color:'var(--k-text-2)', marginTop:4}}>Tiempo enfocado</div>
           </div>
         </div>
 
@@ -972,13 +942,33 @@ function ResumenScreen({ theme = 'light', onTab }) {
             <div style={{fontSize:12, color:'var(--k-text-2)'}}>% promedio</div>
           </div>
           <div style={{display:'flex', alignItems:'flex-end', justifyContent:'space-between', height:120, gap:8}}>
-            {dailyBars.map((b, i) => (
-              <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
-                <div style={{fontSize:10, color:'var(--k-text-3)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
-                <div style={{width:'100%', height:`${b.pct}%`, background: getCatColor(b.cat), borderRadius:'4px 4px 0 0', minHeight:4}}/>
-                <div style={{fontSize:11, color:'var(--k-text-2)', fontWeight:500}}>{b.l}</div>
-              </div>
-            ))}
+            {dailyBars.map((b, i) => {
+              if (b.isFree) {
+                return (
+                  <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
+                    <div style={{fontSize:10, color:'transparent', fontVariantNumeric:'tabular-nums'}}>0</div>
+                    <div style={{width:'100%', height:'4px', background: 'var(--k-border)', borderRadius:'4px 4px 0 0'}}/>
+                    <div style={{fontSize:11, color:'var(--k-text-3)', fontWeight:500}}>Libre</div>
+                  </div>
+                );
+              }
+              if (b.isFuture) {
+                return (
+                  <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
+                    <div style={{fontSize:10, color:'var(--k-text-3)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
+                    <div style={{width:'100%', height:`${Math.max(b.pct, 4)}%`, border: '2px dashed var(--k-border)', borderBottom:'none', background:'transparent', borderRadius:'4px 4px 0 0', boxSizing:'border-box'}}/>
+                    <div style={{fontSize:11, color:'var(--k-text-3)', fontWeight:500}}>{b.l}</div>
+                  </div>
+                );
+              }
+              return (
+                <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:6}}>
+                  <div style={{fontSize:10, color:'var(--k-text-2)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
+                  <div style={{width:'100%', height:`${Math.max(b.pct, 4)}%`, background: getCatColor(b.cat), borderRadius:'4px 4px 0 0', transition:'height 0.3s ease'}}/>
+                  <div style={{fontSize:11, color: b.isToday ? 'var(--k-text)' : 'var(--k-text-2)', fontWeight: b.isToday ? 600 : 500}}>{b.l}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -49,9 +49,10 @@
   window.db = firebase.firestore();
 </script>
 
-<!-- App modules (order matters: store → scheduler → ui → screens → prototype) -->
-<script type="text/babel" src="store.jsx?v=5" data-presets="react"></script>
-<script type="text/babel" src="scheduler.jsx?v=5" data-presets="react"></script>
+<!-- App modules (order matters: store → scheduler → tracking → ui → screens → prototype) -->
+<script type="text/babel" src="store.jsx?v=6" data-presets="react"></script>
+<script type="text/babel" src="scheduler.jsx?v=6" data-presets="react"></script>
+<script type="text/babel" src="tracking.jsx?v=6" data-presets="react"></script>
 <script type="text/babel" src="ui.jsx?v=5" data-presets="react"></script>
 <script type="text/babel" src="screens-auth.jsx?v=5" data-presets="react"></script>
 <script type="text/babel" src="screens-app.jsx?v=5" data-presets="react"></script>

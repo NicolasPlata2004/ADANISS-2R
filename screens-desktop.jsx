@@ -777,15 +777,50 @@ function ResumenDesktop({ theme = 'light', onTab, onTheme }) {
   const categories = window.useCategories();
   const getCatColor = (id) => categories.find(c => c.id === id)?.color || '#999';
 
-  const dailyBars = [
-    { l: 'LUN', pct: 82, cat: 'fisico' },
-    { l: 'MAR', pct: 71, cat: 'estudio' },
-    { l: 'MIÉ', pct: 65, cat: 'fisico' },
-    { l: 'JUE', pct: 78, cat: 'creativo' },
-    { l: 'VIE', pct: 60, cat: 'fisico' },
-    { l: 'SÁB', pct: 90, cat: 'creativo' },
-    { l: 'DOM', pct: 74, cat: 'estudio' },
-  ];
+  const allDays = window.useDays();
+  const activities = window.useActivities();
+
+  const today = new Date();
+  const currentDayOfWeek = today.getDay(); // 0 is Sun
+  const diffToMonday = today.getDate() - currentDayOfWeek + (currentDayOfWeek === 0 ? -6 : 1);
+  const monday = new Date(today.setDate(diffToMonday));
+  monday.setHours(0,0,0,0);
+
+  const weekDates = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    weekDates.push(d);
+  }
+  
+  const dateStrings = weekDates.map(d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'));
+  const dayLabels = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
+  
+  const realTodayStr = new Date().toDateString();
+  let foundToday = false;
+
+  const daysDataList = weekDates.map((d, i) => {
+    const dateStr = dateStrings[i];
+    const isToday = d.toDateString() === realTodayStr;
+    if (isToday) foundToday = true;
+    const isFuture = !isToday && foundToday; // Simple check since we iterate left to right
+    
+    const dayData = allDays[dateStr] || { blocks: [] };
+    const completionData = window.trackingUtils.calculateDayCompletion(dayData.blocks, activities, isFuture);
+    return { ...completionData, l: dayLabels[i], isToday };
+  });
+
+  const weekCompletion = window.trackingUtils.calculateWeekCompletion(daysDataList);
+
+  const dailyBars = weekCompletion.dailyPcts.map(d => ({
+    l: d.l,
+    pct: d.displayPct,
+    cat: d.dominantCategory,
+    isFuture: d.isFuture,
+    isFree: d.planlessOrFree
+  }));
+
+  const activeHours = weekCompletion.dailyPcts.reduce((acc, curr) => acc + (curr.isFuture || curr.planlessOrFree ? 0 : curr.completedTime), 0) / 60;
 
   const streaks = [
     { cat: 'fisico', days: 7,  label: 'Físico' },
@@ -809,13 +844,13 @@ function ResumenDesktop({ theme = 'light', onTab, onTheme }) {
           <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16}}>
             <div className="k-card" style={{padding:24}}>
               <div style={{fontSize:12, color:'var(--k-text-3)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:8}}>Completado</div>
-              <div style={{fontSize:36, fontWeight:600, letterSpacing:'-0.03em'}}>74.3<span style={{fontSize:24}}>%</span></div>
-              <div style={{fontSize:14, color:'var(--k-success)', fontWeight:500, marginTop:6}}>↑ +12% vs anterior</div>
+              <div style={{fontSize:36, fontWeight:600, letterSpacing:'-0.03em'}}>{weekCompletion.weeklyPct}<span style={{fontSize:24}}>%</span></div>
+              <div style={{fontSize:14, color:'var(--k-text-2)', marginTop:6}}>Esta semana</div>
             </div>
             <div className="k-card" style={{padding:24}}>
               <div style={{fontSize:12, color:'var(--k-text-3)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:8}}>Horas activas</div>
-              <div style={{fontSize:36, fontWeight:600, letterSpacing:'-0.03em'}}>28.5<span style={{fontSize:24}}>h</span></div>
-              <div style={{fontSize:14, color:'var(--k-text-2)', marginTop:6}}>↑ +3.2h vs anterior</div>
+              <div style={{fontSize:36, fontWeight:600, letterSpacing:'-0.03em'}}>{activeHours.toFixed(1)}<span style={{fontSize:24}}>h</span></div>
+              <div style={{fontSize:14, color:'var(--k-text-2)', marginTop:6}}>Tiempo enfocado</div>
             </div>
           </div>
 
@@ -826,13 +861,35 @@ function ResumenDesktop({ theme = 'light', onTab, onTheme }) {
               <div style={{fontSize:13, color:'var(--k-text-2)'}}>% promedio</div>
             </div>
             <div style={{display:'flex', alignItems:'flex-end', justifyContent:'space-between', height:180, gap:16}}>
-              {dailyBars.map((b, i) => (
-                <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
-                  <div style={{fontSize:12, color:'var(--k-text-3)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
-                  <div style={{width:'100%', height:`${b.pct}%`, background: getCatColor(b.cat), borderRadius:'6px 6px 0 0', minHeight:4}}/>
-                  <div style={{fontSize:13, color:'var(--k-text-2)', fontWeight:500}}>{b.l}</div>
-                </div>
-              ))}
+              {dailyBars.map((b, i) => {
+                if (b.isFree) {
+                  return (
+                    <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
+                      <div style={{fontSize:12, color:'transparent', fontVariantNumeric:'tabular-nums'}}>0</div>
+                      <div style={{width:'100%', height:'4px', background: 'var(--k-border)', borderRadius:'6px 6px 0 0'}}/>
+                      <div style={{fontSize:13, color:'var(--k-text-3)', fontWeight:500}}>Libre</div>
+                    </div>
+                  );
+                }
+                
+                if (b.isFuture) {
+                  return (
+                    <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
+                      <div style={{fontSize:12, color:'var(--k-text-3)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
+                      <div style={{width:'100%', height:`${Math.max(b.pct, 4)}%`, border: '2px dashed var(--k-border)', borderBottom:'none', background:'transparent', borderRadius:'6px 6px 0 0', boxSizing:'border-box'}}/>
+                      <div style={{fontSize:13, color:'var(--k-text-3)', fontWeight:500}}>{b.l}</div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={i} style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', gap:8}}>
+                    <div style={{fontSize:12, color:'var(--k-text-2)', fontVariantNumeric:'tabular-nums'}}>{b.pct}</div>
+                    <div style={{width:'100%', height:`${Math.max(b.pct, 4)}%`, background: getCatColor(b.cat), borderRadius:'6px 6px 0 0', transition:'height 0.3s ease'}}/>
+                    <div style={{fontSize:13, color: b.isToday ? 'var(--k-text)' : 'var(--k-text-2)', fontWeight: b.isToday ? 600 : 500}}>{b.l}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
