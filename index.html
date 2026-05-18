@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="Kairos — Planifica tu semana. Mide tu avance real." />
+<meta name="theme-color" content="#0a0a0f" />
+<title>Kairos</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="logo.png" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- App styles -->
+<link rel="stylesheet" href="styles.css?v=2">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  #root { height: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- React 18 via CDN (production builds) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<!-- Firebase SDKs (Compat versions for easy global variable access without build) -->
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
+
+<!-- Initialize Firebase -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBnI5Wdv95z8lJMwrHBE1jl-nhhFqjdL88",
+    authDomain: "kairos-planner.firebaseapp.com",
+    projectId: "kairos-planner",
+    storageBucket: "kairos-planner.firebasestorage.app",
+    messagingSenderId: "472019535990",
+    appId: "1:472019535990:web:0e0ff3c758e8a02d98b757"
+  };
+  firebase.initializeApp(firebaseConfig);
+  // Shortcut to use in other files
+  window.db = firebase.firestore();
+</script>
+
+<!-- App modules (order matters: store → scheduler → ui → screens → prototype) -->
+<script type="text/babel" src="store.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="scheduler.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="ui.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="screens-auth.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="screens-app.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="screens-extras.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="screens-desktop.jsx?v=5" data-presets="react"></script>
+<script type="text/babel" src="prototype.jsx?v=5" data-presets="react"></script>
+</body>
+</html>
