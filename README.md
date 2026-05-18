@@ -25,11 +25,11 @@ Este proyecto se enfoca en el desarrollo de un mecanismo 2R para la materia de S
 ...
 
 ## Estructura del Proyecto
+- **/Codigos_Arduino**: Contiene los códigos de Arduino necesarios para controlar los motores DC y el mecanismo 2R.
 - **/Codigos_Matlab**: Contiene los códigos de MATLAB utilizados para generar las ecuaciones paramétricas del trébol y realizar simulaciones del sistema.
 - **/Documentacion**: Contiene documentación detallada sobre el proyecto, incluyendo fundamentos teóricos de servomecanismos, control feedforward y cualquier otra información relevante para entender y replicar el proyecto.
-- **/Videos Español**: Contiene videos explicativos en español que cubren diversos aspectos del proyecto, desde la teoría de servomecanismos hasta la implementación práctica del mecanismo 2R.
 
-*(Nota: Las carpetas /Animaciones, /Codigos_Arduino y /Modelos 3D han sido retiradas de esta lista ya que actualmente no contienen archivos, pero se mantendrán en el repositorio para futuras adiciones).*
+*(Nota: Las carpetas /Animaciones y /Modelos 3D han sido retiradas de esta lista ya que actualmente no contienen archivos).*
 
 ## Videos
 
@@ -60,4 +60,4 @@ Si tienes alguna pregunta o sugerencia sobre este proyecto, por favor contáctan
 
 ---
 
-Este README ha sido actualizado para reflejar el estado actual de las carpetas y añadir la sección de videos. Se han dejado espacios para que puedas seguir añadiendo enlaces a medida que subas más videos.
+Este README ha sido actualizado para reflejar la adición de los códigos de Arduino y la eliminación de la carpeta de videos locales.
