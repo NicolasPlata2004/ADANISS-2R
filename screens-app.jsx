@@ -249,6 +249,12 @@ function HoyScreen({ theme = 'light', onTab, onOpenReorganize, onOpenCheckin }) 
   }, 0);
   const pct = trackable.length ? Math.round((totalRelativeProgress / trackable.length) * 100) : 0;
   
+  const done = trackable.filter(b => 
+    (b.type === 'check' && b.done) || 
+    (b.type === 'quant' && b.current >= b.goal) || 
+    (b.type === 'progress' && b.pct >= 100)
+  ).length;
+  
   const daysData = window.useDays() || {};
   const racha = React.useMemo(() => {
     let count = 0;
