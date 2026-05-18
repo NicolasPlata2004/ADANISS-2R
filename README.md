@@ -7,6 +7,7 @@ Este proyecto se enfoca en el desarrollo de un mecanismo 2R para la materia de S
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [Estructura del Proyecto](#estructura-del-proyecto)
+- [Videos](#videos)
 - [Contribución](#contribución)
 - [Créditos](#créditos)
 - [Licencia](#licencia)
@@ -24,12 +25,23 @@ Este proyecto se enfoca en el desarrollo de un mecanismo 2R para la materia de S
 ...
 
 ## Estructura del Proyecto
-- /Animaciones: Contiene animaciones que ayudan a entender desde lo más básico cómo replicar el mecanismo, una aproximación al control y a los servomecanismos y su diseño.
-- /Codigos_Arduino: Contiene los códigos de Arduino necesarios para controlar los motores DC y el mecanismo 2R.
-- /Codigos_Matlab: Contiene los códigos de MATLAB utilizados para generar las ecuaciones paramétricas del trébol y realizar simulaciones del sistema.
-- /Documentacion: Contiene documentación detallada sobre el proyecto, incluyendo fundamentos teóricos de servomecanismos, control feedforward y cualquier otra información relevante para entender y replicar el proyecto.
-- /Modelos 3D: Contiene los modelos 3D del mecanismo 2R, que pueden ser utilizados para visualizar y comprender mejor la estructura del sistema.
-- /Videos Español: Contiene videos explicativos en español que cubren diversos aspectos del proyecto, desde la teoría de servomecanismos hasta la implementación práctica del mecanismo 2R.
+- **/Codigos_Matlab**: Contiene los códigos de MATLAB utilizados para generar las ecuaciones paramétricas del trébol y realizar simulaciones del sistema.
+- **/Documentacion**: Contiene documentación detallada sobre el proyecto, incluyendo fundamentos teóricos de servomecanismos, control feedforward y cualquier otra información relevante para entender y replicar el proyecto.
+- **/Videos Español**: Contiene videos explicativos en español que cubren diversos aspectos del proyecto, desde la teoría de servomecanismos hasta la implementación práctica del mecanismo 2R.
+
+*(Nota: Las carpetas /Animaciones, /Codigos_Arduino y /Modelos 3D han sido retiradas de esta lista ya que actualmente no contienen archivos, pero se mantendrán en el repositorio para futuras adiciones).*
+
+## Videos
+
+### 🇪🇸 Videos en Español
+- [La Ecuación del Trébol Estilizado: Coordenadas Polares Animadas con Manim](https://youtu.be/d2SLx9PkMOE?si=zkHUzQqHGgmqv3VM)
+- *[Espacio para futuro video]*
+- *[Espacio para futuro video]*
+
+### 🇫🇷 Videos en Francés
+- [L'Équation du Trèfle Stylisé : Coordonnées Polaires Animées avec Manim](https://youtu.be/9fZCj4uL7oE?si=yOhtFBVHFxoGdTVx)
+- *[Espacio para futuro video]*
+- *[Espacio para futuro video]*
 
 ## Contribución
 Si deseas contribuir a este proyecto, por favor sigue estas pautas:
@@ -48,8 +60,4 @@ Si tienes alguna pregunta o sugerencia sobre este proyecto, por favor contáctan
 
 ---
 
-Este README proporciona una estructura básica para documentar tu proyecto de mecanismo 2R para servomecanismos. He dejado espacios en blanco (...) para que puedas completar la información faltante, como los requisitos específicos, los pasos de instalación, las pautas de contribución, los créditos y la información de contacto.
-
-Recuerda incluir detalles técnicos relevantes, como las librerías o dependencias necesarias para ejecutar los códigos de Arduino and MATLAB, una vez que los tengas disponibles.
-
-Siéntete libre de ajustar y personalizar este README según las necesidades específicas de tu proyecto. Un buen README ayudará a otros a entender, utilizar y contribuir a tu proyecto de manera efectiva.
+Este README ha sido actualizado para reflejar el estado actual de las carpetas y añadir la sección de videos. Se han dejado espacios para que puedas seguir añadiendo enlaces a medida que subas más videos.
