@@ -1,7 +1,7 @@
 // tracking.jsx
 // Pure functions for calculating completion logic
 
-export function getDominantCategory(blocks, activities) {
+function getDominantCategory(blocks, activities) {
   const eligibleBlocks = blocks.filter(b => !b.locked && b.id && !b.id.startsWith('wake_'));
   if (eligibleBlocks.length === 0) return null;
 
@@ -67,7 +67,7 @@ export function getDominantCategory(blocks, activities) {
   return dominant;
 }
 
-export function calculateDayCompletion(blocks, activities, isFuture) {
+function calculateDayCompletion(blocks, activities, isFuture) {
   const eligibleBlocks = blocks.filter(b => !b.locked && b.id && !b.id.startsWith('wake_'));
   
   if (eligibleBlocks.length === 0) {
@@ -112,7 +112,7 @@ export function calculateDayCompletion(blocks, activities, isFuture) {
   };
 }
 
-export function calculateWeekCompletion(daysDataList) {
+function calculateWeekCompletion(daysDataList) {
   let totalWeekTime = 0;
   let totalWeekCompletedTime = 0;
 
