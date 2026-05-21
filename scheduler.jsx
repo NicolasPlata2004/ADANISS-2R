@@ -8,6 +8,11 @@ window.scheduler = {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const currentDayOfWeek = today.getDay();
+    const diffToMonday = today.getDate() - currentDayOfWeek + (currentDayOfWeek === 0 ? -6 : 1);
+    const startOfWeek = new Date(today.setDate(diffToMonday));
+    startOfWeek.setHours(0, 0, 0, 0);
+
     const generatedDays = {};
 
     // Spread each activity evenly across 7 days based on perWeek
@@ -22,8 +27,8 @@ window.scheduler = {
     }
 
     for (let i = 0; i < 7; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() + i);
+      const d = new Date(startOfWeek);
+      d.setDate(startOfWeek.getDate() + i);
       const dateStr = d.toISOString().split('T')[0];
 
       // Day encoding alignment:
