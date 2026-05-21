@@ -523,6 +523,7 @@ function SemanaScreen({ theme = 'light', onTab }) {
   }));
 
   const events = [];
+  const unscheduled = [];
   days.forEach((ud, dayIndex) => {
     const dayData = allDays[ud.dateStr];
     if (!dayData) return;
@@ -533,6 +534,11 @@ function SemanaScreen({ theme = 'light', onTab }) {
       if (!b.locked && (b.time === 'Flexible' || !b.timeEnd)) {
         isFlexibleAndUnscheduled = true;
       }
+
+      let isDone = false;
+      if (b.type === 'check') isDone = b.done;
+      if (b.type === 'quant') isDone = b.current >= b.goal;
+      if (b.type === 'progress') isDone = b.pct >= 100;
 
       if (!isFlexibleAndUnscheduled) {
         let startH = 8, endH = 9;
@@ -554,6 +560,17 @@ function SemanaScreen({ theme = 'light', onTab }) {
         events.push({
            day: dayIndex,
            startH, endH,
+           cat: b.cat,
+           name: b.name,
+           locked: b.locked,
+           blockId: b.id,
+           dateStr: ud.dateStr,
+           type: b.type,
+           isDone
+        });
+      } else {
+        unscheduled.push({
+           day: dayIndex,
            cat: b.cat,
            name: b.name,
            locked: b.locked,
@@ -682,6 +699,24 @@ function SemanaScreen({ theme = 'light', onTab }) {
             <div style={{fontSize:12, color:'var(--k-text-2)'}}>✓ balanceada</div>
           </div>
         </div>
+        
+        {unscheduled.length > 0 && (
+          <div style={{marginTop: 16}}>
+            <div style={{fontSize:13, fontWeight:600, color:'var(--k-text-2)', marginBottom:8, textTransform:'uppercase', letterSpacing:'0.05em'}}>Actividades flexibles</div>
+            <div style={{display:'flex', flexDirection:'column', gap:6}}>
+              {unscheduled.map((u, i) => (
+                <div key={i} style={{display:'flex', alignItems:'center', gap:8, padding:'10px 12px', background:'var(--k-card)', borderRadius:8, border:'1px solid var(--k-border)'}}>
+                  <div style={{width:8, height:8, borderRadius:'50%', background: getCatColor(u.cat)}} />
+                  <div style={{flex:1, fontSize:13, textDecoration: u.isDone ? 'line-through' : 'none', color: u.isDone ? 'var(--k-text-3)' : 'var(--k-text)'}}>
+                    <span style={{fontWeight:500, marginRight:6}}>{u.name}</span>
+                    <span style={{fontSize:11, color:'var(--k-text-2)'}}>{dayLabels[u.day]}</span>
+                  </div>
+                  {u.isDone && <Icon.Check style={{width:14, height:14, color:'var(--k-success)'}} />}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <BottomNav active="semana" onTab={onTab} />

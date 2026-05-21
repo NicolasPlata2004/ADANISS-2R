@@ -563,9 +563,14 @@ function OnbStep4({ theme = 'light', onNext, onBack }) {
                 <div style={{fontSize:15, fontWeight:500, marginBottom:2}}>{a.name}</div>
                 <div style={{fontSize:12, color:'var(--k-text-2)', lineHeight:1.4}}>{subText}</div>
               </div>
-              <button onClick={() => handleEditActivity(a)} style={{background:'transparent', border:'none', color:'var(--k-text-3)', padding:6, cursor:'pointer'}}>
-                <Icon.Edit size={16} />
-              </button>
+              <div style={{display:'flex', gap:4}}>
+                <button type="button" onClick={() => window.storeActions.deleteActivity(a.id)} style={{background:'transparent', border:'none', color:'var(--k-text-3)', padding:6, cursor:'pointer'}}>
+                  <Icon.X size={16} />
+                </button>
+                <button type="button" onClick={() => handleEditActivity(a)} style={{background:'transparent', border:'none', color:'var(--k-text-3)', padding:6, cursor:'pointer'}}>
+                  <Icon.Edit size={16} />
+                </button>
+              </div>
             </div>
           );
         })}
