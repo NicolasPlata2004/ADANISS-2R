@@ -1,0 +1,18 @@
+# MATLAB / Simulink: archivos generados
+slprj/
+*.slxc
+*.asv
+*.autosave
+*.mex*
+codegen/
+*_ert_rtw/
+*_grt_rtw/
+
+# Arduino / PlatformIO
+build/
+.pio/
+
+# Sistema
+desktop.ini
+Thumbs.db
+.DS_Store
