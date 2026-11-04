@@ -1,0 +1,360 @@
+# EP01 · ¿Cómo funciona un cargador de celular?
+# Cada escena empieza en la frase "desde" y termina donde empieza la siguiente.
+# Las "marcas" disparan animaciones dentro de la escena cuando la narración dice esa frase.
+# Las frases se buscan en la transcripción ya corregida (ignora tildes, mayúsculas y signos).
+episodio: EP01
+titulo: "¿Cómo funciona un cargador de celular?"
+formato: pizarra
+audio: audio/EP01_NARRACION_COMPLETA.wav
+fps: 30
+cola: 10            # segundos de pantalla final (para los elementos finales de YouTube)
+adelanto: 0.2       # la imagen aparece 0,2 s antes que la palabra
+subtitulos: true
+
+escenas:
+  # ---------------------------------------------------------------- GANCHO
+  - id: alarma
+    escena: Alarma
+    seccion: "7:30 A. M."
+    capitulo: "Intro: 4% de batería"
+    desde: inicio
+    marcas:
+      celular: "Miras tu celular"
+      bateria: "la batería marca"
+      conecta: "Lo conectas"
+      carga: "en minutos tiene carga"
+
+  - id: marea
+    escena: Marea
+    seccion: "LO QUE SALE DEL ENCHUFE"
+    desde: "Lo damos por hecho"
+    marcas:
+      piensa: "pero piénsalo"
+      sentido: "cambia de sentido"
+      cien: "100 veces"
+      fuerza: "empuja decenas"
+      bateria: "tu batería soportaría"
+
+  - id: cajita
+    escena: Cajita
+    seccion: "LO QUE SALE DEL ENCHUFE"
+    desde: "Entre esa electricidad"
+    marcas:
+      cajita: "una cajita"
+      mano: "cabe en tu mano"
+      destruiria: "destruiría el teléfono"
+      domestico: "entregarlo domesticado"
+      medida: "justo a la medida"
+      ruta: "Sigamos la pista"
+      enchufe: "desde el enchufe"
+      bateria: "hasta la batería"
+
+  # ---------------------------------------------------------------- ANALOGÍA
+  - id: tuberia
+    escena: Tuberia
+    seccion: "LA ANALOGÍA DEL AGUA"
+    capitulo: "La analogía del agua"
+    desde: "Imagina la electricidad"
+    marcas:
+      agua: "como agua"
+      voltaje: "El voltaje es"
+      presion: "la presión con la que"
+      corriente: "La corriente"
+      caudal: "cuánta agua pasa"
+
+  - id: necesidades
+    escena: Necesidades
+    seccion: "LA ANALOGÍA DEL AGUA"
+    desde: "Tu batería necesita"
+    marcas:
+      poca: "poca presión"
+      sentido: "el flujo vaya siempre"
+      enchufe: "El enchufe ofrece"
+      mucha: "Mucha presión"
+      vaiven: "va y viene"
+      alterna: "corriente alterna"
+
+  - id: cable
+    escena: SoloUnCable
+    seccion: "LA ANALOGÍA DEL AGUA"
+    desde: "Y si el cargador fuera"
+    marcas:
+      recibe: "la batería recibiría"
+      presion: "a toda presión"
+      noesta: "No está hecha"
+      transformar: "Hay que transformarla"
+
+  # ---------------------------------------------------------------- 1. EL SENTIDO
+  - id: cap1
+    escena: Capitulo
+    seccion: "1 · EL SENTIDO"
+    capitulo: "1. El sentido: diodos y puente rectificador"
+    desde: "Primer problema"
+    props: {numero: 1, titulo: "El sentido", subtitulo: "que fluya siempre hacia el mismo lado", estacion: 0}
+    marcas:
+      sub: "que fluya siempre"
+
+  - id: puertas
+    escena: Puertas
+    seccion: "1 · EL SENTIDO"
+    desde: "Imagina unas puertas"
+    marcas:
+      pasa: "El flujo pasa"
+      regresa: "no puede regresar"
+      diodos: "los diodos"
+
+  - id: puente
+    escena: Puente
+    seccion: "PUENTE RECTIFICADOR"
+    desde: "Cuatro en un puente"
+    marcas:
+      marea: "reciben la marea"
+      salir: "la dejan salir"
+      nombre: "el puente rectificador"
+
+  - id: colinas
+    escena: Colinas
+    seccion: "PUENTE RECTIFICADOR"
+    desde: "Ya no retrocede"
+    marcas:
+      empujones: "llega a empujones"
+      colinas: "en colinas"
+
+  - id: deposito
+    escena: Deposito
+    seccion: "CONDENSADOR DE FILTRADO"
+    desde: "Para alisarlo"
+    marcas:
+      deposito: "un depósito"
+      cimas: "en las cimas"
+      valles: "en los valles"
+      condensador: "el condensador de filtrado"
+      resultado: "el resultado"
+
+  - id: continua
+    escena: Continua
+    seccion: "CORRIENTE CONTINUA"
+    desde: "corriente continua"
+    marcas:
+      ondulacion: "leve ondulación"
+      presion: "la presión sigue"
+      altisima: "altísima"
+
+  - id: imagen
+    escena: SoloImagen
+    seccion: "OJO"
+    desde: "Ojo"
+    marcas:
+      imagen: "solo una imagen"
+      liquido: "no viaja un líquido"
+      energia: "viaja energía"
+      vale: "vale para presión"
+      todo: "no para todo"
+
+  # ---------------------------------------------------------------- 2. LA PRESIÓN
+  - id: cap2
+    escena: Capitulo
+    seccion: "2 · LA PRESIÓN"
+    capitulo: "2. La presión: conmutación y flyback"
+    desde: "Ya tenemos el sentido"
+    props: {numero: 2, titulo: "La presión", subtitulo: "¿cómo bajarla?", estacion: 1}
+    marcas:
+      sub: "Cómo bajarla"
+
+  - id: estufa
+    escena: Estufa
+    seccion: "2 · LA PRESIÓN"
+    desde: "Desperdiciar el sobrante"
+    marcas:
+      frenar: "frenar en toda"
+      funciona: "Funcionaría"
+      estufa: "pequeña estufa"
+      ineficiente: "ineficiente"
+      peligroso: "y peligroso"
+
+  - id: ladrillo
+    escena: Ladrillo
+    seccion: "2 · LA PRESIÓN"
+    desde: "La otra idea clásica"
+    marcas:
+      transformador: "el transformador de los"
+      ladrillo: "como un ladrillo"
+      cambie: "necesita que la electricidad"
+
+  - id: picar
+    escena: Picar
+    seccion: "2 · LA PRESIÓN"
+    desde: "La nuestra ya es continua"
+    marcas:
+      cambiante: "volviéramos cambiante"
+      rapido: "pero rapidísimo"
+
+  - id: transistor
+    escena: Transistor
+    seccion: "CONMUTACIÓN"
+    desde: "La pieza clave"
+    marcas:
+      interruptor: "un interruptor"
+      moviles: "sin partes móviles"
+      transistor: "un transistor"
+      veces: "decenas de miles"
+      conmutacion: "la conmutación"
+
+  - id: flyback
+    escena: Flyback
+    seccion: "FLYBACK"
+    desde: "En el diseño más común"
+    marcas:
+      flyback: "el flyback"
+      resorte: "como un resorte"
+      conduce: "mientras el interruptor conduce"
+      campo: "en el campo magnético"
+      nada: "sin que nada se comprima"
+      corta: "Al cortarse"
+      pasa: "pasa al otro lado"
+      menor: "presión mucho menor"
+
+  - id: tamano
+    escena: Tamano
+    seccion: "FLYBACK"
+    desde: "Por qué tan rápido"
+    marcas:
+      ritmo: "a ese ritmo"
+      diminuto: "puede ser diminuto"
+      sustituye: "La velocidad sustituye"
+
+  - id: secundario
+    escena: Secundario
+    seccion: "SALIDA"
+    desde: "Al otro lado vuelve"
+    marcas:
+      puerta: "Otra puerta"
+      deposito: "otro depósito"
+      ahora: "Ahora sí"
+
+  - id: aislamiento
+    escena: Aislamiento
+    seccion: "AISLAMIENTO GALVÁNICO"
+    desde: "Y entre entrada y salida"
+    marcas:
+      conexion: "no hay conexión"
+      cruzo: "cruzó como campo"
+      nombre: "el aislamiento galvánico"
+      protege: "protege tu seguridad"
+      baratos: "Desconfía"
+
+  # ---------------------------------------------------------------- 3. EL CONTROL
+  - id: cap3
+    escena: Capitulo
+    seccion: "3 · EL CONTROL"
+    capitulo: "3. El control: regulación y optoacoplador"
+    desde: "Falta que la salida"
+    props: {numero: 3, titulo: "El control", subtitulo: "que la salida no se mueva", estacion: 2}
+    marcas:
+      sub: "no se mueva"
+
+  - id: control
+    escena: Control
+    seccion: "3 · EL CONTROL"
+    desde: "Aunque la red"
+    marcas:
+      red: "la red fluctúe"
+      demanda: "cambie su demanda"
+      controlador: "Un controlador"
+      ajusta: "ajusta cada pulso"
+      largos: "Más largos"
+      cortos: "más cortos"
+
+  - id: opto
+    escena: Opto
+    seccion: "OPTOACOPLADOR"
+    desde: "Y cómo sabe"
+    marcas:
+      cruzarla: "sin cruzarla"
+      luz: "viaja como luz"
+      opto: "un optoacoplador"
+      otros: "Otros diseños"
+      regulada: "queda regulada"
+
+  # ---------------------------------------------------------------- 4. LA POTENCIA
+  - id: carrera
+    escena: Carrera
+    seccion: "4 · LA POTENCIA"
+    capitulo: "4. Potencia y USB Power Delivery"
+    desde: "Pero si es tan segura"
+    marcas:
+      hora: "en una hora"
+      tres: "otro tarda tres"
+
+  - id: potencia
+    escena: Potencia
+    seccion: "4 · LA POTENCIA"
+    desde: "Porque lo que llena"
+    marcas:
+      presion: "de la presión"
+      caudal: "del caudal"
+      potencia: "Eso es la potencia"
+
+  - id: cinco
+    escena: CincoVoltios
+    seccion: "4 · LA POTENCIA"
+    desde: "Antes todos daban"
+    marcas:
+      cinco: "Cinco voltios"
+      lento: "Seguro pero lento"
+
+  - id: negociacion
+    escena: Negociacion
+    seccion: "USB POWER DELIVERY"
+    desde: "Los modernos con"
+    marcas:
+      peligro: "sin acuerdo"
+      conversan: "primero conversan"
+      menu: "anuncia su menú"
+      elige: "El teléfono elige"
+      cambia: "cambia la salida"
+      pd: "Ese acuerdo es"
+
+  - id: idiomas
+    escena: Idiomas
+    seccion: "USB POWER DELIVERY"
+    desde: "Y no todos hablan"
+    marcas:
+      vuela: "un cargador vuela"
+      normal: "va normal"
+
+  # ---------------------------------------------------------------- 5. EL TELÉFONO
+  - id: telefono
+    escena: Telefono
+    seccion: "5 · EL TELÉFONO MANDA"
+    capitulo: "5. El teléfono manda"
+    desde: "Último detalle"
+    marcas:
+      manda: "Quien manda"
+      sistema: "Su sistema interno"
+      celda: "exacta de su celda"
+      dosifica: "dosifica cada entrega"
+      propone: "El cargador propone"
+      administra: "el teléfono administra"
+
+  # ---------------------------------------------------------------- CIERRE
+  - id: recap
+    escena: Recap
+    seccion: "7:30 A. M."
+    capitulo: "Resumen"
+    desde: "Volvamos a la 7"
+    marcas:
+      sabes: "Ahora sabes"
+      puertas: "Unas puertas ordenaron"
+      deposito: "un depósito la"
+      resorte: "un resorte invisible"
+      negociaron: "dos aparatos negociaron"
+
+  - id: mundos
+    escena: DosMundos
+    seccion: "¿POR QUÉ NO ES UN SIMPLE CABLE?"
+    desde: "Por qué no es un simple cable"
+    marcas:
+      mundos: "dos mundos incompatibles"
+      traducir: "tenía que traducir"
+      notes: "sin que lo notes"

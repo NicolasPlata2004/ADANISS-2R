@@ -1,0 +1,683 @@
+1
+00:00:00,270 --> 00:00:01,630
+Son las 7 y media.
+
+2
+00:00:02,150 --> 00:00:03,870
+Estás a punto de salir de casa.
+
+3
+00:00:04,550 --> 00:00:08,130
+Miras tu celular y la batería marca un 4 %
+
+4
+00:00:08,130 --> 00:00:12,030
+Lo conectas casi sin pensar y en minutos
+
+5
+00:00:12,030 --> 00:00:13,930
+tiene carga para aguantar el día.
+
+6
+00:00:14,660 --> 00:00:15,720
+Lo damos por hecho,
+
+7
+00:00:16,340 --> 00:00:17,300
+pero piénsalo.
+
+8
+00:00:17,880 --> 00:00:20,540
+Esa electricidad cambia de sentido una 100
+
+9
+00:00:20,540 --> 00:00:23,660
+veces por segundo y empuja decenas de
+
+10
+00:00:23,660 --> 00:00:26,180
+veces más fuerte de lo que tu batería
+
+11
+00:00:26,180 --> 00:00:26,920
+soportaría.
+
+12
+00:00:27,740 --> 00:00:30,080
+Entre esa electricidad y tu teléfono,
+
+13
+00:00:30,620 --> 00:00:32,880
+solo hay una cajita que cabe en tu mano.
+
+14
+00:00:33,750 --> 00:00:35,970
+¿Cómo logra tomar algo que destruiría el
+
+15
+00:00:35,970 --> 00:00:39,490
+teléfono y entregarlo domesticado, justo a
+
+16
+00:00:39,490 --> 00:00:39,930
+la medida?
+
+17
+00:00:40,900 --> 00:00:42,540
+Sigamos la pista de la energía,
+
+18
+00:00:43,200 --> 00:00:45,280
+desde el enchufe hasta la batería.
+
+19
+00:00:46,080 --> 00:00:48,460
+Imagina la electricidad como agua en una
+
+20
+00:00:48,460 --> 00:00:48,980
+tubería.
+
+21
+00:00:49,700 --> 00:00:51,960
+El voltaje es la presión con la que
+
+22
+00:00:51,960 --> 00:00:52,460
+empuja.
+
+23
+00:00:53,020 --> 00:00:53,860
+La corriente,
+
+24
+00:00:54,340 --> 00:00:56,280
+cuánta agua pasa cada segundo.
+
+25
+00:00:57,460 --> 00:01:00,960
+Tu batería necesita poca presión y que el
+
+26
+00:01:00,960 --> 00:01:03,300
+flujo vaya siempre en el mismo sentido.
+
+27
+00:01:04,060 --> 00:01:05,620
+El enchufe ofrece lo contrario.
+
+28
+00:01:06,340 --> 00:01:09,160
+Mucha presión y un flujo que va y viene,
+
+29
+00:01:09,540 --> 00:01:10,540
+como una marea.
+
+30
+00:01:11,180 --> 00:01:12,680
+Es la corriente alterna.
+
+31
+00:01:13,460 --> 00:01:15,780
+Y si el cargador fuera solo un cable,
+
+32
+00:01:16,540 --> 00:01:19,600
+la batería recibiría la marea entera, a
+
+33
+00:01:19,600 --> 00:01:20,480
+toda presión.
+
+34
+00:01:21,040 --> 00:01:22,480
+No está hecha para eso.
+
+35
+00:01:23,140 --> 00:01:25,060
+Hay que transformarla por el camino.
+
+36
+00:01:25,780 --> 00:01:26,700
+Primer problema,
+
+37
+00:01:27,260 --> 00:01:28,060
+el sentido,
+
+38
+00:01:28,760 --> 00:01:30,900
+que fluya siempre hacia el mismo lado.
+
+39
+00:01:32,710 --> 00:01:35,210
+Imagina unas puertas que solo se abren
+
+40
+00:01:35,210 --> 00:01:36,150
+hacia un lado.
+
+41
+00:01:36,890 --> 00:01:39,690
+El flujo pasa, pero no puede regresar.
+
+42
+00:01:40,570 --> 00:01:43,850
+El circuito tiene componentes así, los
+
+43
+00:01:43,850 --> 00:01:44,550
+diodos.
+
+44
+00:01:45,120 --> 00:01:48,600
+Cuatro en un puente reciben la marea y la
+
+45
+00:01:48,600 --> 00:01:51,100
+dejan salir siempre en la misma dirección,
+
+46
+00:01:51,900 --> 00:01:53,420
+el puente rectificador.
+
+47
+00:01:54,210 --> 00:01:55,330
+Ya no retrocede,
+
+48
+00:01:55,930 --> 00:01:58,710
+pero llega a empujones, en colinas que
+
+49
+00:01:58,710 --> 00:01:59,930
+suben y bajan.
+
+50
+00:02:00,590 --> 00:02:03,870
+Para alizarlo, un depósito que se llena en
+
+51
+00:02:03,870 --> 00:02:07,050
+las cimas y suelta en los valles, el
+
+52
+00:02:07,050 --> 00:02:08,650
+condensador de filtrado,
+
+53
+00:02:09,270 --> 00:02:13,210
+el resultado un flujo en un solo sentido y
+
+54
+00:02:13,210 --> 00:02:14,250
+casi constante,
+
+55
+00:02:14,810 --> 00:02:16,030
+corriente continua,
+
+56
+00:02:16,670 --> 00:02:18,990
+aunque de cerca conserva una leve
+
+57
+00:02:18,990 --> 00:02:19,730
+ondulación,
+
+58
+00:02:20,370 --> 00:02:22,930
+pero la presión sigue siendo prácticamente
+
+59
+00:02:22,930 --> 00:02:23,790
+la de la red,
+
+60
+00:02:24,370 --> 00:02:25,330
+altísima.
+
+61
+00:02:26,010 --> 00:02:26,470
+Ojo,
+
+62
+00:02:27,070 --> 00:02:28,990
+el agua es sólo una imagen,
+
+63
+00:02:29,510 --> 00:02:31,530
+por el cable no viaja un líquido,
+
+64
+00:02:31,990 --> 00:02:33,170
+viaja energía,
+
+65
+00:02:33,810 --> 00:02:37,230
+vale para presión y flujo, no para todo.
+
+66
+00:02:39,210 --> 00:02:40,370
+Ya tenemos el sentido.
+
+67
+00:02:41,290 --> 00:02:41,690
+Ahora,
+
+68
+00:02:42,270 --> 00:02:42,890
+la presión.
+
+69
+00:02:43,850 --> 00:02:44,590
+¿Cómo bajarla?
+
+70
+00:02:45,660 --> 00:02:46,820
+¿Desperdiciar el sobrante?
+
+71
+00:02:47,840 --> 00:02:50,080
+Sería como frenar en toda una bajada.
+
+72
+00:02:50,780 --> 00:02:51,620
+Funcionaría,
+
+73
+00:02:52,180 --> 00:02:54,780
+pero el cargador sería una pequeña estufa,
+
+74
+00:02:54,780 --> 00:02:57,620
+ineficiente y peligroso.
+
+75
+00:02:57,970 --> 00:02:59,450
+La otra idea clásica,
+
+76
+00:03:00,210 --> 00:03:01,910
+el transformador de los cargadores
+
+77
+00:03:01,910 --> 00:03:05,610
+antiguos, pesaba como un ladrillo y
+
+78
+00:03:05,610 --> 00:03:07,750
+necesita que la electricidad cambie.
+
+79
+00:03:08,490 --> 00:03:10,690
+La nuestra ya es continua y tranquila,
+
+80
+00:03:11,550 --> 00:03:13,450
+y si la volviéramos cambiante nosotros
+
+81
+00:03:13,450 --> 00:03:14,110
+mismos,
+
+82
+00:03:14,690 --> 00:03:15,990
+pero rapidísimo.
+
+83
+00:03:17,350 --> 00:03:19,550
+La pieza clave es un interruptor sin
+
+84
+00:03:19,550 --> 00:03:20,370
+partes móviles,
+
+85
+00:03:20,990 --> 00:03:23,990
+un transistor que se abre y se cierra
+
+86
+00:03:23,990 --> 00:03:26,350
+decenas de miles de veces por segundo,
+
+87
+00:03:27,210 --> 00:03:28,310
+la conmutación.
+
+88
+00:03:29,440 --> 00:03:30,700
+En el diseño más común,
+
+89
+00:03:31,180 --> 00:03:31,840
+el flyback,
+
+90
+00:03:32,380 --> 00:03:34,420
+cada pulso trabaja como un resorte,
+
+91
+00:03:35,020 --> 00:03:36,940
+mientras el interruptor conduce,
+
+92
+00:03:37,560 --> 00:03:39,940
+la energía se guarda en el campo magnético
+
+93
+00:03:39,940 --> 00:03:41,020
+del transformador,
+
+94
+00:03:41,600 --> 00:03:43,860
+sin que nada se comprima de verdad.
+
+95
+00:03:44,680 --> 00:03:48,080
+Al cortarse, el resorte se suelta, La
+
+96
+00:03:48,080 --> 00:03:49,660
+energía pasa al otro lado,
+
+97
+00:03:50,200 --> 00:03:52,000
+ya con una presión mucho menor.
+
+98
+00:03:52,840 --> 00:03:53,900
+¿Por qué tan rápido?
+
+99
+00:03:54,600 --> 00:03:56,860
+Porque a ese ritmo el transformador puede
+
+100
+00:03:56,860 --> 00:03:57,760
+ser diminuto.
+
+101
+00:03:58,460 --> 00:04:00,540
+La velocidad sustituye al tamaño.
+
+102
+00:04:01,280 --> 00:04:03,680
+Al otro lado, vuelve a llegar a pulsos.
+
+103
+00:04:04,300 --> 00:04:06,940
+Otra puerta de un solo sentido y otro
+
+104
+00:04:06,940 --> 00:04:08,360
+depósito la alizan.
+
+105
+00:04:09,020 --> 00:04:09,680
+Ahora sí,
+
+106
+00:04:10,300 --> 00:04:11,140
+poca presión,
+
+107
+00:04:11,760 --> 00:04:12,640
+un solo sentido.
+
+108
+00:04:13,400 --> 00:04:16,140
+Y entre entrada y salida no hay conexión
+
+109
+00:04:16,140 --> 00:04:16,800
+electrica,
+
+110
+00:04:17,340 --> 00:04:19,280
+cruzó como campo magnético.
+
+111
+00:04:20,200 --> 00:04:21,200
+Esa separación,
+
+112
+00:04:21,660 --> 00:04:23,240
+el aislamiento galvánico,
+
+113
+00:04:23,780 --> 00:04:26,440
+protege tu seguridad en un cargador bien
+
+114
+00:04:26,440 --> 00:04:27,220
+construido.
+
+115
+00:04:28,070 --> 00:04:30,710
+Desconfía de los sospechosamente baratos.
+
+116
+00:04:32,060 --> 00:04:33,980
+Falta que la salida no se mueva.
+
+117
+00:04:34,660 --> 00:04:37,660
+Aunque la red fluctúe o el teléfono cambie
+
+118
+00:04:37,660 --> 00:04:38,360
+su demanda.
+
+119
+00:04:39,040 --> 00:04:41,440
+Un controlador la compara con su objetivo
+
+120
+00:04:41,440 --> 00:04:43,440
+y ajusta cada pulso.
+
+121
+00:04:44,280 --> 00:04:47,160
+Más largos y falta energía, más cortos y
+
+122
+00:04:47,160 --> 00:04:47,540
+sobra.
+
+123
+00:04:48,310 --> 00:04:50,770
+¿Y cómo sabe lo que ocurre al otro lado de
+
+124
+00:04:50,770 --> 00:04:51,330
+la barrera,
+
+125
+00:04:51,790 --> 00:04:52,870
+sin cruzarla?
+
+126
+00:04:53,860 --> 00:04:56,520
+En muchos cargadores la información viaja
+
+127
+00:04:56,520 --> 00:04:59,260
+como luz dentro de un optoacoplador.
+
+128
+00:05:00,080 --> 00:05:02,880
+Otros diseños la deducen desde la entrada.
+
+129
+00:05:03,760 --> 00:05:07,060
+La salida queda regulada, pulso a pulso.
+
+130
+00:05:07,780 --> 00:05:09,080
+Pero si es tan segura,
+
+131
+00:05:09,640 --> 00:05:12,540
+¿por qué tu teléfono carga en una hora y
+
+132
+00:05:12,540 --> 00:05:13,600
+otro tarda tres.
+
+133
+00:05:14,900 --> 00:05:17,200
+Porque lo que llena la batería es energía
+
+134
+00:05:17,200 --> 00:05:20,420
+y su rapidez depende de la presión y del
+
+135
+00:05:20,420 --> 00:05:21,560
+caudal a la vez.
+
+136
+00:05:22,200 --> 00:05:23,360
+Eso es la potencia.
+
+137
+00:05:24,140 --> 00:05:25,940
+Antes todos daban lo mismo.
+
+138
+00:05:26,700 --> 00:05:28,300
+Cinco voltios siempre.
+
+139
+00:05:28,960 --> 00:05:30,600
+Seguro pero lento.
+
+140
+00:05:31,220 --> 00:05:34,000
+Los modernos con USB -C pueden dar más,
+
+141
+00:05:34,420 --> 00:05:36,720
+pero subir la presión sin acuerdo sería
+
+142
+00:05:36,720 --> 00:05:38,020
+peligroso.
+
+143
+00:05:38,060 --> 00:05:39,800
+Así que primero conversan.
+
+144
+00:05:40,320 --> 00:05:42,960
+El cargador anuncia su menú de tensiones.
+
+145
+00:05:43,380 --> 00:05:46,540
+El teléfono elige y solo entonces cambia
+
+146
+00:05:46,540 --> 00:05:47,120
+la salida.
+
+147
+00:05:47,840 --> 00:05:50,540
+Ese acuerdo es USB Power Delivery.
+
+148
+00:05:51,140 --> 00:05:53,940
+Y no todos hablan ese idioma ni ofrecen el
+
+149
+00:05:53,940 --> 00:05:54,600
+mismo menú.
+
+150
+00:05:55,060 --> 00:05:57,540
+Por eso un cargador vuela con tu teléfono
+
+151
+00:05:57,540 --> 00:05:59,020
+y va normal con otro.
+
+152
+00:05:59,920 --> 00:06:01,600
+Último detalle.
+
+153
+00:06:02,400 --> 00:06:04,580
+Quien manda sobre la batería es el
+
+154
+00:06:04,580 --> 00:06:05,100
+teléfono.
+
+155
+00:06:05,720 --> 00:06:08,240
+Su sistema interno baja la energía a la
+
+156
+00:06:08,240 --> 00:06:11,540
+presión exacta de su celda y dosifica cada
+
+157
+00:06:11,540 --> 00:06:12,120
+entrega.
+
+158
+00:06:12,840 --> 00:06:14,180
+El cargador propone,
+
+159
+00:06:14,780 --> 00:06:16,780
+el teléfono administra.
+
+160
+00:06:18,380 --> 00:06:19,740
+Volvamos a la 7 y media.
+
+161
+00:06:20,750 --> 00:06:22,810
+Ahora sabes lo que ocurre dentro de esa
+
+162
+00:06:22,810 --> 00:06:23,350
+cajita.
+
+163
+00:06:23,410 --> 00:06:26,230
+unas puertas ordenaron la marea,
+
+164
+00:06:26,950 --> 00:06:28,450
+un depósito la alizó,
+
+165
+00:06:29,150 --> 00:06:32,090
+un resorte invisible la cruzó a salvo y
+
+166
+00:06:32,090 --> 00:06:34,310
+dos aparatos negociaron antes de
+
+167
+00:06:34,310 --> 00:06:35,010
+entregarla.
+
+168
+00:06:35,980 --> 00:06:37,420
+¿Por qué no es un simple cable?
+
+169
+00:06:38,330 --> 00:06:41,190
+Porque entre el enchufe y tu batería hay
+
+170
+00:06:41,190 --> 00:06:44,250
+dos mundos incompatibles y alguien tenía
+
+171
+00:06:44,250 --> 00:06:47,010
+que traducir entre ellos sin que lo notes.

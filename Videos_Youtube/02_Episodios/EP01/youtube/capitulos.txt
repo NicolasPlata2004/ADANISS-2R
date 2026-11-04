@@ -1,0 +1,8 @@
+00:00 Intro: 4% de batería
+00:45 La analogía del agua
+01:25 1. El sentido: diodos y puente rectificador
+02:39 2. La presión: conmutación y flyback
+04:31 3. El control: regulación y optoacoplador
+05:07 4. Potencia y USB Power Delivery
+05:59 5. El teléfono manda
+06:18 Resumen

@@ -93,6 +93,7 @@ Codigos_Matlab/        Trajectory, inverse kinematics, dynamics (MCG), serial up
 Caracterizacion/       Shoulder and elbow identification: firmware, raw CSV data, fitting scripts, PDF reports
 Documentacion/         Final report and intermediate documents
 docs/img/              Figures used in this README
+Videos_Youtube/        YouTube studio (Remotion + Manim): copy to D:\Videos_Youtube, see its README
 ```
 
 ## How to run

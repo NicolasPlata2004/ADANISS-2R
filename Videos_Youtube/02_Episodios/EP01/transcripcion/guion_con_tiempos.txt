@@ -1,0 +1,55 @@
+[00:00.3 - 00:08.1] Son las 7 y media. Estás a punto de salir de casa. Miras tu celular y la batería marca un 4%
+[00:08.1 - 00:15.7] Lo conectas casi sin pensar y en minutos tiene carga para aguantar el día. Lo damos por hecho,
+[00:16.3 - 00:23.7] pero piénsalo. Esa electricidad cambia de sentido una 100 veces por segundo y empuja decenas de
+[00:23.7 - 00:30.9] veces más fuerte de lo que tu batería soportaría. Entre esa electricidad y tu teléfono, solo
+[00:30.9 - 00:36.5] hay una cajita que cabe en tu mano. ¿Cómo logra tomar algo que destruiría el teléfono
+[00:36.5 - 00:44.1] y entregarlo domesticado, justo a la medida? Sigamos la pista de la energía, desde el enchufe
+[00:44.1 - 00:50.9] hasta la batería. Imagina la electricidad como agua en una tubería. El voltaje es
+[00:50.9 - 00:58.2] la presión con la que empuja. La corriente, cuánta agua pasa cada segundo. Tu batería
+[00:58.2 - 01:05.0] necesita poca presión y que el flujo vaya siempre en el mismo sentido. El enchufe ofrece
+[01:05.0 - 01:12.1] lo contrario. Mucha presión y un flujo que va y viene, como una marea. Es la corriente
+[01:12.1 - 01:19.0] alterna. Y si el cargador fuera solo un cable, la batería recibiría la marea entera,
+[01:19.0 - 01:26.7] a toda presión. No está hecha para eso. Hay que transformarla por el camino. Primer problema,
+[01:27.3 - 01:35.2] el sentido, que fluya siempre hacia el mismo lado. Imagina unas puertas que solo se abren
+[01:35.2 - 01:43.0] hacia un lado. El flujo pasa, pero no puede regresar. El circuito tiene componentes así,
+[01:43.0 - 01:51.1] los diodos. Cuatro en un puente reciben la marea y la dejan salir siempre en la misma dirección,
+[01:51.9 - 01:59.9] el puente rectificador. Ya no retrocede, pero llega a empujones, en colinas que suben y bajan.
+[02:00.6 - 02:06.1] Para alizarlo, un depósito que se llena en las cimas y suelta en los valles,
+[02:06.1 - 02:14.2] el condensador de filtrado, el resultado un flujo en un solo sentido y casi constante,
+[02:14.8 - 02:21.7] corriente continua, aunque de cerca conserva una leve ondulación, pero la presión sigue
+[02:21.7 - 02:30.6] siendo prácticamente la de la red, altísima. Ojo, el agua es sólo una imagen, por el cable no
+[02:30.6 - 02:37.2] viaja un líquido, viaja energía, vale para presión y flujo, no para todo.
+[02:39.2 - 02:46.8] Ya tenemos el sentido. Ahora, la presión. ¿Cómo bajarla? ¿Desperdiciar el sobrante?
+[02:47.8 - 02:54.8] Sería como frenar en toda una bajada. Funcionaría, pero el cargador sería una pequeña estufa,
+[02:54.8 - 03:02.7] ineficiente y peligroso. La otra idea clásica, el transformador de los cargadores antiguos,
+[03:03.2 - 03:10.7] pesaba como un ladrillo y necesita que la electricidad cambie. La nuestra ya es continua y tranquila,
+[03:11.6 - 03:19.3] y si la volviéramos cambiante nosotros mismos, pero rapidísimo. La pieza clave es un interruptor
+[03:19.3 - 03:26.3] sin partes móviles, un transistor que se abre y se cierra decenas de miles de veces por segundo,
+[03:27.2 - 03:34.4] la conmutación. En el diseño más común, el flyback, cada pulso trabaja como un resorte,
+[03:35.0 - 03:41.0] mientras el interruptor conduce, la energía se guarda en el campo magnético del transformador,
+[03:41.6 - 03:47.2] sin que nada se comprima de verdad. Al cortarse, el resorte se suelta,
+[03:47.2 - 03:53.9] La energía pasa al otro lado, ya con una presión mucho menor. ¿Por qué tan rápido?
+[03:54.6 - 04:00.5] Porque a ese ritmo el transformador puede ser diminuto. La velocidad sustituye al tamaño.
+[04:01.3 - 04:08.4] Al otro lado, vuelve a llegar a pulsos. Otra puerta de un solo sentido y otro depósito la alizan.
+[04:09.0 - 04:16.1] Ahora sí, poca presión, un solo sentido. Y entre entrada y salida no hay conexión
+[04:16.1 - 04:23.2] electrica, cruzó como campo magnético. Esa separación, el aislamiento galvánico,
+[04:23.8 - 04:30.7] protege tu seguridad en un cargador bien construido. Desconfía de los sospechosamente baratos.
+[04:32.1 - 04:38.4] Falta que la salida no se mueva. Aunque la red fluctúe o el teléfono cambie su demanda.
+[04:39.0 - 04:45.9] Un controlador la compara con su objetivo y ajusta cada pulso. Más largos y falta energía,
+[04:45.9 - 04:54.3] más cortos y sobra. ¿Y cómo sabe lo que ocurre al otro lado de la barrera, sin cruzarla? En muchos
+[04:54.3 - 05:02.2] cargadores la información viaja como luz dentro de un optoacoplador. Otros diseños la deducen
+[05:02.2 - 05:10.2] desde la entrada. La salida queda regulada, pulso a pulso. Pero si es tan segura, ¿por qué tu
+[05:10.2 - 05:18.1] teléfono carga en una hora y otro tarda tres. Porque lo que llena la batería es energía y su
+[05:18.1 - 05:25.7] rapidez depende de la presión y del caudal a la vez. Eso es la potencia. Antes todos daban lo
+[05:25.7 - 05:35.0] mismo. Cinco voltios siempre. Seguro pero lento. Los modernos con USB-C pueden dar más, pero subir
+[05:35.0 - 05:41.7] la presión sin acuerdo sería peligroso. Así que primero conversan. El cargador anuncia
+[05:41.7 - 05:48.5] su menú de tensiones. El teléfono elige y solo entonces cambia la salida. Ese acuerdo
+[05:48.5 - 05:55.6] es USB Power Delivery. Y no todos hablan ese idioma ni ofrecen el mismo menú. Por eso
+[05:55.6 - 05:59.0] un cargador vuela con tu teléfono y va normal con otro.
+[05:59.9 - 06:07.3] Último detalle. Quien manda sobre la batería es el teléfono. Su sistema interno baja la
+[06:07.3 - 06:14.2] energía a la presión exacta de su celda y dosifica cada entrega. El cargador propone,
+[06:14.8 - 06:23.4] el teléfono administra. Volvamos a la 7 y media. Ahora sabes lo que ocurre dentro de esa cajita.
+[06:23.4 - 06:31.6] unas puertas ordenaron la marea, un depósito la alizó, un resorte invisible la cruzó a salvo
+[06:31.6 - 06:39.1] y dos aparatos negociaron antes de entregarla. ¿Por qué no es un simple cable? Porque entre
+[06:39.1 - 06:46.3] el enchufe y tu batería hay dos mundos incompatibles y alguien tenía que traducir entre ellos sin
+[06:46.3 - 06:47.0] que lo notes.

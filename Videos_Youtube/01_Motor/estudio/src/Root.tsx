@@ -1,0 +1,49 @@
+import React from 'react';
+import {Composition, Folder, Still} from 'remotion';
+import {calcularEpisodio, Episodio} from './motor/Episodio';
+import {calcularNeon, MuestraNeon} from './formatos/neon/MuestraNeon';
+import {Miniatura} from './formatos/pizarra/Miniatura';
+
+export const Root: React.FC = () => (
+  <>
+    <Folder name="Episodios">
+      {/* Genérica: npx remotion render src/index.ts Episodio salida.mp4 --props='{"episodio":"EP02"}' */}
+      <Composition
+        id="Episodio"
+        component={Episodio}
+        defaultProps={{episodio: 'EP01', conAudio: true}}
+        calculateMetadata={calcularEpisodio}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="EP01"
+        component={Episodio}
+        defaultProps={{episodio: 'EP01', conAudio: true}}
+        calculateMetadata={calcularEpisodio}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+    </Folder>
+    <Folder name="Miniaturas">
+      <Still id="Miniatura-EP01" component={Miniatura} width={1280} height={720} defaultProps={{linea1: '¿QUÉ HAY', linea2: 'DENTRO?', dato: '230 V a 5 V'}} />
+    </Folder>
+    <Folder name="Muestras-de-formato">
+      {/* Neón 3D sobre el tramo 0:14 – 0:46 de la narración */}
+      <Composition
+        id="Muestra-Neon-EP01"
+        component={MuestraNeon}
+        defaultProps={{episodio: 'EP01', desde: 14.4, hasta: 45.8}}
+        calculateMetadata={calcularNeon}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+    </Folder>
+  </>
+);

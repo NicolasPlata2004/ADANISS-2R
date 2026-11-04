@@ -1,0 +1,7 @@
+# Paquetes de Python del estudio (se instalan en 00_Programas\venv)
+manim==0.22.1
+faster-whisper>=1.1
+numpy
+scipy
+pyyaml
+rapidfuzz

@@ -1,0 +1,16 @@
+# Arreglos a la transcripción automática (solo cambian los subtítulos, no el audio).
+# "palabras": reemplazo exacto de una palabra (incluye su puntuación).
+# "frases":   [texto como salió en la transcripción, texto correcto].
+palabras:
+  "alizarlo,": "alisarlo,"
+  "alizan.": "alisan."
+  "alizó,": "alisó,"
+  "electrica,": "eléctrica,"
+  "sólo": "solo"
+frases:
+  - ["una 100", "unas 100"]
+  - ["4 %", "4%."]
+  - ["USB -C", "USB-C"]
+  - ["tarda tres.", "tarda tres?"]
+  - ["cajita. unas", "cajita. Unas"]
+  - ["se suelta, La", "se suelta. La"]

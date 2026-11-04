@@ -1,0 +1,19 @@
+# Programas descargados por el instalador (pesados, se reinstalan con instalar_windows.ps1)
+00_Programas/*
+!00_Programas/instalar_windows.ps1
+!00_Programas/entorno.ps1
+!00_Programas/requisitos.txt
+
+# Dependencias y archivos generados
+01_Motor/estudio/node_modules/
+01_Motor/estudio/out/
+01_Motor/estudio/public/episodios/*/audio.wav
+__pycache__/
+*.pyc
+
+# Audio y videos (muy pesados para git: se guardan en tu disco D:)
+02_Episodios/*/audio/*
+!02_Episodios/*/audio/.gitkeep
+02_Episodios/*/render/
+02_Episodios/*/final/*
+!02_Episodios/*/final/.gitkeep
