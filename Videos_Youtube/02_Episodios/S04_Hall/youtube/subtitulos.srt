@@ -1,0 +1,723 @@
+1
+00:00:00,600 --> 00:00:03,488
+Tu personaje camina solo hacia la izquierda.
+
+2
+00:00:03,938 --> 00:00:05,450
+No estás tocando nada.
+
+3
+00:00:06,750 --> 00:00:09,194
+Millones de jugadores lo han sufrido:
+
+4
+00:00:09,644 --> 00:00:13,688
+se llama drift, y aparece cuando el mecanismo dentro del
+
+5
+00:00:13,688 --> 00:00:15,020
+joystick se desgasta.
+
+6
+00:00:15,470 --> 00:00:17,206
+La solución no es nueva.
+
+7
+00:00:17,656 --> 00:00:21,388
+Es un efecto que un estudiante descubrió en 1879,
+
+8
+00:00:21,608 --> 00:00:24,056
+que no necesita que nada se toque,
+
+9
+00:00:24,276 --> 00:00:26,504
+y que hoy está en tu celular,
+
+10
+00:00:26,724 --> 00:00:31,260
+en tu carro, en los ventiladores de tu computador y en muchos
+
+11
+00:00:31,260 --> 00:00:32,148
+mandos nuevos.
+
+12
+00:00:32,598 --> 00:00:34,110
+Solo necesita un imán.
+
+13
+00:00:35,460 --> 00:00:36,928
+Se llama efecto Hall.
+
+14
+00:00:37,378 --> 00:00:41,922
+En este video vas a ver por qué un imán puede empujar a los
+
+15
+00:00:41,922 --> 00:00:44,946
+electrones hacia un lado y crear un voltaje,
+
+16
+00:00:45,166 --> 00:00:48,634
+dónde está escondido este sensor en tu vida diaria,
+
+17
+00:00:48,854 --> 00:00:53,878
+y cómo hacer un velocímetro de bicicleta con un ESP32 y un imán.
+
+18
+00:00:55,228 --> 00:00:56,916
+Empecemos por el problema.
+
+19
+00:00:58,216 --> 00:01:01,012
+Un joystick clásico tiene dos potenciómetros:
+
+20
+00:01:01,462 --> 00:01:05,330
+pequeñas pistas de carbón sobre las que roza un contacto
+
+21
+00:01:05,330 --> 00:01:05,862
+metálico.
+
+22
+00:01:06,312 --> 00:01:10,224
+Cuando mueves la palanca, el contacto se desliza y la
+
+23
+00:01:10,224 --> 00:01:11,332
+resistencia cambia.
+
+24
+00:01:11,782 --> 00:01:14,406
+Así la consola sabe cuánto la moviste.
+
+25
+00:01:15,706 --> 00:01:18,022
+Pero todo lo que roza se gasta.
+
+26
+00:01:18,472 --> 00:01:20,520
+Con miles de horas de juego,
+
+27
+00:01:20,740 --> 00:01:25,320
+la pista se desgasta, entra polvo y el contacto empieza a leer
+
+28
+00:01:25,320 --> 00:01:26,252
+valores falsos.
+
+29
+00:01:26,702 --> 00:01:31,014
+La consola cree que la palanca está un poquito inclinada aunque
+
+30
+00:01:31,014 --> 00:01:31,770
+la sueltes.
+
+31
+00:01:32,220 --> 00:01:33,864
+Tu personaje camina solo.
+
+32
+00:01:34,314 --> 00:01:37,198
+Algunas consolas permiten recalibrar el centro,
+
+33
+00:01:37,418 --> 00:01:40,754
+pero eso solo esconde el problema por un tiempo.
+
+34
+00:01:42,054 --> 00:01:46,234
+Los joysticks de efecto Hall cambian el contacto por un imán
+
+35
+00:01:46,234 --> 00:01:50,730
+pegado a la palanca y un sensor que mide su campo magnético a
+
+36
+00:01:50,730 --> 00:01:51,842
+través del aire.
+
+37
+00:01:52,292 --> 00:01:55,940
+En la medición nada roza, así que nada se gasta.
+
+38
+00:01:56,390 --> 00:02:00,350
+Por eso los mandos que los usan prometen no tener drift.
+
+39
+00:02:01,700 --> 00:02:04,104
+¿Cómo se mide un imán sin tocarlo?
+
+40
+00:02:05,404 --> 00:02:09,672
+Imagina una lámina delgada de un material conductor por la que
+
+41
+00:02:09,672 --> 00:02:13,986
+pasa una corriente: millones de electrones avanzando en fila,
+
+42
+00:02:14,206 --> 00:02:15,854
+de un extremo al otro.
+
+43
+00:02:16,304 --> 00:02:18,528
+Ahora acerca un imán por debajo.
+
+44
+00:02:19,828 --> 00:02:23,608
+Un campo magnético hace algo curioso con las cargas en
+
+45
+00:02:23,608 --> 00:02:26,590
+movimiento: las empuja hacia un costado,
+
+46
+00:02:26,810 --> 00:02:28,630
+perpendicular a su dirección.
+
+47
+00:02:29,080 --> 00:02:33,616
+Es la fuerza de Lorentz, la misma que curva los electrones en
+
+48
+00:02:33,616 --> 00:02:35,124
+los televisores antiguos.
+
+49
+00:02:35,574 --> 00:02:37,526
+Los electrones siguen avanzando,
+
+50
+00:02:37,746 --> 00:02:41,394
+pero se van recostando contra un borde de la lámina.
+
+51
+00:02:42,694 --> 00:02:45,450
+Entonces un borde se llena de electrones,
+
+52
+00:02:45,670 --> 00:02:49,582
+queda negativo, y el borde opuesto se queda con menos,
+
+53
+00:02:49,802 --> 00:02:50,334
+positivo.
+
+54
+00:02:50,784 --> 00:02:53,496
+Entre los dos bordes aparece un voltaje.
+
+55
+00:02:53,946 --> 00:02:55,638
+Ese es el voltaje Hall.
+
+56
+00:02:56,938 --> 00:03:00,500
+Y lo mejor: es proporcional al campo magnético.
+
+57
+00:03:00,950 --> 00:03:02,638
+Más imán, más voltaje.
+
+58
+00:03:03,088 --> 00:03:07,668
+Si das la vuelta al imán, los electrones se recuestan del otro
+
+59
+00:03:07,668 --> 00:03:10,116
+lado y el voltaje cambia de signo.
+
+60
+00:03:10,566 --> 00:03:13,726
+Así el sensor sabe no solo cuánto campo hay,
+
+61
+00:03:13,946 --> 00:03:15,546
+sino hacia dónde apunta.
+
+62
+00:03:16,846 --> 00:03:18,534
+Hay un detalle importante.
+
+63
+00:03:18,984 --> 00:03:23,252
+En un metal como el cobre hay tantísimos electrones libres que
+
+64
+00:03:23,252 --> 00:03:25,432
+cada uno se mueve muy despacio,
+
+65
+00:03:25,652 --> 00:03:27,788
+y el voltaje Hall es diminuto,
+
+66
+00:03:28,008 --> 00:03:29,696
+de millonésimas de voltio.
+
+67
+00:03:30,146 --> 00:03:32,590
+En un semiconductor hay muchos menos,
+
+68
+00:03:32,810 --> 00:03:37,170
+se mueven más rápido, y el efecto es miles de veces mayor.
+
+69
+00:03:37,620 --> 00:03:41,576
+Por eso este sensor se volvió práctico cuando llegaron los
+
+70
+00:03:41,576 --> 00:03:42,416
+semiconductores.
+
+71
+00:03:43,766 --> 00:03:47,766
+Edwin Hall era un estudiante de doctorado en la universidad
+
+72
+00:03:47,766 --> 00:03:50,074
+Johns Hopkins, en Estados Unidos,
+
+73
+00:03:50,294 --> 00:03:55,138
+cuando en 1879 se preguntó si un imán actuaba sobre la corriente
+
+74
+00:03:55,138 --> 00:03:57,410
+o sobre el cable que la lleva.
+
+75
+00:03:57,860 --> 00:04:02,580
+Puso una lámina de oro muy delgada entre los polos de un imán y
+
+76
+00:04:02,580 --> 00:04:05,204
+midió un voltaje diminuto a los lados.
+
+77
+00:04:05,654 --> 00:04:08,986
+Había descubierto que la corriente misma se desvía.
+
+78
+00:04:10,286 --> 00:04:13,974
+Durante casi un siglo fue un experimento de laboratorio,
+
+79
+00:04:14,194 --> 00:04:16,058
+útil para estudiar materiales.
+
+80
+00:04:16,508 --> 00:04:19,704
+Con los semiconductores y los circuitos integrados,
+
+81
+00:04:19,924 --> 00:04:22,060
+a finales de los años sesenta,
+
+82
+00:04:22,280 --> 00:04:26,600
+el sensor cupo en un chip del tamaño de un grano de arroz,
+
+83
+00:04:26,820 --> 00:04:28,508
+junto con su amplificador.
+
+84
+00:04:28,958 --> 00:04:32,690
+Uno de sus primeros usos comerciales fueron teclados sin
+
+85
+00:04:32,690 --> 00:04:33,842
+contactos mecánicos.
+
+86
+00:04:35,192 --> 00:04:37,372
+Si abres uno de estos sensores,
+
+87
+00:04:37,592 --> 00:04:40,436
+encuentras un chip diminuto con tres patas:
+
+88
+00:04:40,886 --> 00:04:42,926
+alimentación, tierra y salida.
+
+89
+00:04:44,226 --> 00:04:46,586
+En el centro está la placa Hall,
+
+90
+00:04:46,806 --> 00:04:50,850
+un cuadradito de semiconductor por el que pasa una corriente
+
+91
+00:04:50,850 --> 00:04:51,426
+constante.
+
+92
+00:04:51,876 --> 00:04:56,232
+A su lado, un amplificador que agranda ese voltaje de apenas
+
+93
+00:04:56,232 --> 00:04:56,896
+milivoltios.
+
+94
+00:04:57,346 --> 00:05:01,430
+Luego, según el tipo, viene un comparador con histéresis:
+
+95
+00:05:01,880 --> 00:05:03,972
+si el campo supera un umbral,
+
+96
+00:05:04,192 --> 00:05:08,908
+la salida se activa, y no se desactiva hasta que el campo baja
+
+97
+00:05:08,908 --> 00:05:09,752
+bastante más.
+
+98
+00:05:10,202 --> 00:05:14,470
+Esa diferencia evita que la salida tiemble cuando el imán está
+
+99
+00:05:14,470 --> 00:05:15,850
+justo en el límite.
+
+100
+00:05:17,150 --> 00:05:20,882
+Los sensores lineales se saltan el comparador y entregan
+
+101
+00:05:20,882 --> 00:05:23,722
+directamente un voltaje proporcional al campo.
+
+102
+00:05:24,172 --> 00:05:28,128
+Los más modernos incluso traen un convertidor digital y se
+
+103
+00:05:28,128 --> 00:05:31,728
+comunican por un bus de datos con el microcontrolador.
+
+104
+00:05:33,078 --> 00:05:34,858
+Hoy está en todas partes.
+
+105
+00:05:36,158 --> 00:05:40,698
+Tu celular sabe que cerraste la funda porque hay un imán en la
+
+106
+00:05:40,698 --> 00:05:43,414
+tapa y un sensor Hall en el teléfono;
+
+107
+00:05:43,634 --> 00:05:47,726
+tu portátil sabe que bajaste la pantalla de la misma forma,
+
+108
+00:05:47,946 --> 00:05:51,990
+y los celulares plegables saben si están abiertos o cerrados.
+
+109
+00:05:52,440 --> 00:05:56,484
+La brújula del celular usa sensores magnéticos para medir el
+
+110
+00:05:56,484 --> 00:06:01,336
+campo de la Tierra, que es unas cien veces más débil que el de
+
+111
+00:06:01,336 --> 00:06:02,672
+un imán de nevera.
+
+112
+00:06:03,972 --> 00:06:08,104
+Los motores sin escobillas de muchas patinetas eléctricas y de
+
+113
+00:06:08,104 --> 00:06:12,280
+los ventiladores de computador usan sensores Hall para saber en
+
+114
+00:06:12,280 --> 00:06:16,684
+qué posición está el rotor y encender la bobina correcta en el
+
+115
+00:06:16,684 --> 00:06:17,616
+momento exacto.
+
+116
+00:06:18,066 --> 00:06:20,330
+Los de los drones, curiosamente,
+
+117
+00:06:20,550 --> 00:06:25,448
+casi nunca: lo deducen del voltaje que el propio motor genera al
+
+118
+00:06:25,448 --> 00:06:25,848
+girar.
+
+119
+00:06:27,148 --> 00:06:31,328
+En el carro, sensores de este tipo miden la posición del
+
+120
+00:06:31,328 --> 00:06:35,596
+cigüeñal, la velocidad de las ruedas para los frenos ABS y
+
+121
+00:06:35,596 --> 00:06:37,328
+cuánto pisas el acelerador.
+
+122
+00:06:37,778 --> 00:06:41,646
+Y hay sensores de corriente que miden el campo magnético
+
+123
+00:06:41,646 --> 00:06:45,290
+alrededor de un cable para saber cuánta corriente pasa,
+
+124
+00:06:45,510 --> 00:06:47,110
+sin cortarlo ni tocarlo.
+
+125
+00:06:48,460 --> 00:06:50,724
+Hagamos un velocímetro de bicicleta.
+
+126
+00:06:52,024 --> 00:06:54,688
+Necesitas un sensor Hall tipo interruptor,
+
+127
+00:06:54,908 --> 00:06:57,928
+como el A3144, y un imán pequeño.
+
+128
+00:06:58,378 --> 00:07:03,234
+Pega el imán en un rayo de la rueda y el sensor en la horquilla,
+
+129
+00:07:03,454 --> 00:07:06,570
+a menos de un centímetro del paso del imán.
+
+130
+00:07:07,020 --> 00:07:09,464
+Alimenta el sensor con cinco voltios,
+
+131
+00:07:09,684 --> 00:07:14,264
+pon una resistencia de diez kilohmios entre su salida y los 3,3
+
+132
+00:07:14,264 --> 00:07:18,352
+voltios, y conecta la salida a un pin del ESP32.
+
+133
+00:07:18,802 --> 00:07:21,826
+Si no reacciona, dale la vuelta al imán:
+
+134
+00:07:22,276 --> 00:07:25,480
+este sensor solo responde a uno de los polos.
+
+135
+00:07:26,780 --> 00:07:29,896
+Cada vez que el imán pasa frente al sensor,
+
+136
+00:07:30,116 --> 00:07:32,832
+la salida cae a cero por un instante.
+
+137
+00:07:33,282 --> 00:07:37,814
+El ESP32 cuenta esos pulsos con una interrupción y mide el
+
+138
+00:07:37,814 --> 00:07:39,550
+tiempo entre uno y otro.
+
+139
+00:07:40,000 --> 00:07:43,468
+Si sabes cuánto mide la circunferencia de la rueda,
+
+140
+00:07:43,688 --> 00:07:47,688
+divides esa distancia entre el tiempo y tienes la velocidad.
+
+141
+00:07:48,138 --> 00:07:51,198
+Sumando vueltas, tienes la distancia recorrida.
+
+142
+00:07:52,498 --> 00:07:56,058
+Si en vez de un interruptor usas un sensor lineal,
+
+143
+00:07:56,278 --> 00:07:59,838
+como el 49E, la salida no es cero o uno,
+
+144
+00:08:00,058 --> 00:08:03,398
+sino un voltaje que sube y baja con el campo.
+
+145
+00:08:03,848 --> 00:08:07,320
+Con eso puedes medir qué tan cerca está un imán,
+
+146
+00:08:07,540 --> 00:08:10,652
+hacer un joystick casero o un pedal analógico.
+
+147
+00:08:12,002 --> 00:08:14,270
+El sensor Hall tiene sus trampas.
+
+148
+00:08:15,570 --> 00:08:18,014
+Es sensible a cualquier imán cercano,
+
+149
+00:08:18,234 --> 00:08:21,214
+no solo al tuyo, así que los parlantes,
+
+150
+00:08:21,434 --> 00:08:25,030
+los motores y hasta un destornillador magnetizado pueden
+
+151
+00:08:25,030 --> 00:08:25,650
+molestarlo.
+
+152
+00:08:26,100 --> 00:08:29,168
+Su lectura cambia un poco con la temperatura,
+
+153
+00:08:29,388 --> 00:08:32,368
+y por eso los buenos sensores la compensan.
+
+154
+00:08:32,818 --> 00:08:36,826
+Y el campo de un imán cae muy rápido con la distancia:
+
+155
+00:08:37,276 --> 00:08:40,428
+a pocos centímetros, la señal casi desaparece.
+
+156
+00:08:41,778 --> 00:08:43,422
+Tres datos para presumir.
+
+157
+00:08:44,722 --> 00:08:49,308
+Uno: en algunos materiales el voltaje Hall sale con el signo
+
+158
+00:08:49,308 --> 00:08:53,616
+contrario al esperado, como si la corriente la llevaran cargas
+
+159
+00:08:53,616 --> 00:08:54,192
+positivas.
+
+160
+00:08:54,642 --> 00:08:57,310
+Ese misterio se explicó con los huecos:
+
+161
+00:08:57,760 --> 00:09:01,756
+ausencias de electrones que se comportan como cargas positivas,
+
+162
+00:09:01,976 --> 00:09:05,356
+y que hoy son clave en todos los semiconductores.
+
+163
+00:09:06,656 --> 00:09:11,330
+Dos: los teclados de efecto Hall para juegos permiten elegir a
+
+164
+00:09:11,330 --> 00:09:13,774
+qué profundidad se activa cada tecla,
+
+165
+00:09:13,994 --> 00:09:17,506
+porque miden la posición del imán de forma continua,
+
+166
+00:09:17,726 --> 00:09:20,042
+no solo si la tecla tocó fondo.
+
+167
+00:09:21,342 --> 00:09:25,348
+Tres: en física hay versiones extremas de este efecto,
+
+168
+00:09:25,568 --> 00:09:28,188
+a temperaturas cercanas al cero absoluto,
+
+169
+00:09:28,408 --> 00:09:32,048
+que valieron premios Nobel en 1985 y 1998.
+
+170
+00:09:33,398 --> 00:09:34,150
+Recapitulemos.
+
+171
+00:09:34,600 --> 00:09:39,224
+Una corriente, un imán y una fuerza que empuja a los electrones
+
+172
+00:09:39,224 --> 00:09:40,248
+hacia un lado.
+
+173
+00:09:40,698 --> 00:09:43,414
+Con eso se mide un campo sin tocarlo:
+
+174
+00:09:43,864 --> 00:09:46,932
+la funda del celular, la rueda del carro,
+
+175
+00:09:47,152 --> 00:09:50,892
+el motor de la patineta y la palanca de tu control.
+
+176
+00:09:52,192 --> 00:09:55,216
+La próxima vez que tu personaje camine solo,
+
+177
+00:09:55,436 --> 00:09:58,768
+ya sabes que la solución existe desde 1879.
+
+178
+00:10:00,068 --> 00:10:04,878
+En el próximo episodio: el sensor que sabe hacia dónde está el
+
+179
+00:10:04,878 --> 00:10:05,278
+suelo…
+
+180
+00:10:05,728 --> 00:10:10,268
+y que tiene un resorte más delgado que un cabello dentro de tu
+
+181
+00:10:10,268 --> 00:10:10,756
+celular.

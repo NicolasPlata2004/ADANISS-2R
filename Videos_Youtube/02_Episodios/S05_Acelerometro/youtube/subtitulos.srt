@@ -1,0 +1,683 @@
+1
+00:00:00,600 --> 00:00:03,672
+Gira tu celular y la pantalla gira con él.
+
+2
+00:00:04,972 --> 00:00:07,508
+¿Cómo sabe hacia dónde está el suelo?
+
+3
+00:00:07,958 --> 00:00:11,026
+No tiene ojos, no tiene brújula para eso.
+
+4
+00:00:11,476 --> 00:00:13,432
+Tiene algo mucho más extraño:
+
+5
+00:00:13,882 --> 00:00:18,194
+un pedacito de silicio colgando de resortes más delgados que un
+
+6
+00:00:18,194 --> 00:00:18,682
+cabello.
+
+7
+00:00:19,132 --> 00:00:23,800
+Cuando lo inclinas, ese pedacito se mueve menos que el tamaño de
+
+8
+00:00:23,800 --> 00:00:24,468
+un virus.
+
+9
+00:00:24,918 --> 00:00:28,562
+Y con ese movimiento, tu teléfono cuenta tus pasos,
+
+10
+00:00:28,782 --> 00:00:33,370
+tu reloj sabe si te caíste y el airbag de un carro decide si
+
+11
+00:00:33,370 --> 00:00:33,990
+dispararse.
+
+12
+00:00:35,340 --> 00:00:37,072
+Se llama acelerómetro MEMS.
+
+13
+00:00:37,522 --> 00:00:42,106
+En este video vas a ver una máquina con piezas móviles que cabe
+
+14
+00:00:42,106 --> 00:00:44,110
+en la cabeza de un alfiler,
+
+15
+00:00:44,330 --> 00:00:48,778
+por qué la gravedad y la aceleración son para él exactamente lo
+
+16
+00:00:48,778 --> 00:00:53,090
+mismo, y cómo medir la inclinación de cualquier cosa con un
+
+17
+00:00:53,090 --> 00:00:53,930
+ESP32.
+
+18
+00:00:55,280 --> 00:00:57,684
+Tu celular lo usa todo el tiempo.
+
+19
+00:00:58,984 --> 00:01:03,520
+Para girar la pantalla, para contar pasos y para ese truco de
+
+20
+00:01:03,520 --> 00:01:06,764
+sacudir el teléfono y deshacer lo que escribiste.
+
+21
+00:01:07,214 --> 00:01:10,458
+Tu reloj inteligente lo usa para detectar caídas.
+
+22
+00:01:10,908 --> 00:01:14,460
+Los controles de videojuegos que se manejan moviéndolos,
+
+23
+00:01:14,680 --> 00:01:17,168
+los drones que se mantienen nivelados,
+
+24
+00:01:17,388 --> 00:01:19,832
+las cámaras que estabilizan el video.
+
+25
+00:01:21,132 --> 00:01:25,756
+En los carros, un acelerómetro siente el frenazo de un choque y
+
+26
+00:01:25,756 --> 00:01:29,224
+decide en milésimas de segundo si inflar el airbag.
+
+27
+00:01:29,674 --> 00:01:33,450
+Muchos portátiles antiguos con disco duro tenían uno para
+
+28
+00:01:33,450 --> 00:01:37,582
+detectar que estaban cayendo y estacionar el cabezal antes del
+
+29
+00:01:37,582 --> 00:01:37,982
+golpe.
+
+30
+00:01:39,282 --> 00:01:41,238
+Y hay algo más impresionante:
+
+31
+00:01:41,688 --> 00:01:46,000
+millones de celulares en el mundo pueden funcionar como una red
+
+32
+00:01:46,000 --> 00:01:46,932
+de sismógrafos.
+
+33
+00:01:47,382 --> 00:01:51,070
+Cuando muchos sienten la misma sacudida al mismo tiempo,
+
+34
+00:01:51,290 --> 00:01:55,422
+el sistema puede enviar alertas de terremoto segundos antes de
+
+35
+00:01:55,422 --> 00:01:57,958
+que la onda llegue a otras ciudades.
+
+36
+00:01:59,308 --> 00:02:01,712
+La idea es tan vieja como Newton.
+
+37
+00:02:03,012 --> 00:02:07,060
+Imagina una pesa colgada de un resorte dentro de una caja.
+
+38
+00:02:07,510 --> 00:02:09,778
+Si aceleras la caja hacia arriba,
+
+39
+00:02:09,998 --> 00:02:12,446
+la pesa se queda un poquito atrás,
+
+40
+00:02:12,666 --> 00:02:15,378
+por inercia, y el resorte se estira.
+
+41
+00:02:15,828 --> 00:02:20,144
+Si frenas, la pesa sigue de largo y el resorte se encoge.
+
+42
+00:02:20,594 --> 00:02:24,730
+Mides cuánto se estiró el resorte y sabes cuánto aceleró la
+
+43
+00:02:24,730 --> 00:02:25,086
+caja.
+
+44
+00:02:26,386 --> 00:02:27,810
+Ahora viene lo raro.
+
+45
+00:02:28,260 --> 00:02:30,976
+Si la caja está quieta sobre la mesa,
+
+46
+00:02:31,196 --> 00:02:33,328
+el resorte también está estirado:
+
+47
+00:02:33,778 --> 00:02:36,626
+la gravedad tira de la pesa hacia abajo.
+
+48
+00:02:37,076 --> 00:02:41,564
+Para el sensor, estar quieto en la Tierra se siente exactamente
+
+49
+00:02:41,564 --> 00:02:44,676
+igual que acelerar hacia arriba en el espacio.
+
+50
+00:02:45,126 --> 00:02:49,394
+Einstein convirtió esa equivalencia en la base de su teoría de
+
+51
+00:02:49,394 --> 00:02:50,194
+la gravedad.
+
+52
+00:02:51,494 --> 00:02:54,386
+Eso es justo lo que aprovecha tu celular.
+
+53
+00:02:54,836 --> 00:02:58,432
+Cuando está quieto, el acelerómetro mide la gravedad,
+
+54
+00:02:58,652 --> 00:03:02,784
+una aceleración de unos 9,8 metros por segundo cada segundo,
+
+55
+00:03:03,004 --> 00:03:04,424
+apuntando hacia arriba.
+
+56
+00:03:04,874 --> 00:03:09,458
+Si mides cuánto de esa aceleración cae en cada uno de tres ejes,
+
+57
+00:03:09,678 --> 00:03:12,166
+sabes cómo está inclinado el teléfono.
+
+58
+00:03:12,616 --> 00:03:15,372
+Así decide hacia dónde girar la pantalla.
+
+59
+00:03:16,672 --> 00:03:21,432
+Y cuando caminas, cada paso es un pequeño golpe que sube y baja.
+
+60
+00:03:21,882 --> 00:03:25,662
+El celular cuenta esos golpes y los convierte en pasos.
+
+61
+00:03:27,012 --> 00:03:31,460
+Ahora, ¿cómo se mete una pesa con resortes dentro de un chip?
+
+62
+00:03:32,760 --> 00:03:36,940
+Con la misma técnica con la que se fabrican los procesadores:
+
+63
+00:03:37,390 --> 00:03:38,410
+grabando silicio.
+
+64
+00:03:38,860 --> 00:03:42,588
+A esto se le llama MEMS, sistemas microelectromecánicos.
+
+65
+00:03:43,888 --> 00:03:48,204
+La pesa es una placa de silicio de una fracción de milímetro.
+
+66
+00:03:48,654 --> 00:03:52,522
+Cuelga de vigas tan delgadas que se doblan como resortes:
+
+67
+00:03:52,972 --> 00:03:54,840
+unas pocas micras de ancho,
+
+68
+00:03:55,060 --> 00:03:58,128
+decenas de veces más delgadas que un cabello.
+
+69
+00:03:58,578 --> 00:04:01,650
+A los lados de la pesa salen muchos dedos,
+
+70
+00:04:01,870 --> 00:04:05,650
+como un peine, y entre ellos hay otros dedos fijos.
+
+71
+00:04:06,950 --> 00:04:10,110
+Cada par de dedos, uno móvil y uno fijo,
+
+72
+00:04:10,330 --> 00:04:12,150
+forma un pequeño condensador.
+
+73
+00:04:12,600 --> 00:04:16,960
+Cuando la pesa se mueve, los dedos se acercan o se alejan,
+
+74
+00:04:17,180 --> 00:04:18,824
+y la capacitancia cambia.
+
+75
+00:04:19,274 --> 00:04:22,566
+Un circuito en el mismo chip mide esos cambios,
+
+76
+00:04:22,786 --> 00:04:26,074
+que son diminutos, y los convierte en números.
+
+77
+00:04:27,374 --> 00:04:31,062
+Para medir en tres direcciones hay tres estructuras así,
+
+78
+00:04:31,282 --> 00:04:34,886
+o una sola pesa diseñada para moverse en tres ejes.
+
+79
+00:04:35,336 --> 00:04:37,868
+Todo eso, junto con su electrónica,
+
+80
+00:04:38,088 --> 00:04:40,980
+cabe en un chip de unos pocos milímetros.
+
+81
+00:04:41,430 --> 00:04:45,258
+Y se fabrican por miles en una sola oblea de silicio.
+
+82
+00:04:46,608 --> 00:04:50,028
+Los primeros acelerómetros de silicio se hicieron en
+
+83
+00:04:50,028 --> 00:04:53,668
+laboratorios universitarios a finales de los años setenta.
+
+84
+00:04:54,968 --> 00:04:57,548
+El primer gran mercado fue el airbag.
+
+85
+00:04:57,998 --> 00:05:00,266
+A principios de los años noventa,
+
+86
+00:05:00,486 --> 00:05:04,442
+la empresa Analog Devices lanzó un acelerómetro en un chip
+
+87
+00:05:04,442 --> 00:05:06,750
+pensado para decidir cuándo inflarlo.
+
+88
+00:05:07,200 --> 00:05:11,196
+Antes se usaban interruptores mecánicos con bolitas y resortes.
+
+89
+00:05:12,496 --> 00:05:15,428
+El segundo gran salto fue el entretenimiento.
+
+90
+00:05:15,878 --> 00:05:20,450
+En 2006, una consola popularizó los controles que se manejan
+
+91
+00:05:20,450 --> 00:05:23,646
+moviendo el brazo, con un acelerómetro adentro.
+
+92
+00:05:24,096 --> 00:05:27,920
+Y un año después llegaron al gran público los teléfonos
+
+93
+00:05:27,920 --> 00:05:30,540
+inteligentes que giran la pantalla solos.
+
+94
+00:05:30,990 --> 00:05:35,254
+Desde entonces, el acelerómetro se volvió uno de los sensores
+
+95
+00:05:35,254 --> 00:05:36,986
+más fabricados del planeta.
+
+96
+00:05:38,336 --> 00:05:42,688
+Detengámonos en el airbag, porque ahí el acelerómetro tiene que
+
+97
+00:05:42,688 --> 00:05:43,620
+ser rapidísimo.
+
+98
+00:05:44,920 --> 00:05:49,460
+En un choque de frente, el carro pasa de ir a velocidad de
+
+99
+00:05:49,460 --> 00:05:53,732
+ciudad a quedar quieto en más o menos una décima de segundo.
+
+100
+00:05:54,182 --> 00:05:57,154
+El acelerómetro siente una desaceleración enorme,
+
+101
+00:05:57,374 --> 00:05:59,598
+de decenas de veces la gravedad.
+
+102
+00:06:00,048 --> 00:06:04,228
+Pero un bache fuerte o un portazo también dan golpes bruscos,
+
+103
+00:06:04,448 --> 00:06:09,124
+y nadie quiere que el airbag se infle por un hueco en la calle.
+
+104
+00:06:10,424 --> 00:06:14,120
+Por eso la computadora no se fija en un solo pico:
+
+105
+00:06:14,570 --> 00:06:19,198
+mira la forma de la señal durante unas milésimas de segundo y la
+
+106
+00:06:19,198 --> 00:06:21,242
+compara con patrones de choque.
+
+107
+00:06:21,692 --> 00:06:26,092
+Si decide inflar, una pequeña carga química llena la bolsa en
+
+108
+00:06:26,092 --> 00:06:28,180
+unas tres centésimas de segundo.
+
+109
+00:06:28,630 --> 00:06:32,858
+Todo eso ocurre antes de que tu cuerpo alcance a llegar al
+
+110
+00:06:32,858 --> 00:06:33,346
+volante.
+
+111
+00:06:34,696 --> 00:06:36,516
+Hagamos un nivel electrónico.
+
+112
+00:06:37,816 --> 00:06:40,880
+Un módulo muy común es el MPU-6050,
+
+113
+00:06:41,100 --> 00:06:44,836
+que trae un acelerómetro y un giroscopio de tres ejes.
+
+114
+00:06:45,286 --> 00:06:48,706
+Se conecta al ESP32 con solo cuatro cables:
+
+115
+00:06:49,156 --> 00:06:53,644
+alimentación, tierra y dos líneas de datos por el bus I2C.
+
+116
+00:06:54,944 --> 00:06:57,256
+El sensor te entrega tres números,
+
+117
+00:06:57,476 --> 00:07:00,588
+uno por eje, cientos de veces por segundo.
+
+118
+00:07:01,038 --> 00:07:03,798
+Si el módulo está plano sobre la mesa,
+
+119
+00:07:04,018 --> 00:07:06,914
+casi toda la gravedad cae en el eje Z.
+
+120
+00:07:07,364 --> 00:07:11,240
+Si lo inclinas, una parte pasa al eje X o al Y.
+
+121
+00:07:11,690 --> 00:07:13,646
+Con un poco de trigonometría,
+
+122
+00:07:13,866 --> 00:07:17,950
+la función arcotangente, conviertes esos tres números en dos
+
+123
+00:07:17,950 --> 00:07:22,532
+ángulos: cuánto está inclinado hacia adelante y cuánto hacia el
+
+124
+00:07:22,532 --> 00:07:22,888
+lado.
+
+125
+00:07:24,188 --> 00:07:27,568
+Con eso puedes hacer un nivel de burbuja digital,
+
+126
+00:07:27,788 --> 00:07:31,256
+una alarma que suena si alguien mueve tu bicicleta,
+
+127
+00:07:31,476 --> 00:07:35,700
+un contador de repeticiones para el gimnasio o un detector de
+
+128
+00:07:35,700 --> 00:07:36,144
+caídas.
+
+129
+00:07:36,594 --> 00:07:39,398
+Y si pones el sensor sobre una máquina,
+
+130
+00:07:39,618 --> 00:07:43,842
+puedes ver cómo vibra y detectar cuándo algo empieza a fallar.
+
+131
+00:07:45,192 --> 00:07:47,900
+El acelerómetro tiene una debilidad famosa.
+
+132
+00:07:49,200 --> 00:07:51,864
+Como no distingue gravedad de aceleración,
+
+133
+00:07:52,084 --> 00:07:56,444
+cuando el celular se mueve y gira al mismo tiempo se confunde:
+
+134
+00:07:56,894 --> 00:08:00,986
+no sabe qué parte es inclinación y qué parte es movimiento.
+
+135
+00:08:01,436 --> 00:08:04,904
+Por eso casi siempre trabaja junto a un giroscopio,
+
+136
+00:08:05,124 --> 00:08:07,480
+que veremos en el próximo episodio.
+
+137
+00:08:08,780 --> 00:08:13,362
+Y hay otra trampa: podrías pensar que integrando la aceleración
+
+138
+00:08:13,362 --> 00:08:16,470
+obtienes la velocidad, e integrando otra vez,
+
+139
+00:08:16,690 --> 00:08:17,490
+la posición.
+
+140
+00:08:17,940 --> 00:08:18,920
+En teoría sí.
+
+141
+00:08:19,370 --> 00:08:22,658
+En la práctica, cada pequeño error se acumula,
+
+142
+00:08:22,878 --> 00:08:27,014
+y en pocos segundos la posición calculada se va a cualquier
+
+143
+00:08:27,014 --> 00:08:27,414
+parte.
+
+144
+00:08:27,864 --> 00:08:31,064
+Un acelerómetro solo no puede reemplazar al GPS.
+
+145
+00:08:32,414 --> 00:08:34,058
+Tres datos para terminar.
+
+146
+00:08:35,358 --> 00:08:38,296
+Uno: cuando el teléfono cae libremente,
+
+147
+00:08:38,516 --> 00:08:40,604
+el acelerómetro marca casi cero.
+
+148
+00:08:41,054 --> 00:08:46,130
+En caída libre, la pesa y la caja caen juntas y el resorte no se
+
+149
+00:08:46,130 --> 00:08:46,574
+estira.
+
+150
+00:08:47,024 --> 00:08:50,492
+Los astronautas en órbita viven así todo el tiempo.
+
+151
+00:08:51,792 --> 00:08:56,154
+Dos: los acelerómetros de tu celular son tan sensibles que
+
+152
+00:08:56,154 --> 00:09:00,106
+algunos estudios lograron reconstruir sonidos a partir de las
+
+153
+00:09:00,106 --> 00:09:04,146
+diminutas vibraciones que el parlante provoca dentro del propio
+
+154
+00:09:04,146 --> 00:09:04,678
+teléfono.
+
+155
+00:09:05,978 --> 00:09:10,472
+Tres: dentro de tu oído interno tienes tu propio acelerómetro
+
+156
+00:09:10,472 --> 00:09:14,874
+biológico: pequeños cristales de carbonato de calcio sobre una
+
+157
+00:09:14,874 --> 00:09:17,138
+capa gelatinosa con pelos sensibles.
+
+158
+00:09:17,588 --> 00:09:21,096
+Cuando inclinas la cabeza, se desplazan un poquito,
+
+159
+00:09:21,316 --> 00:09:25,896
+doblan esos pelos, y tu cerebro sabe hacia dónde está el suelo.
+
+160
+00:09:27,246 --> 00:09:27,998
+Recapitulemos.
+
+161
+00:09:28,448 --> 00:09:32,536
+Una pesa de silicio, resortes más delgados que un cabello,
+
+162
+00:09:32,756 --> 00:09:37,068
+dedos que forman condensadores y un circuito que mide cuánto se
+
+163
+00:09:37,068 --> 00:09:37,556
+acercan.
+
+164
+00:09:38,006 --> 00:09:40,542
+Con eso tu celular gira la pantalla,
+
+165
+00:09:40,762 --> 00:09:44,762
+cuenta tus pasos, detecta caídas y hasta ayuda a avisar
+
+166
+00:09:44,762 --> 00:09:45,382
+terremotos.
+
+167
+00:09:46,682 --> 00:09:49,574
+La próxima vez que tu pantalla gire sola,
+
+168
+00:09:49,794 --> 00:09:53,838
+acuérdate de que dentro hay una máquina diminuta colgando de
+
+169
+00:09:53,838 --> 00:09:54,370
+resortes.
+
+170
+00:09:55,670 --> 00:10:00,568
+En el próximo episodio: el sensor que siente los giros gracias a
+
+171
+00:10:00,568 --> 00:10:03,324
+la misma fuerza que desvía los huracanes.

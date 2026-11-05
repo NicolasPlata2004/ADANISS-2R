@@ -1,0 +1,10 @@
+00:00 Intro: cómo sabe dónde está el suelo
+00:55 Dónde está el acelerómetro
+01:59 La física: gravedad o aceleración
+03:27 Por dentro: una máquina de silicio
+04:46 La historia: del airbag al bolsillo
+05:38 El airbag: decidir en milésimas
+06:34 Con un ESP32: un nivel electrónico
+07:44 Los límites
+08:32 Tres datos curiosos
+09:26 Resumen

@@ -1,0 +1,246 @@
+# S04 · El truco de 1879 que arregla tu control — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S04_NARRACION.wav  y ejecuta producir.bat S04_Hall
+episodio: S04_Hall
+titulo: "El truco de 1879 que arregla tu control"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: DriftGancho3D
+    seccion: "EFECTO HALL"
+    capitulo: "Intro: el control que se mueve solo"
+    desde: inicio
+    marcas:
+      drift: "se llama drift"
+      nueva: "La solución no es nueva"
+      anio: "en 1879"
+      iman: "Solo necesita"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama efecto Hall"
+    props:
+      modelo: hall
+      items:
+        - {texto: "Cómo un imán empuja a los electrones", marca: uno}
+        - {texto: "Dónde está escondido este sensor", marca: dos}
+        - {texto: "Un velocímetro de bicicleta con un ESP32", marca: tres}
+    marcas:
+      uno: "un imán puede empujar"
+      dos: "dónde está escondido"
+      tres: "un velocímetro de bicicleta"
+
+  # ------------------------------------------------------------------ EL DRIFT
+  - id: potenciometro
+    escena: Potenciometro3D
+    seccion: "EL DRIFT"
+    capitulo: "El drift: lo que roza se gasta"
+    desde: "Empecemos por el problema"
+    marcas:
+      potenciometros: "dos potenciómetros"
+      desliza: "el contacto se desliza"
+      gasta: "todo lo que roza se gasta"
+      camina: "Tu personaje camina solo"
+      recalibrar: "recalibrar el centro"
+  - id: joystickhall
+    escena: JoystickHall3D
+    desde: "Los joysticks de efecto Hall"
+    marcas:
+      iman: "un imán pegado"
+      aire: "a través del aire"
+      nada: "nada roza"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: hall1
+    escena: EfectoHall3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: la fuerza de Lorentz"
+    desde: "Cómo se mide un imán sin tocarlo"
+    props: {modo: basico}
+    marcas:
+      lamina: "una lámina delgada"
+      corriente: "pasa una corriente"
+      iman: "acerca un imán"
+      costado: "hacia un"
+      lorentz: "fuerza de Lorentz"
+      borde: "un borde se llena"
+      voltaje: "Ese es el"
+  - id: hall2
+    escena: EfectoHall3D
+    desde: "Y lo mejor"
+    props: {modo: detalle}
+    marcas:
+      proporcional: "es proporcional"
+      vuelta: "das la vuelta al imán"
+      cobre: "un metal como el cobre"
+      semiconductor: "En un semiconductor"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: de una lámina de oro al chip"
+    desde: "Edwin Hall era"
+    props:
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: halloro, anio: "1879", texto: "Edwin Hall", sub: "una lámina de oro entre dos polos", marca: hall}
+        - {modelo: teclado, anio: "1968", texto: "teclados sin contactos", sub: "el sensor cabe en un chip", marca: chip}
+    marcas:
+      hall: "Edwin Hall"
+      chip: "Con los semiconductores"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: pordentro
+    escena: ChipHall3D
+    seccion: "POR DENTRO"
+    capitulo: "Por dentro del chip"
+    desde: "Si abres uno de estos sensores"
+    marcas:
+      patas: "tres patas"
+      placa: "la placa Hall"
+      amplificador: "un amplificador"
+      comparador: "un comparador con histéresis"
+      lineales: "Los sensores lineales"
+      digital: "un convertidor digital"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos1
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el sensor Hall"
+    desde: "Hoy está en todas partes"
+    props:
+      items:
+        - {modelo: funda, texto: "la funda del celular", marca: funda}
+        - {modelo: portatil, texto: "la tapa del portátil", marca: portatil}
+        - {modelo: plegable, texto: "celulares plegables", marca: plegables}
+        - {modelo: brujula, texto: "la brújula del celular", sub: "campo terrestre: unas 100 veces más débil que un imán de nevera", marca: brujula}
+    marcas:
+      funda: "cerraste la funda"
+      portatil: "bajaste la pantalla"
+      plegables: "los celulares plegables"
+      brujula: "La brújula del celular"
+  - id: motores
+    escena: MotorBLDC3D
+    desde: "Los motores sin escobillas"
+    marcas:
+      motores: "Los motores sin escobillas"
+      bobina: "encender la bobina"
+      drones: "Los de los drones"
+  - id: carro
+    escena: Vitrina
+    desde: "En el carro"
+    props:
+      items:
+        - {modelo: ciguenal, texto: "posición del cigüeñal", marca: ciguenal}
+        - {modelo: abs, texto: "velocidad de las ruedas", sub: "frenos ABS", marca: abs}
+        - {modelo: pedal, texto: "pedal del acelerador", marca: acelerador}
+        - {modelo: pinza, texto: "sensores de corriente", sub: "sin cortar ni tocar el cable", marca: corriente}
+    marcas:
+      ciguenal: "la posición del cigüeñal"
+      abs: "frenos ABS"
+      acelerador: "cuánto pisas el acelerador"
+      corriente: "sensores de corriente"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: velocimetro
+    escena: Velocimetro3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: velocímetro de bicicleta"
+    desde: "Hagamos un velocímetro"
+    marcas:
+      a3144: "como el A3144"
+      iman: "Pega el imán"
+      cinco: "con cinco voltios"
+      vuelta: "dale la vuelta al imán"
+      pulso: "la salida cae a cero"
+      interrupcion: "con una interrupción"
+      circunferencia: "la circunferencia de la rueda"
+      distancia: "la distancia recorrida"
+  - id: lineal
+    escena: SensorLineal3D
+    desde: "Si en vez de un interruptor"
+    marcas:
+      lineal: "un sensor lineal"
+      voltaje: "un voltaje que sube"
+      joystick: "un joystick casero"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "El sensor Hall tiene sus trampas"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: parlante, texto: "cualquier imán cercano lo molesta", marca: imanes}
+        - {modelo: destornillador, texto: "hasta un destornillador magnetizado", marca: destornillador}
+        - {modelo: termometro, texto: "cambia con la temperatura", marca: temperatura}
+        - {modelo: iman, texto: "el campo cae rápido con la distancia", marca: distancia}
+    marcas:
+      imanes: "cualquier imán cercano"
+      destornillador: "un destornillador magnetizado"
+      temperatura: "cambia un poco con la temperatura"
+      distancia: "cae muy rápido con la distancia"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para presumir"
+    props:
+      numerado: true
+      items:
+        - {modelo: hueco, texto: "huecos: cargas positivas", sub: "el signo contrario del voltaje Hall", marca: huecos}
+        - {modelo: teclado, texto: "teclados Hall para juegos", sub: "eliges a qué profundidad se activa", marca: teclados}
+        - {modelo: medalla, texto: "efecto Hall cuántico", sub: "premios Nobel en 1985 y 1998", marca: nobel}
+    marcas:
+      huecos: "el signo"
+      teclados: "Dos: los teclados"
+      nobel: "Tres: en física"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: hall, texto: "una corriente y un imán", marca: corriente}
+        - {modelo: funda, texto: "la funda del celular", marca: funda}
+        - {modelo: abs, texto: "la rueda del carro", marca: rueda}
+        - {modelo: control, texto: "la palanca de tu control", marca: palanca}
+    marcas:
+      corriente: "Una corriente, un imán"
+      funda: "la funda del celular"
+      rueda: "la rueda del carro"
+      palanca: "la palanca de tu control"
+  - id: final
+    escena: DriftGancho3D
+    desde: "La próxima vez que tu personaje"
+    props: {final: true}
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S05 · el acelerómetro"
+      items:
+        - {modelo: celular, texto: "sabe dónde está el suelo", marca: suelo}
+        - {modelo: mems, texto: "un resorte más delgado que un cabello", marca: resorte}
+    marcas:
+      suelo: "hacia dónde está el suelo"
+      resorte: "un resorte más delgado"

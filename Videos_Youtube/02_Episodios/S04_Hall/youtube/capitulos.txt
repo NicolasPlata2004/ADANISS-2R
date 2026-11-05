@@ -1,0 +1,10 @@
+00:00 Intro: el control que se mueve solo
+00:54 El drift: lo que roza se gasta
+02:01 La física: la fuerza de Lorentz
+03:43 La historia: de una lámina de oro al chip
+04:34 Por dentro del chip
+05:32 Dónde está el sensor Hall
+06:48 Con un ESP32: velocímetro de bicicleta
+08:11 Los límites
+08:41 Tres datos curiosos
+09:33 Resumen

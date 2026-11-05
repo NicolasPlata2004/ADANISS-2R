@@ -1,0 +1,255 @@
+# S05 · El resorte invisible que sabe dónde está el suelo — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S05_NARRACION.wav  y ejecuta producir.bat S05_Acelerometro
+episodio: S05_Acelerometro
+titulo: "El resorte invisible que sabe dónde está el suelo"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: GiraPantalla3D
+    seccion: "ACELERÓMETRO"
+    capitulo: "Intro: cómo sabe dónde está el suelo"
+    desde: inicio
+    marcas:
+      gira: "Gira tu celular"
+      suelo: "hacia dónde está el suelo"
+      resortes: "resortes más delgados"
+      virus: "el tamaño de un virus"
+  - id: usosgancho
+    escena: Vitrina
+    desde: "Y con ese movimiento"
+    props:
+      items:
+        - {modelo: celular, texto: "cuenta tus pasos", marca: pasos}
+        - {modelo: smartwatch, texto: "sabe si te caíste", marca: reloj}
+        - {modelo: volante, texto: "decide el airbag", marca: airbag}
+    marcas:
+      pasos: "cuenta tus pasos"
+      reloj: "tu reloj sabe"
+      airbag: "el airbag de un carro"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama acelerómetro MEMS"
+    props:
+      modelo: mems
+      items:
+        - {texto: "Una máquina con piezas móviles en un chip", marca: uno}
+        - {texto: "Gravedad y aceleración: para él son lo mismo", marca: dos}
+        - {texto: "Medir la inclinación con un ESP32", marca: tres}
+    marcas:
+      uno: "piezas móviles"
+      dos: "la gravedad y la aceleración"
+      tres: "medir la inclinación"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos1
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el acelerómetro"
+    desde: "Tu celular lo usa todo el tiempo"
+    props:
+      items:
+        - {modelo: celular, texto: "girar la pantalla y contar pasos", marca: celular}
+        - {modelo: smartwatch, texto: "detectar caídas", marca: caidas}
+        - {modelo: wiimote, texto: "controles de movimiento", marca: controles}
+        - {modelo: dron, texto: "drones nivelados", marca: drones}
+        - {modelo: camara, texto: "cámaras que estabilizan", marca: camaras}
+    marcas:
+      celular: "Para girar la pantalla"
+      caidas: "detectar caídas"
+      controles: "Los controles de videojuegos"
+      drones: "los drones"
+      camaras: "las cámaras que estabilizan"
+  - id: usos2
+    escena: Vitrina
+    desde: "En los carros"
+    props:
+      items:
+        - {modelo: volante, texto: "airbag", sub: "decide en milésimas de segundo", marca: airbag}
+        - {modelo: disco, texto: "discos duros de portátiles", sub: "estacionan el cabezal al caer", marca: disco}
+        - {modelo: sismo, texto: "red de alerta de terremotos", sub: "millones de celulares", marca: sismo}
+    marcas:
+      airbag: "siente el frenazo"
+      disco: "disco duro"
+      sismo: "red de sismógrafos"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: resorte
+    escena: CajaResorte3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: gravedad o aceleración"
+    desde: "La idea es tan vieja"
+    marcas:
+      caja: "una pesa colgada"
+      aceleras: "aceleras la caja hacia arriba"
+      frenas: "Si frenas"
+      quieta: "Si la caja está quieta"
+      einstein: "Einstein convirtió"
+      gravedad: "teoría de la gravedad"
+  - id: ejes
+    escena: Ejes3D
+    desde: "Eso es justo lo que aprovecha"
+    marcas:
+      ejes: "cada uno de tres ejes"
+      pantalla: "hacia dónde girar la pantalla"
+      pasos: "cada paso"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: mems
+    escena: MEMS3D
+    seccion: "POR DENTRO"
+    capitulo: "Por dentro: una máquina de silicio"
+    desde: "cómo se mete una pesa"
+    marcas:
+      mems: "se le llama MEMS"
+      pesa: "La pesa es una placa"
+      vigas: "Cuelga de vigas"
+      dedos: "salen muchos dedos"
+      condensador: "forma un pequeño condensador"
+      circuito: "Un circuito en el mismo chip"
+      tres: "Para medir en tres direcciones"
+      oblea: "una sola oblea"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: del airbag al bolsillo"
+    desde: "Los primeros acelerómetros de silicio"
+    props:
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: mems, anio: "1979", texto: "laboratorios universitarios", sub: "los primeros de silicio", marca: primeros}
+        - {modelo: volante, anio: "1991", texto: "el airbag", sub: "un acelerómetro en un chip", marca: airbag}
+        - {modelo: wiimote, anio: "2006", texto: "controles de movimiento", marca: consola}
+        - {modelo: celular, anio: "2007", texto: "la pantalla que gira sola", marca: telefonos}
+    marcas:
+      primeros: "Los primeros acelerómetros"
+      airbag: "El primer gran mercado"
+      consola: "En 2006"
+      telefonos: "Y un año después"
+
+  # ------------------------------------------------------------------ EL AIRBAG
+  - id: airbag1
+    escena: Airbag3D
+    seccion: "EL AIRBAG"
+    capitulo: "El airbag: decidir en milésimas"
+    desde: "Detengámonos en el airbag"
+    props: {modo: choque}
+    marcas:
+      choque: "En un choque de frente"
+      decenas: "decenas de veces la gravedad"
+      bache: "un bache fuerte"
+  - id: airbag2
+    escena: Airbag3D
+    desde: "Por eso la computadora"
+    props: {modo: bolsa}
+    marcas:
+      forma: "mira la forma"
+      inflar: "Si decide inflar"
+      volante: "llegar al volante"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: esp32
+    escena: NivelESP32
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: un nivel electrónico"
+    desde: "Hagamos un nivel electrónico"
+    marcas:
+      mpu: "Un módulo muy común"
+      cables: "cuatro cables"
+      plano: "plano sobre la mesa"
+      inclinas: "Si lo inclinas"
+      arcotangente: "la función arcotangente"
+  - id: proyectos
+    escena: Vitrina
+    desde: "Con eso puedes hacer"
+    props:
+      items:
+        - {modelo: nivel, texto: "nivel de burbuja digital", marca: nivel}
+        - {modelo: mpu, texto: "alarma para tu bicicleta", marca: alarma}
+        - {modelo: mancuerna, texto: "contador de repeticiones", marca: gimnasio}
+        - {modelo: persona, texto: "detector de caídas", marca: caidas}
+        - {modelo: motor, texto: "vigilar vibraciones", sub: "y anticipar fallas", marca: vibra}
+    marcas:
+      nivel: "un nivel de burbuja"
+      alarma: "una alarma"
+      gimnasio: "repeticiones para el gimnasio"
+      caidas: "un detector de caídas"
+      vibra: "cómo vibra"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Integracion3D
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "El acelerómetro tiene una debilidad"
+    marcas:
+      debilidad: "una debilidad famosa"
+      giroscopio: "junto a un giroscopio"
+      integrando: "integrando la aceleración"
+      acumula: "cada pequeño error"
+      gps: "reemplazar al GPS"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para terminar"
+    props:
+      numerado: true
+      items:
+        - {modelo: celular, texto: "en caída libre marca casi cero", sub: "como los astronautas en órbita", marca: caida}
+        - {modelo: parlante, texto: "puede “oír” el parlante", sub: "por las vibraciones dentro del teléfono", marca: sonidos}
+        - {modelo: otolitos, texto: "tu oído tiene uno", sub: "cristales sobre un gel con pelos", marca: oido}
+    marcas:
+      caida: "cae libremente"
+      sonidos: "reconstruir sonidos"
+      oido: "tu oído interno"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: mems, texto: "una pesa de silicio y resortes", marca: pesa}
+        - {modelo: celular, texto: "gira la pantalla", marca: pantalla}
+        - {modelo: smartwatch, texto: "detecta caídas", marca: caidas}
+        - {modelo: sismo, texto: "avisa terremotos", marca: sismos}
+    marcas:
+      pesa: "Una pesa de silicio"
+      pantalla: "gira la pantalla"
+      caidas: "detecta caídas"
+      sismos: "avisar terremotos"
+  - id: final
+    escena: GiraPantalla3D
+    desde: "La próxima vez que tu pantalla"
+    props: {final: true}
+    marcas:
+      gira: "tu pantalla gire sola"
+      resortes: "colgando de resortes"
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S06 · el giroscopio"
+      items:
+        - {modelo: giroscopio, texto: "siente los giros", marca: giros}
+        - {modelo: huracan, texto: "la fuerza de los huracanes", marca: huracanes}
+    marcas:
+      giros: "siente los giros"
+      huracanes: "desvía los huracanes"
