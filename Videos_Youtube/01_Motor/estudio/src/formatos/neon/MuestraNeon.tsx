@@ -384,7 +384,7 @@ export const MuestraNeon: React.FC<PropsNeon> = ({plan, desde, hasta}) => {
           resaltar={['sentido', '100', 'decenas', 'cajita', 'mano.', 'destruiría', 'domesticado,', 'medida?', 'energía,', 'enchufe', 'batería.']}
         />
       )}
-      {plan && <Audio src={staticFile(plan.audio)} trimBefore={Math.round(desde * fps)} trimAfter={Math.round(hasta * fps)} />}
+      {plan && plan.audio && <Audio src={staticFile(plan.audio)} trimBefore={Math.round(desde * fps)} trimAfter={Math.round(hasta * fps)} />}
     </AbsoluteFill>
   );
 };

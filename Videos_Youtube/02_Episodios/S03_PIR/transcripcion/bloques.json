@@ -1,0 +1,68 @@
+[
+ {
+  "bloque": "Gancho",
+  "inicio": 0.6,
+  "fin": 31.92,
+  "palabras": 71
+ },
+ {
+  "bloque": "Promesa",
+  "inicio": 31.92,
+  "fin": 53.89,
+  "palabras": 50
+ },
+ {
+  "bloque": "Dónde está",
+  "inicio": 53.89,
+  "fin": 110.42,
+  "palabras": 124
+ },
+ {
+  "bloque": "La física",
+  "inicio": 110.42,
+  "fin": 221.82,
+  "palabras": 244
+ },
+ {
+  "bloque": "Dos ojos",
+  "inicio": 221.82,
+  "fin": 287.85,
+  "palabras": 150
+ },
+ {
+  "bloque": "La cúpula",
+  "inicio": 287.85,
+  "fin": 350.14,
+  "palabras": 138
+ },
+ {
+  "bloque": "La electrónica",
+  "inicio": 350.14,
+  "fin": 404.59,
+  "palabras": 122
+ },
+ {
+  "bloque": "Con un ESP32",
+  "inicio": 404.59,
+  "fin": 474.47,
+  "palabras": 151
+ },
+ {
+  "bloque": "Los límites",
+  "inicio": 474.47,
+  "fin": 517.02,
+  "palabras": 96
+ },
+ {
+  "bloque": "Tres datos",
+  "inicio": 517.02,
+  "fin": 565.72,
+  "palabras": 101
+ },
+ {
+  "bloque": "Cierre",
+  "inicio": 565.72,
+  "fin": 604.14,
+  "palabras": 79
+ }
+]

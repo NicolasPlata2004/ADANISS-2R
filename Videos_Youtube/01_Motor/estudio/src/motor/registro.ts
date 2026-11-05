@@ -8,6 +8,9 @@ import * as Sentido from '../formatos/pizarra/escenas/sentido';
 import * as Presion from '../formatos/pizarra/escenas/presion';
 import * as Control from '../formatos/pizarra/escenas/control';
 import * as Potencia from '../formatos/pizarra/escenas/potencia';
+import {CierreTaller, FaltaTaller, RotuloTaller, SubtitulosTaller} from '../formatos/taller/marco';
+import * as Taller3D_S01 from '../formatos/taller/escenas/s01_3d';
+import * as Taller2D from '../formatos/taller/escenas/s01_2d';
 import type {EscenaPlan, Frase} from './tiempo';
 
 export type Formato = {
@@ -27,5 +30,14 @@ export const FORMATOS: Record<string, Formato> = {
     Rotulo,
     Subtitulos,
     Cierre,
+  },
+  // Formato mixto de la Serie Sensores: 3D realista (estilo reel del piezo) + insertos 2D.
+  taller: {
+    fondo: '#0B0F0D',
+    escenas: {...Taller2D, ...Taller3D_S01},
+    Falta: FaltaTaller,
+    Rotulo: RotuloTaller,
+    Subtitulos: SubtitulosTaller,
+    Cierre: CierreTaller,
   },
 };

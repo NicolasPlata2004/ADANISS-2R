@@ -50,7 +50,7 @@ export const Episodio: React.FC<PropsEpisodio> = ({plan, conAudio = true}) => {
       <Sequence from={finAudio} name="pantalla final">
         <fmt.Cierre />
       </Sequence>
-      {conAudio && <Audio src={staticFile(plan.audio)} />}
+      {conAudio && plan.audio && <Audio src={staticFile(plan.audio)} />}
     </AbsoluteFill>
   );
 };

@@ -1,0 +1,74 @@
+[
+ {
+  "bloque": "Gancho",
+  "inicio": 0.6,
+  "fin": 41.94,
+  "palabras": 94
+ },
+ {
+  "bloque": "Promesa",
+  "inicio": 41.94,
+  "fin": 65.97,
+  "palabras": 56
+ },
+ {
+  "bloque": "Dónde está",
+  "inicio": 65.97,
+  "fin": 127.09,
+  "palabras": 136
+ },
+ {
+  "bloque": "La física",
+  "inicio": 127.09,
+  "fin": 205.96,
+  "palabras": 178
+ },
+ {
+  "bloque": "El metal que se dobla",
+  "inicio": 205.96,
+  "fin": 249.02,
+  "palabras": 95
+ },
+ {
+  "bloque": "Resistencias y voltajes",
+  "inicio": 249.02,
+  "fin": 330.93,
+  "palabras": 182
+ },
+ {
+  "bloque": "Sin tocar",
+  "inicio": 330.93,
+  "fin": 378.84,
+  "palabras": 105
+ },
+ {
+  "bloque": "La historia",
+  "inicio": 378.84,
+  "fin": 420.59,
+  "palabras": 87
+ },
+ {
+  "bloque": "Con un ESP32",
+  "inicio": 420.59,
+  "fin": 479.06,
+  "palabras": 133
+ },
+ {
+  "bloque": "Los límites",
+  "inicio": 479.06,
+  "fin": 525.07,
+  "palabras": 95
+ },
+ {
+  "bloque": "Tres datos",
+  "inicio": 525.07,
+  "fin": 582.82,
+  "palabras": 119
+ },
+ {
+  "bloque": "Cierre",
+  "inicio": 582.82,
+  "fin": 623.48,
+  "palabras": 88
+ }
+]

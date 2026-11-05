@@ -1,0 +1,68 @@
+[
+ {
+  "bloque": "Gancho",
+  "inicio": 0.6,
+  "fin": 35.46,
+  "palabras": 76
+ },
+ {
+  "bloque": "Promesa",
+  "inicio": 35.46,
+  "fin": 55.23,
+  "palabras": 48
+ },
+ {
+  "bloque": "El drift",
+  "inicio": 55.23,
+  "fin": 121.7,
+  "palabras": 147
+ },
+ {
+  "bloque": "La física",
+  "inicio": 121.7,
+  "fin": 223.77,
+  "palabras": 221
+ },
+ {
+  "bloque": "La historia",
+  "inicio": 223.77,
+  "fin": 275.19,
+  "palabras": 117
+ },
+ {
+  "bloque": "Por dentro",
+  "inicio": 275.19,
+  "fin": 333.08,
+  "palabras": 126
+ },
+ {
+  "bloque": "Dónde está",
+  "inicio": 333.08,
+  "fin": 408.46,
+  "palabras": 176
+ },
+ {
+  "bloque": "Con un ESP32",
+  "inicio": 408.46,
+  "fin": 492.0,
+  "palabras": 193
+ },
+ {
+  "bloque": "Los límites",
+  "inicio": 492.0,
+  "fin": 521.78,
+  "palabras": 64
+ },
+ {
+  "bloque": "Tres datos",
+  "inicio": 521.78,
+  "fin": 573.4,
+  "palabras": 107
+ },
+ {
+  "bloque": "Cierre",
+  "inicio": 573.4,
+  "fin": 612.11,
+  "palabras": 86
+ }
+]

@@ -1,0 +1,9 @@
+00:00 Intro: miles de voltios sin pilas
+00:54 Dónde está el piezo
+02:00 La física: átomos que se corren
+03:51 La historia: de los Curie al sonar
+05:13 Anatomía del disco de 1 dólar
+06:23 Con un ESP32: un sensor de golpes
+07:56 Los límites
+08:29 Tres datos curiosos
+09:26 Resumen

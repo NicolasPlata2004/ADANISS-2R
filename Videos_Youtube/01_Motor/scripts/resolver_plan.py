@@ -195,8 +195,10 @@ def resolver(ep: str) -> Path:
     frases = agrupar_frases(palabras)
     salida_pub = ESTUDIO / "public" / "episodios" / ep
     salida_pub.mkdir(parents=True, exist_ok=True)
-    audio_src = carpeta / plan["audio"]
-    shutil.copyfile(audio_src, salida_pub / "audio.wav")
+    audio_pub = None
+    if plan.get("audio"):  # sin audio = video provisional con tiempos estimados del guion
+        shutil.copyfile(carpeta / plan["audio"], salida_pub / "audio.wav")
+        audio_pub = f"episodios/{ep}/audio.wav"
 
     resuelto = {
         "episodio": ep,
@@ -205,7 +207,7 @@ def resolver(ep: str) -> Path:
         "fps": fps,
         "ancho": int(plan.get("ancho", 1920)),
         "alto": int(plan.get("alto", 1080)),
-        "audio": f"episodios/{ep}/audio.wav",
+        "audio": audio_pub,
         "duracionAudio": round(dur_audio, 3),
         "cola": cola,
         "subtitulos": {"activo": bool(plan.get("subtitulos", True)), "frases": frases},

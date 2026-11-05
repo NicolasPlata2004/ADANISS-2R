@@ -3,6 +3,7 @@ import {Composition, Folder, Still} from 'remotion';
 import {calcularEpisodio, Episodio} from './motor/Episodio';
 import {calcularNeon, MuestraNeon} from './formatos/neon/MuestraNeon';
 import {Miniatura} from './formatos/pizarra/Miniatura';
+import {PruebaTaller} from './formatos/taller/Prueba';
 
 export const Root: React.FC = () => (
   <>
@@ -29,8 +30,15 @@ export const Root: React.FC = () => (
         height={1080}
       />
     </Folder>
+    <Folder name="Serie-Sensores">
+      <Composition id="S01-Piezo" component={Episodio} defaultProps={{episodio: 'S01_Piezo', conAudio: true}} calculateMetadata={calcularEpisodio} durationInFrames={300} fps={24} width={1920} height={1080} />
+    </Folder>
     <Folder name="Miniaturas">
       <Still id="Miniatura-EP01" component={Miniatura} width={1280} height={720} defaultProps={{linea1: '¿QUÉ HAY', linea2: 'DENTRO?', dato: '230 V a 5 V'}} />
+    </Folder>
+    <Folder name="Pruebas">
+      <Composition id="Prueba-Taller" component={PruebaTaller} defaultProps={{dof: false}} durationInFrames={120} fps={30} width={1920} height={1080} />
+      <Composition id="Prueba-Taller-DOF" component={PruebaTaller} defaultProps={{dof: true}} durationInFrames={120} fps={30} width={1920} height={1080} />
     </Folder>
     <Folder name="Muestras-de-formato">
       {/* Neón 3D sobre el tramo 0:14 – 0:46 de la narración */}

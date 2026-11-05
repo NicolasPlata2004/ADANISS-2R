@@ -20,7 +20,7 @@ export type Plan = {
   fps: number;
   ancho: number;
   alto: number;
-  audio: string;
+  audio: string | null;
   duracionAudio: number;
   cola: number;
   subtitulos: {activo: boolean; frases: Frase[]};

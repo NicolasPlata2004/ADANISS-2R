@@ -1,0 +1,68 @@
+[
+ {
+  "bloque": "Gancho",
+  "inicio": 0.6,
+  "fin": 41.75,
+  "palabras": 98
+ },
+ {
+  "bloque": "Promesa",
+  "inicio": 41.75,
+  "fin": 62.4,
+  "palabras": 50
+ },
+ {
+  "bloque": "Dónde está",
+  "inicio": 62.4,
+  "fin": 116.82,
+  "palabras": 123
+ },
+ {
+  "bloque": "El giroscopio clásico",
+  "inicio": 116.82,
+  "fin": 183.58,
+  "palabras": 146
+ },
+ {
+  "bloque": "La física",
+  "inicio": 183.58,
+  "fin": 267.5,
+  "palabras": 192
+ },
+ {
+  "bloque": "Por dentro",
+  "inicio": 267.5,
+  "fin": 341.8,
+  "palabras": 161
+ },
+ {
+  "bloque": "La deriva",
+  "inicio": 341.8,
+  "fin": 407.79,
+  "palabras": 149
+ },
+ {
+  "bloque": "Con un ESP32",
+  "inicio": 407.79,
+  "fin": 469.23,
+  "palabras": 133
+ },
+ {
+  "bloque": "Los límites",
+  "inicio": 469.23,
+  "fin": 526.04,
+  "palabras": 125
+ },
+ {
+  "bloque": "Tres datos",
+  "inicio": 526.04,
+  "fin": 578.84,
+  "palabras": 111
+ },
+ {
+  "bloque": "Cierre",
+  "inicio": 578.84,
+  "fin": 619.45,
+  "palabras": 91
+ }
+]
