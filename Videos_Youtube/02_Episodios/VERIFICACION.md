@@ -25,6 +25,22 @@ el narrador tienen exactamente el mismo texto.
 | S06 | "esa sola línea elimina casi toda la deriva" | elimina la deriva de la inclinación; el rumbo necesita magnetómetro | El acelerómetro no ve el giro horizontal. |
 | S06 | trompo "mantiene su eje apuntando igual" | el trompo precesa; el giroscopio en aros sí mantiene el eje | Precesión por el torque de la gravedad. |
 
+## Correcciones en las imágenes 3D
+
+Revisión de los videos fotograma a fotograma (no solo del texto): lo que se veía contradecía la física
+o lo que dice la voz.
+
+| Episodio | Se veía | Ahora | Motivo |
+|---|---|---|---|
+| S04 | el sensor lineal llevaba el rótulo «3144» | dice «49E», como la voz | El A3144 es un interruptor; el lineal es otro chip (SS49E). |
+| S04 | barra de salida del 49E sin unidades | «salida» en voltios: 2,5 V sin imán (a 5 V) y sube con el campo | Hoja de datos del SS49E: salida en reposo ≈ Vcc/2. |
+| S05 | «no distingue gravedad de aceleración» sobre un fondo vacío | dos acelerómetros: uno inclinado 20° y quieto, otro acelerando a 0,34 g; los dos marcan x: +0,34 g | g·sen 20° ≈ 0,34 g: es literalmente la misma lectura. |
+| S06 | huracán girando antihorario con los brazos curvados como uno del hemisferio sur | brazos que se arrastran detrás del giro antihorario (hemisferio norte) | El aire entra en espiral antihoraria: los brazos, hacia afuera, curvan en sentido horario. |
+| S09 | bimetal con el latón arriba que se curvaba hacia arriba | el latón queda en el lado convexo: la lámina se curva hacia el acero | El metal que más se dilata queda por fuera de la curva. |
+| S09 | disco del hervidor sin mecanismo | disco que se voltea, empuja una varilla y abre los contactos | Así cortan la corriente los hervidores con disco bimetálico. |
+| S10 | (nuevo) cada deformación exagerada | rotulada «deformación exagerada» o «tamaño real ~0,3 mm» | La galga se estira micrómetros: hay que decir cuándo se exagera. |
+| S10 | (nuevo) cifras en pantalla | coinciden con el guion: 0,7 Ω en 350 Ω; 2,5 mV con una galga y 10 mV con cuatro (puente a 5 V); 72,4 kg sumando las patas | Calculadas con la fórmula del puente, no puestas a ojo. |
+
 ## Fuentes de los datos menos obvios
 
 - **S01** Tokio 2008: [JR East (comunicado)](https://www.jreast.co.jp/e/development/press/20080111.pdf), [CleanTechnica](https://cleantechnica.com/2008/12/04/tokyo-train-station-testing-power-generating-floor/). Langevin 1917: [Physics Today](https://physicstoday.aip.org/features/paul-langevin-u-boats-and-ultrasonics), [Wikipedia: Sonar](https://en.wikipedia.org/wiki/Sonar).
