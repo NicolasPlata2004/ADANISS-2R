@@ -75,7 +75,9 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
         )}
         {items.map((it, i) => {
           const f = OBJETOS[it.modelo];
-          const ap0 = ap(t, ts[i] - 0.35, 0.8, easeOutBack);
+          // El primer objeto ya está en su pedestal desde el comienzo (nunca un pedestal vacío);
+          // su etiqueta sigue esperando a que la voz lo nombre.
+          const ap0 = ap(t, (i === 0 ? Math.min(ts[0], 0.35) : ts[i]) - 0.35, 0.8, easeOutBack);
           const activo = ap(t, ts[i], 0.4) * enfocado(i);
           const C = f?.C;
           return (

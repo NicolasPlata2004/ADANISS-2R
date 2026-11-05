@@ -420,8 +420,9 @@ export const Condensador3D: React.FC<{modo?: ModoCond}> = ({modo = 'placas'}) =>
         </group>
       </Estudio>
       {(() => {
-        const p = proyectar([5.6, 4.6, -0.5], cam);
-        return <EtiquetaGuia desde={p} hacia={{x: p.x - 40, y: p.y - 60}} texto="capacitancia" p={modo === 'placas' ? ap(t, tCap, 0.5) : 1} lado="izq" />;
+        // anclada a media altura del medidor y nunca más arriba de la franja del título
+        const p = proyectar([5.6, 3.4, -0.5], cam);
+        return <EtiquetaGuia desde={p} hacia={{x: p.x - 70, y: Math.max(270, p.y - 40)}} texto="capacitancia" p={modo === 'placas' ? ap(t, tCap, 0.5) : 1} lado="izq" />;
       })()}
       {modo === 'placas' && <TituloGrande texto="dos placas, un aislante: un condensador" p={ap(t, tPiezas, 0.5) * sal(t, tCampo - 0.3, 0.3)} y={96} />}
       {modo === 'placas' && <TituloGrande texto="hilos de campo eléctrico" p={ap(t, tCampo, 0.5) * sal(t, dur, 0.3)} y={96} />}

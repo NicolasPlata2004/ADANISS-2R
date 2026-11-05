@@ -8442,6 +8442,18 @@
    "props": {
     "items": [
      {
+      "modelo": "plomo",
+      "texto": "óxido de indio y estaño",
+      "sub": "el material de las pistas",
+      "props": {
+       "numero": "49",
+       "simbolo": "In",
+       "nombre": "indio",
+       "color": "#8C97A8"
+      },
+      "marca": "ito"
+     },
+     {
       "modelo": "celular",
       "texto": "pantallas",
       "marca": "pantallas"
@@ -8449,26 +8461,16 @@
      {
       "modelo": "solar",
       "texto": "paneles solares",
+      "sub": "el indio es materia prima crítica",
       "marca": "solares"
-     },
-     {
-      "modelo": "plomo",
-      "texto": "materia prima crítica",
-      "props": {
-       "numero": "49",
-       "simbolo": "In",
-       "nombre": "indio",
-       "color": "#8C97A8"
-      },
-      "marca": "critica"
      }
     ]
    },
    "fin": 574.266,
    "marcas": {
+    "ito": 2.975,
     "pantallas": 6.399,
-    "solares": 7.555,
-    "critica": 10.667
+    "solares": 7.555
    }
   },
   {

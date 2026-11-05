@@ -266,13 +266,13 @@ escenas:
     desde: "Tres: el material"
     props:
       items:
+        - {modelo: plomo, texto: "óxido de indio y estaño", sub: "el material de las pistas", props: {numero: "49", simbolo: "In", nombre: "indio", color: "#8C97A8"}, marca: ito}
         - {modelo: celular, texto: "pantallas", marca: pantallas}
-        - {modelo: solar, texto: "paneles solares", marca: solares}
-        - {modelo: plomo, texto: "materia prima crítica", props: {numero: "49", simbolo: "In", nombre: "indio", color: "#8C97A8"}, marca: critica}
+        - {modelo: solar, texto: "paneles solares", sub: "el indio es materia prima crítica", marca: solares}
     marcas:
+      ito: "el óxido de indio"
       pantallas: "para pantallas"
       solares: "paneles solares"
-      critica: "materia prima crítica"
 
   # ------------------------------------------------------------------ CIERRE
   - id: recap
