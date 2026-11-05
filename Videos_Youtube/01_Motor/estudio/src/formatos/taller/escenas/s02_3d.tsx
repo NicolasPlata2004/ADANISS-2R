@@ -147,7 +147,9 @@ export const TocaPantalla3D: React.FC<{toques: Toque[]; rejilla?: string; titulo
       return;
     }
     const tNext = k + 1 < toques.length ? m(toques[k + 1].marca, t0 + 3) : dur + 1;
-    const baja = ap(t, t0 - 0.9, 0.8, easeInOut) * (1 - ap(t, Math.min(t0 + 1.2, tNext - 1.1), 0.8, easeInOut));
+    // la salchicha se queda tocando la pantalla hasta el final (es el protagonista de esa escena)
+    const tSube = q.tipo === 'salchicha' && k === toques.length - 1 ? dur + 1 : Math.min(t0 + 1.2, tNext - 1.1);
+    const baja = ap(t, t0 - 0.9, 0.8, easeInOut) * (1 - ap(t, tSube, 0.8, easeInOut));
     if (baja > 0.01) {
       const hueco = q.tipo === 'guante' ? 0.0 : 0;
       nodos.push(
@@ -568,10 +570,13 @@ export const BotonAluminio3D: React.FC<{modo?: 'boton' | 'usos'}> = ({modo = 'bo
               )}
             </group>
             <ESP32 pos={[4.6, 0.35, 2.4]} rotY={Math.PI / 2} led={lectura < 0.5 ? 1 : 0} />
+            {/* lectura de touchRead (barra) y el umbral (línea roja) */}
             <group position={[4.2, 0, -2.4]}>
-              <Caja tam={[0.9, 4.4, 0.9]} pos={[0, 2.2, 0]} material={M.vidrio()} radio={0.08} />
-              <Caja tam={[0.7, 4.2 * lectura, 0.7]} pos={[0, 0.1 + 2.1 * lectura, 0]} material={M.emisivo(lectura < 0.5 ? '#FFB547' : CIAN, 1.6)} radio={0.06} />
-              {(modo === 'usos' || t > tAlto) && <Caja tam={[1.3, 0.05, 1.3]} pos={[0, 2.0, 0]} material={M.emisivo('#FF5A5F', 2)} />}
+              <Caja tam={[0.9, 2.6, 0.9]} pos={[0, 1.3, 0]} material={M.vidrio()} radio={0.08} />
+              <Caja tam={[0.7, 2.45 * lectura, 0.7]} pos={[0, 0.07 + 1.225 * lectura, 0]} material={M.emisivo(lectura < 0.5 ? '#FFB547' : CIAN, 1.6)} radio={0.06} />
+              {(modo === 'usos' || t > tAlto) && <Caja tam={[1.3, 0.05, 1.3]} pos={[0, 1.2, 0]} material={M.emisivo('#FF5A5F', 2)} />}
+              <TextoPlano lineas={[{t: 'touchRead', tam: 120, color: CIAN, mono: true}]} w={2.4} h={0.42} pos={[1.9, 1.78, 0]} estilo={{fondo: '#0B0F14', radio: 30}} op={ap(t, modo === 'usos' ? 0.2 : tT, 0.5)} />
+              {(modo === 'usos' || t > tAlto) && <TextoPlano lineas={[{t: 'umbral', tam: 120, color: '#FF7B72'}]} w={1.7} h={0.42} pos={[1.6, 1.2, 0]} estilo={{fondo: '#0B0F14', radio: 30}} />}
             </group>
             {modo === 'usos' && (
               <group position={[8.5, 0, -1]} scale={0.8}>

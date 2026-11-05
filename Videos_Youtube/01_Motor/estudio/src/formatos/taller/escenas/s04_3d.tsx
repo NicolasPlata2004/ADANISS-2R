@@ -77,6 +77,11 @@ export const DriftGancho3D: React.FC<{final?: boolean}> = ({final = false}) => {
     ],
     t,
   );
+  // en el cierre, la cámara un poco más atrás y más arriba para que el título no tape el monitor
+  if (final) {
+    cam.pos = [2, 7.5, 21];
+    cam.obj = [0, 4.0, 0];
+  }
   const deriva = 0.35;
   return (
     <AbsoluteFill>
@@ -462,15 +467,22 @@ export const SensorLineal3D: React.FC = () => {
       <Estudio camara={cam} fondo="negro" centroLuz={[1, 1, 0]} {...Q}>
         <Protoboard pos={[1.2, 0, 1.0]} />
         <group position={[0, 0.85, 1.0]} scale={0.6}>
-          <SensorHall />
+          <SensorHall codigo="49E" />
         </group>
         <group position={[-d, 0.85, 1.2]} scale={0.7}>
           <Iman />
         </group>
-        <group position={[5.5, 0.85, 0.2]}>
-          <Caja tam={[0.8, 4.4, 0.8]} pos={[0, 2.2, 0]} material={M.vidrio()} radio={0.08} />
-          <Caja tam={[0.6, 0.05, 0.6]} pos={[0, 2.2, 0]} material={M.emisivo('#FFFFFF', 1)} />
-          <Caja tam={[0.6, Math.max(0.05, campo * 2.1), 0.6]} pos={[0, 2.2 + (campo * 2.1) / 2, 0]} material={M.emisivo(CIAN, 1.6)} />
+        {/* voltaje de salida del 49E (alimentado a 5 V: 2,5 V sin imán, sube con el campo) */}
+        <group position={[4.6, 0.85, 0.6]}>
+          <Caja tam={[0.8, 2.0, 0.8]} pos={[0, 1.0, 0]} material={M.vidrio()} radio={0.08} />
+          <Caja tam={[0.6, 0.95 + campo * 0.95, 0.6]} pos={[0, 0.05 + (0.95 + campo * 0.95) / 2, 0]} material={M.emisivo(CIAN, 1.6)} />
+          <TextoPlano
+            lineas={[{t: 'salida', tam: 90, color: '#C9D1D9', peso: 600}, {t: `${(2.5 + 1.5 * campo).toFixed(1).replace('.', ',')} V`, tam: 130, color: '#7CFFB2', mono: true}]}
+            w={2.2}
+            h={1.15}
+            pos={[1.8, 1.55, 0]}
+            estilo={{fondo: '#0B0F14', radio: 40}}
+          />
         </group>
       </Estudio>
       <TituloGrande texto="sensor lineal (49E)" sub="la salida sube y baja con el campo" p={ap(t, tL, 0.5) * sal(t, tJ - 0.3, 0.3)} y={96} />

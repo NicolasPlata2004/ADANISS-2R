@@ -277,13 +277,13 @@ export const Control: React.FC<Anim & {inclina?: number}> = ({inclina = 0}) => {
     </group>
   );
 };
-export const SensorHall: React.FC<Anim> = () => (
+export const SensorHall: React.FC<Anim & {codigo?: string}> = ({codigo = '3144'}) => (
   <group position={[0, 0.2, 0]} scale={1.6}>
     <Caja tam={[1.4, 1.5, 0.55]} pos={[0, 2.25, 0]} material={M.plasticoNegro()} radio={0.08} />
     {[-0.45, 0, 0.45].map((x) => (
       <Caja key={x} tam={[0.12, 1.5, 0.06]} pos={[x, 0.75, 0]} material={M.estano()} />
     ))}
-    <TextoPlano lineas={[{t: '3144', tam: 120, color: '#C9CDD1', peso: 600}]} w={1.0} h={0.35} pos={[0, 2.35, 0.29]} />
+    <TextoPlano lineas={[{t: codigo, tam: 120, color: '#C9CDD1', peso: 600}]} w={1.0} h={0.35} pos={[0, 2.35, 0.29]} />
   </group>
 );
 export const Iman: React.FC<Anim> = () => (

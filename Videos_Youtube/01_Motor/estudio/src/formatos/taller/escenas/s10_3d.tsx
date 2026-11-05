@@ -360,7 +360,7 @@ export const GalgaZigzag3D: React.FC<{modo?: 'presenta' | 'explica'}> = ({modo =
         })}
         {explica && (
           <>
-            {placa('una galga: un hilo largo en zigzag', 'muchas idas y vueltas sobre una película plástica', tZ, tDi - 0.3)}
+            {placa('una galga: un hilo largo en zigzag', 'muchas idas y vueltas sobre una película plástica', tZ + 6.2, tDi - 0.3)}
             {placa('factor de galga ≈ 2', 'ΔR/R  =  2 × ΔL/L', tF, tEj - 0.3)}
             {placa('1 millonésima de estiramiento', '→ 2 millonésimas de cambio en la resistencia', tMi, tEj - 0.3, '#FFB547')}
             {placa('350 Ω · estirada 1 milésima', '350 × 2 × 0,001 = 0,7 Ω', tEj, dur, '#7CFFB2')}
@@ -879,14 +879,14 @@ export const SerieDiez3D: React.FC = () => {
   const {t, M: m, dur} = useEscena();
   const tC = m('cual', 3.7);
   const tCo = m('comentarios', 8.0);
-  const paso = 4.2;
+  const paso = 3.6;
   const xs = SERIE.map((_, i) => (i - 4.5) * paso);
   // travelling del 1 al 10 y al final plano general
   const recorre = ap(t, 0.2, Math.max(2, tCo - 1.2), easeInOut);
   const xf = mix(xs[0], xs[9], recorre);
   const abre = ap(t, tCo - 1.0, 1.8, easeInOut);
   const cerca: V3 = [xf + 2.5, 6.2, 16.5];
-  const lejos: V3 = [0, 12.5, 40];
+  const lejos: V3 = [0, 9, 34];
   const cam: Camara = {pos: cerca.map((v, i) => mix(v, lejos[i], abre)) as V3, obj: [mix(xf, 0, abre), mix(1.6, 1.2, abre), 0], fov: mix(30, 34, abre)};
   return (
     <AbsoluteFill>
@@ -899,13 +899,13 @@ export const SerieDiez3D: React.FC = () => {
           const foco = clamp01(1 - Math.abs((xf - xs[i]) / paso)) * (1 - abre) + abre;
           return (
             <group key={clave}>
-              <Pedestal pos={[xs[i], 0, 0]} r={1.8} luz={q * foco} />
+              <Pedestal pos={[xs[i], 0, 0]} r={1.55} luz={q * foco} />
               {C && q > 0.01 && (
                 <group position={[xs[i], 0.5, 0]} rotation={[0, t * 0.3, 0]} scale={esc * q}>
                   <C t={t} a={1} />
                 </group>
               )}
-              <TextoPlano lineas={[{t: `${i + 1} · ${nombre}`, tam: 120, color: '#E8EAED'}]} w={3.6} h={0.62} pos={[xs[i], 0.4, 2.5]} rot={[-0.6, 0, 0]} estilo={{fondo: '#0B0F14', radio: 30}} op={q} />
+              <TextoPlano lineas={[{t: `${i + 1} · ${nombre}`, tam: 120, color: '#E8EAED'}]} w={3.3} h={0.6} pos={[xs[i], 0.4, 2.2]} rot={[-0.6, 0, 0]} estilo={{fondo: '#0B0F14', radio: 30}} op={q} />
             </group>
           );
         })}
