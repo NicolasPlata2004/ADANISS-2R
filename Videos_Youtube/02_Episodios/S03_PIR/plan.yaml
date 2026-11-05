@@ -1,0 +1,230 @@
+# S03 · Por qué la luz del baño te deja a oscuras — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S03_NARRACION.wav  y ejecuta producir.bat S03_PIR
+episodio: S03_PIR
+titulo: "Por qué la luz del baño te deja a oscuras"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: Bano3D
+    seccion: "SENSOR PIR"
+    capitulo: "Intro: la luz que te deja a oscuras"
+    desde: inicio
+    props: {modo: gancho}
+    marcas:
+      entras: "Entras al baño"
+      quieto: "Te quedas quieto"
+      oscuras: "a oscuras"
+      brazo: "Mueves el brazo"
+      calor: "Ve calor"
+      cambia: "cuando el calor cambia"
+      existir: "dejas de existir"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama sensor PIR"
+    props:
+      modelo: pir
+      items:
+        - {texto: "Qué hay detrás de la cúpula blanca", marca: uno}
+        - {texto: "Por qué está llena de lupas", marca: dos}
+        - {texto: "El cristal que convierte tu calor en electricidad", marca: tres}
+        - {texto: "Una cámara que solo despierta cuando pasa alguien", marca: cuatro}
+    marcas:
+      uno: "detrás de esa cúpula"
+      dos: "pequeñas lupas"
+      tres: "qué cristal"
+      cuatro: "una cámara a batería"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el PIR"
+    desde: "Lo ves en todas partes"
+    props:
+      items:
+        - {modelo: bombillo, texto: "luces de pasillos y baños", marca: luces, props: {luz: 0.7}}
+        - {modelo: alarma, texto: "alarmas", sub: "la lucecita roja", marca: alarma}
+        - {modelo: camara, texto: "cámaras a batería", marca: camaras}
+        - {modelo: reflector, texto: "reflectores de jardín", marca: reflectores}
+        - {modelo: termostato, texto: "termostatos", marca: termostatos}
+    marcas:
+      luces: "En las luces de pasillos"
+      alarma: "En las alarmas"
+      camaras: "En las cámaras de seguridad"
+      reflectores: "reflectores de jardín"
+      termostatos: "termostatos que saben"
+  - id: modulo
+    escena: Vitrina
+    desde: "Es uno de los sensores más baratos"
+    props:
+      items:
+        - {modelo: pir, texto: "cuesta menos que un almuerzo", sub: "cúpula llena de facetas", marca: barato}
+    marcas:
+      barato: "más baratos"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: brillo
+    escena: Brillo3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: todo brilla en infrarrojo"
+    desde: "Todo lo que tiene temperatura brilla"
+    marcas:
+      sol: "El sol brilla"
+      estufa: "La resistencia de una estufa"
+      tu: "Y tú, a unos 37"
+  - id: termico
+    escena: Bano3D
+    desde: "Las paredes, el piso"
+    props: {modo: termico}
+    marcas:
+      mancha: "eres una mancha brillante"
+  - id: piro
+    escena: CristalPiro3D
+    desde: "cómo se convierte ese brillo"
+    marcas:
+      piro: "material piroeléctrico"
+      cambia: "su temperatura cambia"
+      tantalato: "tantalato de litio"
+      caliente: "se queda caliente"
+      invisible: "te vuelves invisible"
+
+  # ------------------------------------------------------------------ DOS OJOS
+  - id: dosojos
+    escena: DosOjos3D
+    seccion: "DOS OJOS"
+    capitulo: "Dos cristales al revés"
+    desde: "Dentro de la lata metálica"
+    marcas:
+      dos: "hay dos"
+      reves: "conectados al revés"
+      calienta: "se calienta poco a poco"
+      cancelan: "se cancelan"
+      cruza: "una persona cruza"
+      pareja: "Esa pareja de pulsos"
+      lata: "La lata metálica que"
+      ventana: "ventana de silicio"
+
+  # ------------------------------------------------------------------ LA CÚPULA
+  - id: cupula
+    escena: Cupula3D
+    seccion: "LA CÚPULA"
+    capitulo: "La cúpula: lupas que crean zonas"
+    desde: "Ahora sí, esa cúpula"
+    marcas:
+      lupas: "lentes de Fresnel"
+      zonas: "divide el espacio en zonas"
+      cruzando: "caminas cruzando"
+      directo: "directo hacia él"
+
+  # ------------------------------------------------------------------ LA ELECTRÓNICA
+  - id: electronica
+    escena: ModuloPIR3D
+    seccion: "LA ELECTRÓNICA"
+    capitulo: "La electrónica y el temporizador"
+    desde: "Las señales del cristal"
+    marcas:
+      chip: "trae un chip"
+      perillas: "Tiene dos perillas"
+      sensibilidad: "ajusta la sensibilidad"
+      tiempo: "cuánto tiempo se queda"
+      puente: "Y un puente"
+      temporizador: "Ese temporizador"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: esp32
+    escena: PIRESP32_3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: cámara que despierta sola"
+    desde: "Conectarlo es de lo más fácil"
+    marcas:
+      cinco: "con cinco voltios"
+      minuto: "espera un minuto"
+      sueno: "sueño profundo"
+      despierta: "ese pin lo despierta"
+      foto: "toma una foto"
+      duerme: "se vuelve a dormir"
+      contar: "contar cuántas veces"
+      aire: "el aire caliente"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "El PIR tiene puntos ciegos"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: ventana, texto: "no ve a través del vidrio", marca: ventana}
+        - {modelo: termometro, texto: "días muy calurosos", marca: calor}
+        - {modelo: perro, texto: "un perro grande lo engaña", marca: perro}
+        - {modelo: persona, texto: "no cuenta personas", sub: "ni sabe quién eres", marca: contar}
+    marcas:
+      ventana: "a través de una ventana"
+      calor: "días muy calurosos"
+      perro: "un perro grande"
+      contar: "no puede contar personas"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: turmalina
+    escena: Turmalina3D
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para cerrar"
+    marcas:
+      siglos: "se conoce hace siglos"
+      calentarlas: "al calentarlas"
+  - id: datos
+    escena: Vitrina
+    desde: "Dos: algunas serpientes"
+    props:
+      items:
+        - {modelo: serpiente, texto: "fosetas que sienten calor", sub: "serpientes de cascabel", marca: serpiente}
+        - {modelo: perro, texto: "inmunidad a mascotas", sub: "ignora calor pequeño y cerca del piso", marca: mascotas}
+    marcas:
+      serpiente: "como las de cascabel"
+      mascotas: "inmunidad a mascotas"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: persona, texto: "brillas en infrarrojo", marca: brillas, props: {termico: 1}}
+        - {modelo: pir, texto: "lupas que crean zonas", marca: cupula}
+        - {modelo: bombillo, texto: "un temporizador", marca: temporizador, props: {luz: 0.5}}
+    marcas:
+      brillas: "Tu cuerpo brilla"
+      cupula: "una cúpula de pequeñas lupas"
+      temporizador: "un temporizador decide"
+  - id: final
+    escena: Bano3D
+    desde: "La próxima vez que la luz"
+    props: {modo: final}
+    marcas:
+      muevete: "muévete"
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S04 · el efecto Hall"
+      items:
+        - {modelo: control, texto: "el control que se mueve solo", marca: control, props: {inclina: 0.6}}
+        - {modelo: iman, texto: "el truco de 1879", marca: truco}
+    marcas:
+      control: "empieza a moverse solo"
+      truco: "el truco de 1879"

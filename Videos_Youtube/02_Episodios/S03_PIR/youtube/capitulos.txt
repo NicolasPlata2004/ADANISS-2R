@@ -1,0 +1,10 @@
+00:00 Intro: la luz que te deja a oscuras
+00:53 Dónde está el PIR
+01:50 La física: todo brilla en infrarrojo
+03:41 Dos cristales al revés
+04:47 La cúpula: lupas que crean zonas
+05:49 La electrónica y el temporizador
+06:44 Con un ESP32: cámara que despierta sola
+07:54 Los límites
+08:36 Tres datos curiosos
+09:25 Resumen

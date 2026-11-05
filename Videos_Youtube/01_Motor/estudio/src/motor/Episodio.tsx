@@ -6,11 +6,13 @@ import {useFuentes} from '../config/fuentes';
 import {EscenaCtx, Fundido, Plan} from './tiempo';
 import {FORMATOS} from './registro';
 
-export type PropsEpisodio = {episodio: string; plan?: Plan; conAudio?: boolean};
+/** `variante`: nombre del plan resuelto (plan.json por defecto; plan_mixto.json para la versión anterior del S01). */
+export type PropsEpisodio = {episodio: string; variante?: string; plan?: Plan; conAudio?: boolean};
 
 export const calcularEpisodio: CalculateMetadataFunction<PropsEpisodio> = async ({props}) => {
-  const res = await fetch(staticFile(`episodios/${props.episodio}/plan.json`));
-  if (!res.ok) throw new Error(`No encuentro episodios/${props.episodio}/plan.json. Ejecuta resolver_plan.py ${props.episodio}`);
+  const variante = props.variante ?? 'plan';
+  const res = await fetch(staticFile(`episodios/${props.episodio}/${variante}.json`));
+  if (!res.ok) throw new Error(`No encuentro episodios/${props.episodio}/${variante}.json. Ejecuta resolver_plan.py ${props.episodio}`);
   const plan = (await res.json()) as Plan;
   return {
     durationInFrames: Math.ceil((plan.duracionAudio + plan.cola) * plan.fps),
@@ -48,7 +50,7 @@ export const Episodio: React.FC<PropsEpisodio> = ({plan, conAudio = true}) => {
       <fmt.Rotulo escenas={plan.escenas} hasta={plan.duracionAudio} />
       {plan.subtitulos.activo && <fmt.Subtitulos frases={plan.subtitulos.frases} />}
       <Sequence from={finAudio} name="pantalla final">
-        <fmt.Cierre />
+        <fmt.Cierre episodio={plan.episodio} />
       </Sequence>
       {conAudio && plan.audio && <Audio src={staticFile(plan.audio)} />}
     </AbsoluteFill>

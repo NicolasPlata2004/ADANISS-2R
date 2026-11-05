@@ -5,6 +5,8 @@ import {calcularNeon, MuestraNeon} from './formatos/neon/MuestraNeon';
 import {Miniatura} from './formatos/pizarra/Miniatura';
 import {PruebaTaller} from './formatos/taller/Prueba';
 
+const SERIE = ['S01_Piezo', 'S02_Tactil', 'S03_PIR', 'S04_Hall', 'S05_Acelerometro', 'S06_Giroscopio', 'S07_Ultrasonico', 'S08_LiDAR', 'S09_Temperatura', 'S10_Galga'];
+
 export const Root: React.FC = () => (
   <>
     <Folder name="Episodios">
@@ -31,7 +33,12 @@ export const Root: React.FC = () => (
       />
     </Folder>
     <Folder name="Serie-Sensores">
-      <Composition id="S01-Piezo" component={Episodio} defaultProps={{episodio: 'S01_Piezo', conAudio: true}} calculateMetadata={calcularEpisodio} durationInFrames={300} fps={24} width={1920} height={1080} />
+      {/* Versión solo-3D (la definitiva): plan.yaml de cada episodio */}
+      {SERIE.map((ep) => (
+        <Composition key={ep} id={`${ep.slice(0, 3)}-3D`} component={Episodio} defaultProps={{episodio: ep, conAudio: true}} calculateMetadata={calcularEpisodio} durationInFrames={300} fps={24} width={1920} height={1080} />
+      ))}
+      {/* Versión anterior del S01 (3D + insertos 2D), se conserva */}
+      <Composition id="S01-Piezo-Mixto" component={Episodio} defaultProps={{episodio: 'S01_Piezo', variante: 'plan_mixto', conAudio: true}} calculateMetadata={calcularEpisodio} durationInFrames={300} fps={24} width={1920} height={1080} />
     </Folder>
     <Folder name="Miniaturas">
       <Still id="Miniatura-EP01" component={Miniatura} width={1280} height={720} defaultProps={{linea1: '¿QUÉ HAY', linea2: 'DENTRO?', dato: '230 V a 5 V'}} />

@@ -1,0 +1,10 @@
+00:00 Intro: dedo, guante y salchicha
+00:56 Dónde hay pantallas capacitivas
+01:56 La física: el condensador
+03:40 La rejilla bajo el vidrio
+05:10 La historia: del radar al bolsillo
+05:58 Agua, guantes y lápices
+07:05 Con un ESP32: botón de papel aluminio
+08:10 Los límites
+08:46 Tres datos curiosos
+09:34 Resumen

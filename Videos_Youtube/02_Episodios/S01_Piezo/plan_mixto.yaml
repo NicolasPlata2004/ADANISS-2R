@@ -1,0 +1,313 @@
+# S01 · El cristal que convierte un golpe en electricidad (formato mixto "taller")
+# 3D realista (estilo reel del piezo) + insertos 2D Pizarra. Sin audio todavía: los
+# tiempos salen del guion (guion_a_tiempos.py) y se re-sincronizan cuando llegue la voz.
+episodio: S01_Piezo
+titulo: "El cristal que convierte un golpe en electricidad"
+formato: taller
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: encendedor
+    escena: Encendedor
+    seccion: "EFECTO PIEZOELÉCTRICO"
+    capitulo: "Intro: miles de voltios sin pilas"
+    desde: inicio
+    marcas:
+      clic: "haces clic"
+      golpe: "golpea un cristal"
+      chispa: "escupiendo miles"
+      sinpilas: "Sin pilas"
+  - id: usos3
+    escena: Usos
+    desde: "Ese mismo truco"
+    props:
+      items:
+        - {icono: reloj, texto: "reloj de cuarzo", marca: reloj}
+        - {icono: ecografia, texto: "ecografía", marca: bebe}
+        - {icono: motor, texto: "sensor de golpeteo", marca: motor}
+    marcas:
+      reloj: "tu reloj cuente"
+      bebe: "vea a un bebé"
+      motor: "el motor de tu carro"
+  - id: cristaldual
+    escena: CristalDual
+    desde: "Todo depende de un material"
+    marcas:
+      aprieta: "cuando lo aprietas"
+      electricidad: "produce electricidad"
+      mueve: "se mueve"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: titulo
+    escena: TituloPiezo
+    desde: "Se llama efecto"
+  - id: agenda
+    escena: Agenda
+    desde: "En este video vas a ver"
+    props:
+      items:
+        - {texto: "Dentro del cristal, átomo por átomo", marca: uno}
+        - {texto: "El sensor de menos de un dólar", marca: dos}
+        - {texto: "Conectado a un ESP32", marca: tres}
+    marcas:
+      uno: "qué pasa dentro"
+      dos: "cómo se fabrica"
+      tres: "cómo conectarlo"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usoscasa
+    escena: Usos
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el piezo"
+    desde: "Empecemos por lo que"
+    props:
+      items:
+        - {icono: microondas, texto: "microondas", marca: microondas}
+        - {icono: humo, texto: "detector de humo", marca: humo}
+        - {icono: chip, texto: "cristal de cuarzo", marca: cuarzo}
+    marcas:
+      microondas: "El pitido del microondas"
+      humo: "detector de humo"
+      cuarzo: "Dentro de tu celular"
+  - id: usosmundo
+    escena: Usos
+    desde: "Las ecografías usan"
+    props:
+      items:
+        - {icono: ecografia, texto: "ecografías", marca: eco}
+        - {icono: parqueo, texto: "sensores de parqueo", marca: parqueo}
+        - {icono: impresora, texto: "impresoras de tinta", marca: impresora}
+        - {icono: guitarra, texto: "guitarras", marca: guitarra}
+        - {icono: motor, texto: "motores", marca: motor}
+    marcas:
+      eco: "Las ecografías"
+      parqueo: "Los sensores de parqueo"
+      impresora: "Algunas impresoras"
+      guitarra: "muchas guitarras"
+      motor: "En los motores"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: red
+    escena: RedAtomos
+    seccion: "LA FÍSICA"
+    capitulo: "La física: átomos que se corren"
+    desde: "Cómo puede un cristal"
+    marcas:
+      edificio: "Un cristal es un edificio"
+      cuarzo: "En el cuarzo"
+      cargas: "cada átomo tiene"
+      neutro: "eléctricamente neutro"
+  - id: aprieta
+    escena: RedAprieta
+    desde: "Ahora apriétalo"
+    marcas:
+      acercan: "se acercan y se corren"
+      desplazan: "los positivos se desplazan"
+      caras: "una cara del cristal"
+      voltaje: "Eso es un voltaje"
+      cable: "Si unes las dos caras"
+  - id: inverso
+    escena: RedInverso
+    desde: "Y funciona al revés"
+    marcas:
+      pila: "conectas el cristal a una pila"
+      deforma: "el cristal se deforma"
+      nombre: "directo e inverso"
+  - id: dinamica
+    escena: GraficaDinamica
+    desde: "Fíjate en un detalle"
+    marcas:
+      aprieta: "Si aprietas"
+      escapa: "la carga se escapa"
+      golpes: "Por eso un piezo"
+      arroz: "bolsa de arroz"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Linea
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: de los Curie al sonar"
+    desde: "Esto lo descubrieron"
+    props:
+      hitos:
+        - {anio: "1880", texto: "Jacques y Pierre Curie", sub: "apretando cuarzo y sal de Rochelle", marca: curie}
+        - {anio: "1881", texto: "Gabriel Lippmann", sub: "predice el efecto inverso", marca: lippmann}
+        - {anio: "1917", texto: "Paul Langevin", sub: "ultrasonido con cuarzo: el sonar", marca: langevin}
+    marcas:
+      curie: "Jacques y Pierre"
+      lippmann: "Gabriel Lippmann"
+      langevin: "llegaron los submarinos"
+  - id: sonar
+    escena: Sonar
+    desde: "En la Primera Guerra"
+    marcas:
+      emisor: "construyó un emisor"
+      sonar: "origen del sonar"
+  - id: cuarzopzt
+    escena: CuarzoPZT
+    desde: "Hoy casi nadie usa cuarzo"
+    marcas:
+      pzt: "el PZT"
+  - id: polarizar
+    escena: Polarizar
+    desde: "Recién horneada"
+    marcas:
+      campo: "se somete a un campo"
+      nombre: "se le llama polarizar"
+
+  # ------------------------------------------------------------------ ANATOMÍA
+  - id: hero
+    escena: PiezoHero
+    seccion: "EL DISCO"
+    capitulo: "Anatomía del disco de 1 dólar"
+    desde: "Ahora sí, el sensor"
+    marcas:
+      dolar: "menos de un dólar"
+  - id: despiece
+    escena: PiezoDespiece
+    desde: "Es un disco de latón"
+    marcas:
+      laton: "disco de latón"
+      ceramica: "capa delgadísima"
+      plata: "película plateada"
+      cables: "Dos cables"
+  - id: corte
+    escena: PiezoCorte
+    desde: "Cuando algo golpea"
+    marcas:
+      dobla: "se dobla como"
+      curva: "El latón se curva"
+      voltaje: "aparece voltaje"
+  - id: golpe
+    escena: PiezoGolpe
+    desde: "Un golpe seco"
+    marcas:
+      pico: "picos de varios"
+  - id: zumbador
+    escena: Zumbador
+    desde: "Si en vez de golpearlo"
+    marcas:
+      vibra: "el disco vibra"
+      micro: "Ese es el zumbador"
+      escucha: "una vez escucha"
+      habla: "la otra vez habla"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: montaje
+    escena: MontajeESP32
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: un sensor de golpes"
+    desde: "Vamos a convertirlo"
+    marcas:
+      tierra: "Conecta el cable negro"
+      entrada: "el rojo a una entrada"
+      resistencia: "una resistencia de un megaohmio"
+      pegada: "se queda pegada"
+  - id: proteccion
+    escena: Proteccion
+    desde: "Y un detalle que salva"
+    marcas:
+      picos: "pueden superar"
+      zener: "Una resistencia en serie"
+  - id: codigo
+    escena: Codigo
+    desde: "El programa es sencillo"
+    marcas:
+      lees: "Lees la entrada"
+      umbral: "supera un umbral"
+      osc: "conéctalo a un osciloscopio"
+      campana: "como una campana"
+      altura: "la altura del pico"
+  - id: diy
+    escena: Usos
+    desde: "Con eso ya tienes"
+    props:
+      items:
+        - {icono: bateria, texto: "pad de batería", marca: pad}
+        - {icono: escalera, texto: "contador de pasos", marca: escalera}
+        - {icono: candado, texto: "cerradura de golpes", marca: cerradura}
+    marcas:
+      pad: "un pad de"
+      escalera: "un contador de pasos"
+      cerradura: "una cerradura"
+  - id: mesa
+    escena: Mesa
+    desde: "Si pegas el disco"
+    marcas:
+      tres: "si pones tres"
+      orden: "en qué orden"
+      estimar: "estimar dónde"
+
+  # ------------------------------------------------------------------ LÍMITES Y DATOS
+  - id: limites
+    escena: Lista
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "Antes de los datos"
+    props:
+      items:
+        - {icono: grafica, texto: "No mide fuerzas quietas", marca: quietas}
+        - {icono: termometro, texto: "Temperatura de Curie: pierde el efecto", marca: curie}
+        - {icono: plomo, texto: "Lleva plomo: se buscan cerámicas sin plomo", marca: plomo}
+        - {icono: pelicula, texto: "Futuro: películas flexibles", marca: futuro}
+    marcas:
+      quietas: "no mide fuerzas"
+      curie: "temperatura de Curie"
+      plomo: "lleva plomo"
+      futuro: "El futuro va"
+  - id: reloj
+    escena: RelojCuarzo
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para"
+    marcas:
+      diapason: "un diapasón de cristal"
+      vibra: "vibra exactamente"
+      potencia: "No es un número"
+      divide: "Un circuito lo divide"
+      segundo: "un pulso por segundo"
+  - id: hueso
+    escena: Hueso
+    desde: "Dos: tus huesos"
+    marcas:
+      colageno: "El colágeno"
+  - id: baldosas
+    escena: Baldosas
+    desde: "Tres: en Japón"
+    marcas:
+      funcionan: "Funcionan, pero"
+      ciudad: "no va a encender"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Recap
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    marcas:
+      atomos: "átomos que se corren"
+      cargas: "cargas que aparecen"
+      usos: "Con eso se encienden"
+  - id: final
+    escena: Encendedor
+    desde: "La próxima vez que hagas"
+    props: {final: true}
+    marcas:
+      golpe: "estás golpeando"
+  - id: proximo
+    escena: Proximo
+    desde: "En el próximo episodio"
+    props:
+      titulo: "S02 · La pantalla táctil"
+      items:
+        - {icono: dedo, texto: "con tu dedo, sí", marca: dedo}
+        - {icono: guante, texto: "con guantes, no", marca: guantes}
+        - {icono: salchicha, texto: "¿con una salchicha?", marca: salchicha}
+    marcas:
+      dedo: "con tu dedo"
+      guantes: "con guantes"
+      salchicha: "con una salchicha"

@@ -15,7 +15,8 @@ Salida:
   02_Episodios/EPxx/youtube/capitulos.txt            (pegar en la descripción de YouTube)
   02_Episodios/EPxx/youtube/subtitulos.srt           (subtítulos corregidos para YouTube)
 
-Uso:  python resolver_plan.py EP01
+Uso:  python resolver_plan.py EP01            (plan.yaml)
+      python resolver_plan.py S01_Piezo --plan plan_mixto
 """
 from __future__ import annotations
 
@@ -154,9 +155,10 @@ def ts(t: float, srt: bool = False) -> str:
 
 
 # ----------------------------------------------------------------------------- principal
-def resolver(ep: str) -> Path:
+def resolver(ep: str, variante: str = "plan") -> Path:
+    """variante: nombre del plan sin extensión (plan.yaml → plan.json; plan_mixto.yaml → plan_mixto.json)."""
     carpeta = RAIZ / "02_Episodios" / ep
-    plan = yaml.safe_load((carpeta / "plan.yaml").read_text(encoding="utf-8"))
+    plan = yaml.safe_load((carpeta / f"{variante}.yaml").read_text(encoding="utf-8"))
     trans = json.loads((carpeta / "transcripcion" / "transcripcion.json").read_text(encoding="utf-8"))
     corr_f = carpeta / "correcciones.yaml"
     corr = yaml.safe_load(corr_f.read_text(encoding="utf-8")) if corr_f.exists() else {}
@@ -213,21 +215,23 @@ def resolver(ep: str) -> Path:
         "subtitulos": {"activo": bool(plan.get("subtitulos", True)), "frases": frases},
         "escenas": escenas,
     }
-    (salida_pub / "plan.json").write_text(json.dumps(resuelto, ensure_ascii=False, indent=1), encoding="utf-8")
+    (salida_pub / f"{variante}.json").write_text(json.dumps(resuelto, ensure_ascii=False, indent=1), encoding="utf-8")
 
     yt = carpeta / "youtube"
     yt.mkdir(exist_ok=True)
     caps = [f"{ts(e['inicio'] if k else 0)} {e['capitulo']}" for k, e in enumerate(escenas) if e.get("capitulo")]
-    (yt / "capitulos.txt").write_text("\n".join(caps) + "\n", encoding="utf-8")
+    pre = "" if variante == "plan" else f"{variante}_"
+    (yt / f"{pre}capitulos.txt").write_text("\n".join(caps) + "\n", encoding="utf-8")
     srt = [f"{n}\n{ts(f['i'], True)} --> {ts(f['f'], True)}\n{' '.join(w['p'] for w in f['palabras'])}\n"
            for n, f in enumerate(frases, 1)]
-    (yt / "subtitulos.srt").write_text("\n".join(srt), encoding="utf-8")
-    print(f"[plan] {len(escenas)} escenas, {len(frases)} frases de subtítulo -> {salida_pub / 'plan.json'}")
-    return salida_pub / "plan.json"
+    (yt / f"{pre}subtitulos.srt").write_text("\n".join(srt), encoding="utf-8")
+    print(f"[plan] {len(escenas)} escenas, {len(frases)} frases de subtítulo -> {salida_pub / (variante + '.json')}")
+    return salida_pub / f"{variante}.json"
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
-    resolver(sys.argv[1])
+    var = sys.argv[sys.argv.index("--plan") + 1] if "--plan" in sys.argv else "plan"
+    resolver(sys.argv[1], var)

@@ -1,0 +1,308 @@
+# S02 · Tu pantalla no siente tu dedo — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S02_NARRACION.wav  y ejecuta producir.bat S02_Tactil
+episodio: S02_Tactil
+titulo: "Tu pantalla no siente tu dedo"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: TocaPantalla3D
+    seccion: "PANTALLA TÁCTIL"
+    capitulo: "Intro: dedo, guante y salchicha"
+    desde: inicio
+    props:
+      rejilla: rejilla
+      toques:
+        - {tipo: dedo, marca: dedo}
+        - {tipo: guante, marca: guante, x: -0.2, z: -0.4}
+        - {tipo: salchicha, marca: salchicha, x: 0.2, z: 0.9}
+        - {tipo: gota, marca: gota, x: -0.4, z: -1.2}
+    marcas:
+      dedo: "no siente tu dedo"
+      guante: "guantes de lana"
+      salchicha: "con una salchicha"
+      gota: "una gota de agua"
+      rejilla: "rejilla invisible"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "En este video vas a ver"
+    props:
+      modelo: celular
+      items:
+        - {texto: "Qué hay debajo del vidrio, capa por capa", marca: uno}
+        - {texto: "Cómo tu dedo deforma un campo eléctrico", marca: dos}
+        - {texto: "Un botón táctil con aluminio y un ESP32", marca: tres}
+    marcas:
+      uno: "capa por capa"
+      dos: "deforma un campo"
+      tres: "botón táctil"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos1
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde hay pantallas capacitivas"
+    desde: "Empecemos por lo obvio"
+    props:
+      items:
+        - {modelo: celular, texto: "celular", marca: celular}
+        - {modelo: tableta, texto: "tableta", marca: tableta}
+        - {modelo: smartwatch, texto: "reloj inteligente", marca: reloj}
+    marcas:
+      celular: "el celular"
+      tableta: "la tableta"
+      reloj: "el reloj inteligente"
+  - id: usos2
+    escena: Vitrina
+    desde: "Pero también el touchpad"
+    props:
+      items:
+        - {modelo: portatil, texto: "touchpad", marca: touchpad}
+        - {modelo: carro, texto: "pantalla del carro", marca: carro}
+        - {modelo: estufa, texto: "estufa de inducción", marca: estufa}
+        - {modelo: ascensor, texto: "ascensor", marca: ascensor}
+        - {modelo: lampara, texto: "lámpara táctil", marca: lampara}
+        - {modelo: audifonos, texto: "audífonos", marca: audifonos}
+    marcas:
+      touchpad: "el touchpad"
+      carro: "la pantalla del carro"
+      estufa: "estufas de inducción"
+      ascensor: "los ascensores"
+      lampara: "las lámparas"
+      audifonos: "audífonos inalámbricos"
+  - id: antes
+    escena: Vitrina
+    desde: "Antes era distinto"
+    props:
+      items:
+        - {modelo: cajero, texto: "cajeros viejos", marca: cajero}
+        - {modelo: pda, texto: "agendas electrónicas", marca: pda}
+        - {modelo: consola, texto: "consola de dos pantallas", marca: consola}
+    marcas:
+      cajero: "cajeros viejos"
+      pda: "agendas electrónicas"
+      consola: "la consola"
+  - id: resistiva
+    escena: Resistiva3D
+    desde: "dos láminas flexibles"
+    marcas:
+      presion: "hacías presión"
+      una: "una uña"
+      punto: "un punto a la vez"
+      cercania: "solo cercanía"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: condensador
+    escena: Condensador3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: el condensador"
+    desde: "Para entenderla"
+    props: {modo: placas}
+    marcas:
+      piezas: "dos piezas de metal"
+      voltaje: "conectas una a un voltaje"
+      campo: "un campo eléctrico"
+      capacitancia: "se le llama capacitancia"
+  - id: dedocampo
+    escena: Condensador3D
+    desde: "Ahora la parte importante"
+    props: {modo: dedo}
+    marcas:
+      conductor: "tu cuerpo es un conductor"
+      roba: "se roba parte"
+      cambia: "la capacitancia entre"
+  - id: comparar
+    escena: Condensador3D
+    desde: "Tu pantalla no detecta presión"
+    props: {modo: comparar}
+    marcas:
+      guante: "un guante de lana"
+      salchicha: "una salchicha sí sirve"
+
+  # ------------------------------------------------------------------ LA REJILLA
+  - id: capas
+    escena: CapasPantalla3D
+    seccion: "LA REJILLA"
+    capitulo: "La rejilla bajo el vidrio"
+    desde: "cómo sabe dónde tocaste"
+    marcas:
+      vidrio: "Debajo del vidrio"
+      ito: "óxido de indio"
+      filas: "Una capa tiene filas"
+      columnas: "y la otra, columnas"
+      aislante: "película aislante"
+      cruce: "Donde una fila cruza"
+      cientos: "cientos de cruces"
+  - id: barrido
+    escena: Barrido3D
+    desde: "Un chip controlador"
+    props: {modo: barrido}
+    marcas:
+      barrido: "hace un barrido"
+      cien: "unas cien veces"
+  - id: mapa
+    escena: Barrido3D
+    desde: "Cuando tu dedo está cerca"
+    props: {modo: mapa}
+    marcas:
+      menos: "un poco menos de señal"
+      mapa: "arma un mapa"
+      centro: "calcula el centro"
+      dedos: "dos, cinco o diez"
+      zoom: "hacer zoom"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: del radar al bolsillo"
+    desde: "La idea es más vieja"
+    props:
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: radar, anio: "1965", texto: "Eric Johnson", sub: "tráfico aéreo", marca: johnson}
+        - {modelo: crt, anio: "1973", texto: "Beck y Stumpe, CERN", sub: "control de un acelerador", marca: cern}
+        - {modelo: celular, anio: "2007", texto: "multitáctil en el bolsillo", marca: salto}
+    marcas:
+      johnson: "Eric Johnson"
+      cern: "en el CERN"
+      salto: "El gran salto"
+
+  # ------------------------------------------------------------------ AGUA Y GUANTES
+  - id: gota
+    escena: GotaAgua3D
+    seccion: "AGUA Y GUANTES"
+    capitulo: "Agua, guantes y lápices"
+    desde: "Ahora entiendes los problemas"
+    marcas:
+      gota: "una gota también"
+      descartan: "descartan manchas"
+      bajo: "Bajo el agua"
+  - id: accesorios
+    escena: Vitrina
+    desde: "Los guantes táctiles"
+    props:
+      items:
+        - {modelo: guanteTactil, texto: "guante táctil", sub: "hilos de plata o cobre", marca: guantes}
+        - {modelo: lapizGoma, texto: "lápiz de goma conductora", sub: "punta ancha como un dedo", marca: baratos}
+        - {modelo: lapizActivo, texto: "lápiz activo", sub: "emite su propia señal", marca: activos}
+        - {modelo: celular, texto: "protector de vidrio", sub: "delgado: no estorba", marca: protector}
+    marcas:
+      guantes: "Los guantes táctiles"
+      baratos: "Los lápices baratos"
+      activos: "Los lápices activos"
+      protector: "un protector de vidrio"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: boton
+    escena: BotonAluminio3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: botón de papel aluminio"
+    desde: "Puedes construir tu propio"
+    props: {modo: boton}
+    marcas:
+      aluminio: "papel aluminio"
+      touch: "la función touchRead"
+      alto: "el número es alto"
+      baja: "cuando acercas el dedo"
+  - id: usosboton
+    escena: BotonAluminio3D
+    desde: "Solo tienes que elegir"
+    props: {modo: usos}
+    marcas:
+      umbral: "elegir un umbral"
+      papel: "una hoja de papel"
+      lampara: "una lámpara"
+      piano: "piano de cartón"
+      deslizador: "un deslizador"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "La pantalla capacitiva tiene límites"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: guante, texto: "guantes normales", sub: "no conducen", marca: guantes}
+        - {modelo: esfero, texto: "la punta de un esfero", marca: esfero}
+        - {modelo: lapizActivo, texto: "escribir a mano", sub: "exige lápices especiales", marca: lapices}
+        - {modelo: flexible, texto: "pantallas flexibles", sub: "y que miden la fuerza", marca: futuro}
+    marcas:
+      guantes: "guantes normales"
+      esfero: "la punta de un esfero"
+      lapices: "lápices especiales"
+      futuro: "superficies flexibles"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: cerca
+    escena: Condensador3D
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos rápidos"
+    props: {modo: cerca}
+  - id: corea
+    escena: TocaPantalla3D
+    desde: "Dos: hace años"
+    props:
+      titulo: "Corea del Sur, en invierno"
+      toques:
+        - {tipo: salchicha, marca: salchicha, x: 0.2, z: 0.6}
+    marcas:
+      salchicha: "usaba salchichas"
+  - id: indio
+    escena: Vitrina
+    desde: "Tres: el material"
+    props:
+      items:
+        - {modelo: celular, texto: "pantallas", marca: pantallas}
+        - {modelo: solar, texto: "paneles solares", marca: solares}
+        - {modelo: plomo, texto: "materia prima crítica", props: {numero: "49", simbolo: "In", nombre: "indio", color: "#8C97A8"}, marca: critica}
+    marcas:
+      pantallas: "para pantallas"
+      solares: "paneles solares"
+      critica: "materia prima crítica"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: RecapTactil
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    marcas:
+      rejilla: "Una rejilla invisible"
+      chip: "un chip que la barre"
+      dedo: "un dedo que se roba"
+  - id: final
+    escena: TocaPantalla3D
+    desde: "La próxima vez que deslices"
+    props:
+      rejilla: roba
+      toques:
+        - {tipo: dedo, marca: deslices}
+    marcas:
+      deslices: "deslices el dedo"
+      roba: "le robas campo"
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S03 · el sensor de movimiento PIR"
+      items:
+        - {modelo: pir, texto: "enciende la luz", marca: luz}
+        - {modelo: bombillo, texto: "¿y si te quedas quieto?", marca: quieto, props: {luz: 0.6}}
+    marcas:
+      luz: "enciende la luz del baño"
+      quieto: "te quedas quieto"

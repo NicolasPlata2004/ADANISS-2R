@@ -15,7 +15,7 @@ import {clamp01, easeInOut, mix} from '../../motor/tiempo';
 
 export type V3 = [number, number, number];
 export type Camara = {pos: V3; obj: V3; fov?: number};
-export type Fondo = 'tapete' | 'negro';
+export type Fondo = 'tapete' | 'negro' | 'agua';
 
 /** Recorrido de cámara: claves [t, duración, pos, objetivo, fov]. */
 export type ClaveCam = {t: number; d?: number; pos: V3; obj: V3; fov?: number};
@@ -39,7 +39,7 @@ export const orbita = (centro: V3, radio: number, altura: number, angGrados: num
   return {pos: [centro[0] + radio * Math.sin(a), centro[1] + altura, centro[2] + radio * Math.cos(a)], obj: centro, fov};
 };
 
-const Ajustes: React.FC<{fondo: Fondo; exposicion: number; entorno: number}> = ({fondo, exposicion, entorno}) => {
+const Ajustes: React.FC<{fondo: Fondo; exposicion: number; entorno: number; niebla?: [number, number]}> = ({fondo, exposicion, entorno, niebla}) => {
   const {gl, scene} = useThree();
   useLayoutEffect(() => {
     gl.toneMapping = THREE.ACESFilmicToneMapping;
@@ -50,13 +50,18 @@ const Ajustes: React.FC<{fondo: Fondo; exposicion: number; entorno: number}> = (
     const env = pm.fromScene(new RoomEnvironment(), 0.03).texture;
     scene.environment = env;
     scene.environmentIntensity = entorno;
-    scene.background = new THREE.Color(fondo === 'negro' ? '#050607' : '#0F1A15');
-    scene.fog = fondo === 'negro' ? new THREE.Fog('#050607', 16, 46) : new THREE.Fog('#0F1A15', 45, 110);
+    scene.background = new THREE.Color(fondo === 'negro' ? '#050607' : fondo === 'agua' ? '#06304A' : '#0F1A15');
+    scene.fog =
+      fondo === 'negro' ? new THREE.Fog('#050607', 16, 46) : fondo === 'agua' ? new THREE.Fog('#06304A', 10, 75) : new THREE.Fog('#0F1A15', 45, 110);
+    if (niebla && scene.fog instanceof THREE.Fog) {
+      scene.fog.near = niebla[0];
+      scene.fog.far = niebla[1];
+    }
     return () => {
       env.dispose();
       pm.dispose();
     };
-  }, [gl, scene, fondo, exposicion, entorno]);
+  }, [gl, scene, fondo, exposicion, entorno, niebla?.[0], niebla?.[1]]);
   return null;
 };
 
@@ -107,6 +112,14 @@ const Luces: React.FC<{fondo: Fondo; centro: V3}> = ({fondo, centro}) => {
 };
 
 const Suelo: React.FC<{fondo: Fondo; sombras: boolean}> = ({fondo, sombras}) => {
+  if (fondo === 'agua') {
+    return (
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow={sombras}>
+        <planeGeometry args={[400, 400]} />
+        <meshStandardMaterial color="#1E3337" roughness={1} metalness={0} />
+      </mesh>
+    );
+  }
   if (fondo === 'negro') {
     return (
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow={sombras}>
@@ -148,12 +161,14 @@ export const Estudio: React.FC<{
   entorno?: number;
   centroLuz?: V3;
   desenfoque?: {foco: number; apertura: number} | null;
+  /** Niebla [cerca, lejos] en unidades de escena (por defecto según el fondo). */
+  niebla?: [number, number];
   /** Calidad: escala de render (0.75 = 1440×810 reescalado), antialias y sombras proyectadas en el suelo. */
   escala?: number;
   aa?: boolean;
   sombraSuelo?: boolean;
   children: React.ReactNode;
-}> = ({camara, fondo = 'tapete', exposicion = 1.0, entorno = 0.75, centroLuz = [0, 0, 0], desenfoque = null, escala = 1, aa = true, sombraSuelo = true, children}) => {
+}> = ({camara, fondo = 'tapete', exposicion = 1.0, entorno = 0.75, centroLuz = [0, 0, 0], desenfoque = null, niebla, escala = 1, aa = true, sombraSuelo = true, children}) => {
   const {width, height} = useVideoConfig();
   const w = Math.round(width * escala);
   const h = Math.round(height * escala);
@@ -161,7 +176,7 @@ export const Estudio: React.FC<{
     <div style={{position: 'absolute', inset: 0, overflow: 'hidden'}}>
     <div style={{width: w, height: h, transform: `scale(${1 / escala})`, transformOrigin: '0 0'}}>
     <ThreeCanvas width={w} height={h} shadows gl={{antialias: aa}} camera={{fov: camara.fov ?? 30, position: camara.pos, near: 0.05, far: 400}}>
-      <Ajustes fondo={fondo} exposicion={exposicion} entorno={entorno} />
+      <Ajustes fondo={fondo} exposicion={exposicion} entorno={entorno} niebla={niebla} />
       <ControlCamara {...camara} />
       <Luces fondo={fondo} centro={centroLuz} />
       <Suelo fondo={fondo} sombras={sombraSuelo} />

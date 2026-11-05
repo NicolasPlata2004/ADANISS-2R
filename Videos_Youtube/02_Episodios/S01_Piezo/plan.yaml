@@ -1,9 +1,10 @@
-# S01 · El cristal que convierte un golpe en electricidad (formato mixto "taller")
-# 3D realista (estilo reel del piezo) + insertos 2D Pizarra. Sin audio todavía: los
-# tiempos salen del guion (guion_a_tiempos.py) y se re-sincronizan cuando llegue la voz.
+# S01 · El cristal que convierte un golpe en electricidad — versión solo-3D (definitiva).
+# Todas las escenas son renders 3D. La versión anterior (3D + insertos 2D) está en plan_mixto.yaml.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S01_NARRACION.wav  y ejecuta producir.bat S01_Piezo
 episodio: S01_Piezo
 titulo: "El cristal que convierte un golpe en electricidad"
-formato: taller
+formato: taller3d
 fps: 24
 cola: 10
 adelanto: 0.25
@@ -22,13 +23,13 @@ escenas:
       chispa: "escupiendo miles"
       sinpilas: "Sin pilas"
   - id: usos3
-    escena: Usos
+    escena: Vitrina
     desde: "Ese mismo truco"
     props:
       items:
-        - {icono: reloj, texto: "reloj de cuarzo", marca: reloj}
-        - {icono: ecografia, texto: "ecografía", marca: bebe}
-        - {icono: motor, texto: "sensor de golpeteo", marca: motor}
+        - {modelo: reloj, texto: "reloj de cuarzo", marca: reloj}
+        - {modelo: ecografia, texto: "ecografía", marca: bebe}
+        - {modelo: motor, texto: "sensor de golpeteo", marca: motor}
     marcas:
       reloj: "tu reloj cuente"
       bebe: "vea a un bebé"
@@ -46,9 +47,10 @@ escenas:
     escena: TituloPiezo
     desde: "Se llama efecto"
   - id: agenda
-    escena: Agenda
+    escena: Agenda3D
     desde: "En este video vas a ver"
     props:
+      modelo: piezo
       items:
         - {texto: "Dentro del cristal, átomo por átomo", marca: uno}
         - {texto: "El sensor de menos de un dólar", marca: dos}
@@ -60,29 +62,29 @@ escenas:
 
   # ------------------------------------------------------------------ DÓNDE ESTÁ
   - id: usoscasa
-    escena: Usos
+    escena: Vitrina
     seccion: "DÓNDE ESTÁ"
     capitulo: "Dónde está el piezo"
-    desde: "Empecemos por lo que"
+    desde: "El pitido de muchos"
     props:
       items:
-        - {icono: microondas, texto: "microondas", marca: microondas}
-        - {icono: humo, texto: "detector de humo", marca: humo}
-        - {icono: chip, texto: "cristal de cuarzo", marca: cuarzo}
+        - {modelo: microondas, texto: "microondas", sub: "el pitido", marca: microondas}
+        - {modelo: humo, texto: "detector de humo", sub: "la alarma", marca: humo}
+        - {modelo: celular, texto: "cristal de cuarzo", sub: "el ritmo del procesador", marca: cuarzo}
     marcas:
-      microondas: "El pitido del microondas"
-      humo: "detector de humo"
+      microondas: "El pitido de muchos"
+      humo: "detectores de humo"
       cuarzo: "Dentro de tu celular"
   - id: usosmundo
-    escena: Usos
+    escena: Vitrina
     desde: "Las ecografías usan"
     props:
       items:
-        - {icono: ecografia, texto: "ecografías", marca: eco}
-        - {icono: parqueo, texto: "sensores de parqueo", marca: parqueo}
-        - {icono: impresora, texto: "impresoras de tinta", marca: impresora}
-        - {icono: guitarra, texto: "guitarras", marca: guitarra}
-        - {icono: motor, texto: "motores", marca: motor}
+        - {modelo: ecografia, texto: "ecografías", sub: "cientos de elementos", marca: eco}
+        - {modelo: parqueo, texto: "sensores de parqueo", sub: "gritan y escuchan el eco", marca: parqueo}
+        - {modelo: impresora, texto: "impresoras de tinta", sub: "disparan gotas", marca: impresora}
+        - {modelo: guitarra, texto: "guitarras", sub: "bajo el puente", marca: guitarra}
+        - {modelo: motor, texto: "motores", sub: "escucha la detonación", marca: motor}
     marcas:
       eco: "Las ecografías"
       parqueo: "Los sensores de parqueo"
@@ -106,7 +108,7 @@ escenas:
     desde: "Ahora apriétalo"
     marcas:
       acercan: "se acercan y se corren"
-      desplazan: "los positivos se desplazan"
+      desplazan: "el centro de las cargas"
       caras: "una cara del cristal"
       voltaje: "Eso es un voltaje"
       cable: "Si unes las dos caras"
@@ -118,46 +120,52 @@ escenas:
       deforma: "el cristal se deforma"
       nombre: "directo e inverso"
   - id: dinamica
-    escena: GraficaDinamica
+    escena: CargaSeEscapa
     desde: "Fíjate en un detalle"
     marcas:
-      aprieta: "Si aprietas"
-      escapa: "la carga se escapa"
-      golpes: "Por eso un piezo"
+      quieto: "te quedas quieto"
+      escapa: "se va escapando"
+      cambios: "solo nota los"
       arroz: "bolsa de arroz"
 
   # ------------------------------------------------------------------ LA HISTORIA
   - id: historia
-    escena: Linea
+    escena: Vitrina
     seccion: "LA HISTORIA"
     capitulo: "La historia: de los Curie al sonar"
     desde: "Esto lo descubrieron"
     props:
-      hitos:
-        - {anio: "1880", texto: "Jacques y Pierre Curie", sub: "apretando cuarzo y sal de Rochelle", marca: curie}
-        - {anio: "1881", texto: "Gabriel Lippmann", sub: "predice el efecto inverso", marca: lippmann}
-        - {anio: "1917", texto: "Paul Langevin", sub: "ultrasonido con cuarzo: el sonar", marca: langevin}
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: cuarzo, anio: "1880", texto: "Jacques y Pierre Curie", sub: "aprietan cuarzo y sal de Rochelle", marca: curie}
+        - {modelo: cuarzoPila, anio: "1881", texto: "Gabriel Lippmann", sub: "predice el efecto inverso", marca: lippmann}
+        - {modelo: transductor, anio: "1917", texto: "Paul Langevin", sub: "ultrasonido con cuarzo", marca: submarinos}
     marcas:
       curie: "Jacques y Pierre"
       lippmann: "Gabriel Lippmann"
-      langevin: "llegaron los submarinos"
+      submarinos: "Durante décadas"
   - id: sonar
-    escena: Sonar
+    escena: Sonar3D
     desde: "En la Primera Guerra"
     marcas:
-      emisor: "construyó un emisor"
-      sonar: "origen del sonar"
+      submarinos: "detectarlos bajo el agua"
+      langevin: "Paul Langevin"
+      base: "la base del sonar"
   - id: cuarzopzt
     escena: CuarzoPZT
     desde: "Hoy casi nadie usa cuarzo"
     marcas:
       pzt: "el PZT"
   - id: polarizar
-    escena: Polarizar
+    escena: Polarizar3D
     desde: "Recién horneada"
     marcas:
-      campo: "se somete a un campo"
-      nombre: "se le llama polarizar"
+      direcciones: "en todas las direcciones"
+      calienta: "se calienta"
+      campo: "un campo eléctrico muy fuerte"
+      polarizar: "se le llama"
+      responde: "responde muchísimo"
 
   # ------------------------------------------------------------------ ANATOMÍA
   - id: hero
@@ -181,7 +189,7 @@ escenas:
     marcas:
       dobla: "se dobla como"
       curva: "El latón se curva"
-      voltaje: "aparece voltaje"
+      voltaje: "hace aparecer voltaje"
   - id: golpe
     escena: PiezoGolpe
     desde: "Un golpe seco"
@@ -192,7 +200,7 @@ escenas:
     desde: "Si en vez de golpearlo"
     marcas:
       vibra: "el disco vibra"
-      micro: "Ese es el zumbador"
+      micro: "Así suena el zumbador"
       escucha: "una vez escucha"
       habla: "la otra vez habla"
 
@@ -208,14 +216,31 @@ escenas:
       resistencia: "una resistencia de un megaohmio"
       pegada: "se queda pegada"
   - id: proteccion
-    escena: Proteccion
+    escena: Proteccion3D
     desde: "Y un detalle que salva"
     marcas:
       picos: "pueden superar"
-      zener: "Una resistencia en serie"
+      resistencia: "Una resistencia en serie"
+      zener: "un diodo zener"
+      recortan: "recortan esos picos"
   - id: codigo
-    escena: Codigo
+    escena: Codigo3D
     desde: "El programa es sencillo"
+    props:
+      lineas:
+        - "const int PIEZO = 34;     // entrada analógica"
+        - "const int UMBRAL = 300;"
+        - ""
+        - "void loop() {"
+        - "  int v = analogRead(PIEZO);"
+        - "  if (v > UMBRAL) {        // ¡golpe!"
+        - "    Serial.println(v);     // qué tan fuerte"
+        - "  }"
+        - "}"
+      resaltar:
+        - {linea: 4, marca: lees}
+        - {linea: 5, marca: umbral}
+        - {linea: 6, marca: altura}
     marcas:
       lees: "Lees la entrada"
       umbral: "supera un umbral"
@@ -223,13 +248,13 @@ escenas:
       campana: "como una campana"
       altura: "la altura del pico"
   - id: diy
-    escena: Usos
+    escena: Vitrina
     desde: "Con eso ya tienes"
     props:
       items:
-        - {icono: bateria, texto: "pad de batería", marca: pad}
-        - {icono: escalera, texto: "contador de pasos", marca: escalera}
-        - {icono: candado, texto: "cerradura de golpes", marca: cerradura}
+        - {modelo: bateria, texto: "pad de batería", marca: pad}
+        - {modelo: escalera, texto: "contador de pasos", marca: escalera}
+        - {modelo: puerta, texto: "cerradura de golpes", sub: "abre con tu ritmo secreto", marca: cerradura}
     marcas:
       pad: "un pad de"
       escalera: "un contador de pasos"
@@ -239,26 +264,28 @@ escenas:
     desde: "Si pegas el disco"
     marcas:
       tres: "si pones tres"
-      orden: "en qué orden"
+      orden: "en qué instante"
       estimar: "estimar dónde"
 
   # ------------------------------------------------------------------ LÍMITES Y DATOS
   - id: limites
-    escena: Lista
+    escena: Vitrina
     seccion: "LÍMITES"
     capitulo: "Los límites"
-    desde: "Antes de los datos"
+    desde: "Un piezo no mide fuerzas"
     props:
+      numerado: true
+      color: "#FFB547"
       items:
-        - {icono: grafica, texto: "No mide fuerzas quietas", marca: quietas}
-        - {icono: termometro, texto: "Temperatura de Curie: pierde el efecto", marca: curie}
-        - {icono: plomo, texto: "Lleva plomo: se buscan cerámicas sin plomo", marca: plomo}
-        - {icono: pelicula, texto: "Futuro: películas flexibles", marca: futuro}
+        - {modelo: pesa, texto: "no mide fuerzas quietas", marca: quietas}
+        - {modelo: calor, texto: "temperatura de Curie", sub: "pierde el efecto", marca: curie}
+        - {modelo: plomo, texto: "lleva plomo", sub: "se buscan cerámicas sin plomo", marca: plomo}
+        - {modelo: pelicula, texto: "películas flexibles", sub: "ropa, zapatos y puentes", marca: futuro}
     marcas:
       quietas: "no mide fuerzas"
       curie: "temperatura de Curie"
       plomo: "lleva plomo"
-      futuro: "El futuro va"
+      futuro: "películas piezoeléctricas flexibles"
   - id: reloj
     escena: RelojCuarzo
     seccion: "TRES DATOS"
@@ -266,20 +293,23 @@ escenas:
     desde: "Tres datos para"
     marcas:
       diapason: "un diapasón de cristal"
-      vibra: "vibra exactamente"
+      vibra: "que vibra"
       potencia: "No es un número"
       divide: "Un circuito lo divide"
       segundo: "un pulso por segundo"
   - id: hueso
-    escena: Hueso
+    escena: Hueso3D
     desde: "Dos: tus huesos"
     marcas:
-      colageno: "El colágeno"
+      colageno: "El colágeno genera"
+      peso: "soporta peso"
+      fortalece: "se fortalece"
   - id: baldosas
-    escena: Baldosas
+    escena: Baldosas3D
     desde: "Tres: en Japón"
     marcas:
-      funcionan: "Funcionan, pero"
+      tokio: "en la estación de Tokio"
+      bombillo: "un bombillo de cien"
       ciudad: "no va a encender"
 
   # ------------------------------------------------------------------ CIERRE
@@ -299,14 +329,15 @@ escenas:
     marcas:
       golpe: "estás golpeando"
   - id: proximo
-    escena: Proximo
+    escena: Vitrina
     desde: "En el próximo episodio"
     props:
-      titulo: "S02 · La pantalla táctil"
+      titulo: "Próximo episodio"
+      sub: "S02 · la pantalla táctil"
       items:
-        - {icono: dedo, texto: "con tu dedo, sí", marca: dedo}
-        - {icono: guante, texto: "con guantes, no", marca: guantes}
-        - {icono: salchicha, texto: "¿con una salchicha?", marca: salchicha}
+        - {modelo: celular, texto: "con tu dedo, sí", marca: dedo}
+        - {modelo: guante, texto: "con guantes, no", marca: guantes}
+        - {modelo: salchicha, texto: "¿con una salchicha?", marca: salchicha}
     marcas:
       dedo: "con tu dedo"
       guantes: "con guantes"

@@ -26,12 +26,17 @@ const PESOS = [
 
 let promesa: Promise<unknown> | null = null;
 
+/** Promesa compartida de carga de fuentes (la usan también las texturas de texto 3D). */
+export const cargarFuentes = () => {
+  promesa ??= Promise.all(PESOS.map((p) => document.fonts.load(p, MUESTRA))).then(() => document.fonts.ready);
+  return promesa;
+};
+
 /** Detiene el render hasta que las fuentes estén cargadas (evita textos con la fuente equivocada). */
 export const useFuentes = () => {
   useState(() => {
     const h = delayRender('Cargando fuentes');
-    promesa ??= Promise.all(PESOS.map((p) => document.fonts.load(p, MUESTRA))).then(() => document.fonts.ready);
-    promesa.then(() => continueRender(h)).catch(() => continueRender(h));
+    cargarFuentes().then(() => continueRender(h)).catch(() => continueRender(h));
     return h;
   });
 };
