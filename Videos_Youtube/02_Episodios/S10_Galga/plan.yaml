@@ -28,7 +28,7 @@ escenas:
       items:
         - {modelo: puente, texto: "vigila puentes", marca: puentes}
         - {modelo: camion, texto: "pesa camiones enteros", marca: camiones}
-        - {modelo: ala, texto: "prueba las alas de los aviones", marca: alas}
+        - {modelo: ala, escala: 0.38, texto: "prueba las alas de los aviones", marca: alas}
     marcas:
       puentes: "vigila puentes"
       camiones: "pesa camiones"
@@ -77,10 +77,10 @@ escenas:
       items:
         - {modelo: basculaFrutas, texto: "la báscula de las frutas", marca: super}
         - {modelo: camion, texto: "básculas para camiones", marca: camiones}
-        - {modelo: grua, texto: "grúas: no levantar de más", marca: gruas}
+        - {modelo: grua, escala: 0.5, texto: "grúas: no levantar de más", marca: gruas}
         - {modelo: impresora3d, texto: "impresoras 3D", sub: "la boquilla siente cuándo toca la cama", marca: impresora}
         - {modelo: puente, texto: "puentes, presas y edificios", marca: puentes}
-        - {modelo: ala, texto: "aviones y carros de carreras", marca: aviones}
+        - {modelo: ala, escala: 0.38, texto: "aviones y carros de carreras", marca: aviones}
         - {modelo: celular, texto: "el barómetro del celular", sub: "una membrana de silicio que se dobla", marca: barometro}
     marcas:
       super: "En el supermercado"
@@ -230,7 +230,7 @@ escenas:
         - {modelo: tierra, escala: 0.5, numero: "1", texto: "mide fuerza, no masa", sub: "en los polos marcaría ~0,5 % más", marca: fuerza}
         - {modelo: balanza, numero: "", texto: "la balanza compara masas", sub: "marca lo mismo en cualquier lugar", marca: balanza}
         - {modelo: kilogramo, numero: "2", texto: "el kilo: un cilindro hasta 2019", sub: "hoy se define con la constante de Planck", marca: kilo}
-        - {modelo: ala, numero: "3", texto: "787: alas a 1,5 × su carga máxima", sub: "las puntas subieron unos 7,5 m (2010)", marca: avion}
+        - {modelo: ala, escala: 0.38, numero: "3", texto: "787: alas a 1,5 × su carga máxima", sub: "las puntas subieron unos 7,5 m (2010)", marca: avion}
     marcas:
       fuerza: "tu báscula mide fuerza"
       balanza: "Una balanza de dos platos"
@@ -249,7 +249,7 @@ escenas:
         - {modelo: wheatstone, texto: "un puente de cuatro resistencias", marca: puente}
         - {modelo: hx711, texto: "un amplificador que cuenta millones de pasos", marca: amplificador}
         - {modelo: camion, texto: "frutas, maletas y camiones", marca: pesan}
-        - {modelo: ala, texto: "puentes y aviones vigilados", marca: vigilan}
+        - {modelo: ala, escala: 0.38, texto: "puentes y aviones vigilados", marca: vigilan}
     marcas:
       zigzag: "Un metal en zigzag"
       puente: "un puente de cuatro resistencias"

@@ -227,22 +227,47 @@ export const Puente: React.FC<Anim> = () => (
     ))}
   </group>
 );
+/**
+ * Semiala de avión de pasajeros con su pedazo de fuselaje. `flexion` = 1 sube la punta un 25 % de la
+ * envergadura, como en el ensayo de carga última del 787 (unos 7,5 m en ~30 m de semiala).
+ */
 export const AlaAvion: React.FC<Anim & {flexion?: number}> = ({t = 0, a = 0, flexion}) => {
-  const f = flexion ?? (a > 0.01 ? 0.6 + 0.4 * Math.sin(t * 0.6) : 0.2);
-  const geo = useMemo(() => new THREE.BoxGeometry(12, 0.3, 2.4, 40, 1, 1), []);
+  const f = flexion ?? (a > 0.01 ? 0.55 + 0.45 * Math.sin(t * 0.6) : 0.2);
+  const geo = useMemo(() => new THREE.BoxGeometry(12, 0.34, 2.8, 48, 1, 1), []);
   const base = useMemo(() => Float32Array.from(geo.attributes.position.array as Float32Array), [geo]);
+  const curva = (x: number) => f * (x / 12) ** 2 * 3.0;
+  const flecha = 0.5;
   const pos = geo.attributes.position as THREE.BufferAttribute;
   for (let i = 0; i < pos.count; i++) {
     const x = base[i * 3] + 6;
-    pos.setY(i, base[i * 3 + 1] + f * (x / 12) ** 2 * 3.0);
-    pos.setZ(i, base[i * 3 + 2] * (1 - (x / 12) * 0.5));
+    const k = x / 12;
+    pos.setY(i, base[i * 3 + 1] * (1 - 0.55 * k) + curva(x));
+    pos.setZ(i, base[i * 3 + 2] * (1 - 0.6 * k) - x * flecha);
   }
   pos.needsUpdate = true;
   geo.computeVertexNormals();
+  const blanco = M.color('#E9ECEF', 0.35, 0.2);
+  const xm = 3.5;
   return (
-    <group position={[-4, 2.0, 0]}>
-      <Cil r={1.4} h={5} pos={[-6.2, 0, 0]} rot={[Math.PI / 2, 0, 0]} mat={M.plasticoBlanco()} />
-      <mesh geometry={geo} position={[0, 0, 0]} material={M.color('#D9DDE1', 0.4, 0.5)} castShadow />
+    <group position={[0.8, 2.0, 1.6]}>
+      <group position={[-7.4, 0.2, -1.6]}>
+        <Cap r={1.4} largo={9.0} rot={[Math.PI / 2, 0, 0]} mat={blanco} />
+        <mesh position={[0, 1.9, -5.0]} rotation={[0.55, 0, 0]} castShadow>
+          <boxGeometry args={[0.22, 2.8, 1.8]} />
+          <meshStandardMaterial color="#1F4E8C" roughness={0.4} />
+        </mesh>
+        <Caja tam={[0.05, 0.35, 6.5]} pos={[1.36, 0.35, 0.3]} material={M.color('#1F4E8C', 0.4)} />
+      </group>
+      <mesh geometry={geo} position={[0, 0, 0]} material={blanco} castShadow />
+      <group position={[-6 + xm, -0.85 + curva(xm), -xm * flecha + 0.9]}>
+        <Cil r={0.6} r2={0.5} h={2.6} rot={[Math.PI / 2, 0, 0]} mat={M.color('#C9CDD2', 0.3, 0.6)} />
+        <Cil r={0.48} h={0.05} pos={[0, 0, 1.31]} rot={[Math.PI / 2, 0, 0]} mat={M.color('#1A1C20', 0.4, 0.6)} />
+        <Caja tam={[0.16, 0.7, 1.4]} pos={[0, 0.55, -0.3]} material={blanco} />
+      </group>
+      <mesh position={[6.0, curva(12) + 0.5, -12 * flecha - 0.1]} rotation={[0, 0, 0.15]} castShadow>
+        <boxGeometry args={[0.12, 1.1, 0.9]} />
+        <meshStandardMaterial color="#1F4E8C" roughness={0.4} />
+      </mesh>
     </group>
   );
 };
