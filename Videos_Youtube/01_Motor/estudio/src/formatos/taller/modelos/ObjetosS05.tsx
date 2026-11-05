@@ -168,7 +168,8 @@ export const Huracan: React.FC<Anim> = ({t = 0}) => {
       for (let i = 0; i <= 40; i++) {
         const u = i / 40;
         const r = 0.6 + u * 4.2;
-        const a = b * (Math.PI / 2) - u * 3.2;
+        // brazos que se arrastran detrás del giro antihorario (hemisferio norte): hacia afuera curvan en sentido horario
+        const a = b * (Math.PI / 2) + u * 3.2;
         pts.push([r * Math.cos(a), 1.0 + u * 0.2, r * Math.sin(a)]);
       }
       out.push(pts);

@@ -21,7 +21,8 @@ export const GloboHuracan3D: React.FC<{modo?: 'gancho' | 'coriolis'}> = ({modo =
   const {t, M: m, dur} = useEscena();
   const tN = m('norte', 4.0);
   const tH = m('huracanes', 9.0);
-  const giro = t * 0.25;
+  // la Tierra gira despacio (de oeste a este) para que el huracán, a 24° N, cruce la cara visible
+  const giro = -0.5 + t * 0.04;
   const lat = 0.42;
   const R = 6;
   const cam = orbita([0, 7.6, 1.5], 21, 5.5, 4 + t * 0.6, 32);
@@ -275,7 +276,7 @@ export const Deriva3D: React.FC = () => {
             <MPU6050 />
           </group>
         )}
-        <TextoPlano lineas={[{t: `t = ${Math.round(reloj)} s`, tam: 110, color: '#E8EAED', mono: true}, {t: `error: ${Math.round(reloj * (1 - corr))}°`, tam: 110, color: '#FF8A3D', mono: true}]} w={4.2} h={1.6} pos={[7.2, 2.4, -1.5]} rot={[0, -0.5, 0]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tG, 0.5)} />
+        <TextoPlano lineas={[{t: `t = ${Math.round(reloj)} s`, tam: 110, color: '#E8EAED', mono: true}, {t: `error: ${Math.round(reloj * (1 - corr))}°`, tam: 110, color: '#FF8A3D', mono: true}]} w={4.2} h={1.6} pos={[5.6, 2.6, -2.5]} rot={[0, -0.5, 0]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tG, 0.5)} />
       </Estudio>
       <TituloGrande texto="el giroscopio mide velocidad de giro, no el ángulo" p={ap(t, 0.3, 0.5) * sal(t, tS - 0.3, 0.3)} y={96} />
       <TituloGrande texto="para el ángulo hay que ir sumando" p={ap(t, tS, 0.5) * sal(t, tG - 0.3, 0.3)} y={96} />
@@ -308,9 +309,9 @@ export const RobotEquilibrio3D: React.FC = () => {
         </group>
         <TextoPlano
           lineas={[{t: 'ángulo = 0,98 · (ángulo + giro·dt)', tam: 76, color: '#E8EAED', mono: true}, {t: '       + 0,02 · ángulo_acelerómetro', tam: 76, color: '#7CFFB2', mono: true}]}
-          w={9.4}
+          w={8.4}
           h={1.7}
-          pos={[-6.0, 7.4, -3.0]}
+          pos={[-6.9, 4.4, -1.5]}
           rot={[0, 0.35, 0]}
           estilo={{fondo: '#0B0F14', radio: 40, alinear: 'left'}}
           op={ap(t, tMe, 0.5)}
