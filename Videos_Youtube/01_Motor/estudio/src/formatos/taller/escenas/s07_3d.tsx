@@ -41,7 +41,8 @@ export const GritoGancho3D: React.FC<{final?: boolean}> = ({final = false}) => {
     t,
   );
   const camBat: Camara = orbita([0, 3, 0], 13, 1.5, 20 + t * 2, 32);
-  const camSen: Camara = orbita([0, 1.4, 0], 9, 1.5, -10 + t * 3, 30);
+  // de frente a los «dos ojos» (los transductores), girando apenas
+  const camSen: Camara = orbita([0, 1.4, 0], 11, 1.8, -15 + (t - tSe) * 2.5, 30);
   const cam = enCarro ? camCarro : enBat ? camBat : camSen;
   const tPulsos = useMemo(() => Array.from({length: 40}, (_, k) => tG + k * 0.45), [tG]);
   return (
@@ -78,8 +79,8 @@ export const GritoGancho3D: React.FC<{final?: boolean}> = ({final = false}) => {
           </group>
         )}
       </Estudio>
-      {enCarro && <TituloGrande texto="está gritando" sub="decenas de miles de vibraciones por segundo" p={ap(t, tG, 0.4) * sal(t, tE - 0.3, 0.3)} y={96} />}
-      {enCarro && <TituloGrande texto="escucha el eco y cronometra" p={ap(t, tE, 0.4) * sal(t, tMu - 0.6, 0.3)} y={96} />}
+      {enCarro && !final && <TituloGrande texto="está gritando" sub="decenas de miles de vibraciones por segundo" p={ap(t, tG, 0.4) * sal(t, tE - 0.3, 0.3)} y={96} />}
+      {enCarro && !final && <TituloGrande texto="escucha el eco y cronometra" p={ap(t, tE, 0.4) * sal(t, tMu - 0.6, 0.3)} y={96} />}
       {enBat && <TituloGrande texto="los murciélagos: unos 50 millones de años" sub="y los delfines también" p={ap(t, tMu, 0.4) * sal(t, tSe - 0.6, 0.3)} y={96} />}
       {!enCarro && !enBat && !final && <TituloGrande texto="dos ojos… que no son ojos" p={ap(t, tSe, 0.4) * sal(t, dur, 0.3)} y={96} />}
       {final && <TituloGrande texto="lleva rato gritando" p={ap(t, 1.0, 0.4) * sal(t, dur, 0.3)} y={96} />}
@@ -158,7 +159,7 @@ export const EcoDistancia3D: React.FC = () => {
         {vuelta > 0.05 && vuelta < metro && <Arcos origen={[metro, 1.2, 0]} dir={-Math.PI / 2} apertura={0.5} t={vuelta} t0={0} vel={1} n={1} vida={99} r0={0} color="#FFB547" />}
         <Tubo puntos={[[0, 0.05, 2.2], [metro, 0.05, 2.2]]} radio={0.04} material={M.emisivo('#E8EAED', 1)} seg={4} />
         <TextoPlano lineas={[{t: '1 m', tam: 140, color: '#E8EAED'}]} w={1.6} h={0.7} pos={[metro / 2, 0.06, 2.9]} rot={[-Math.PI / 2, 0, 0]} op={ap(t, tEj, 0.5)} />
-        <TextoPlano lineas={[{t: `${ms.toFixed(1).replace('.', ',')} ms`, tam: 140, color: '#7CFFB2', mono: true}]} w={3.2} h={0.9} pos={[3, 3.4, -2.6]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tEj, 0.5)} />
+        <TextoPlano lineas={[{t: `${ms.toFixed(1).replace('.', ',')} ms`, tam: 140, color: '#7CFFB2', mono: true}]} w={3.2} h={0.9} pos={[1.4, 2.4, -2.4]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tEj, 0.5)} />
       </Estudio>
       <TituloGrande texto="lanza un pulso, rebota y vuelve" p={ap(t, tP, 0.5) * sal(t, tD - 0.3, 0.3)} y={96} />
       <TituloGrande texto="distancia = velocidad × tiempo ÷ 2" p={ap(t, tD, 0.5) * sal(t, tEj - 0.3, 0.3)} y={96} />
@@ -240,8 +241,8 @@ export const UltraESP32_3D: React.FC = () => {
           ]}
           w={5.2}
           h={1.7}
-          pos={[6.0, 3.0, -2.6]}
-          rot={[0, -0.4, 0]}
+          pos={[2.8, 1.5, -3.8]}
+          rot={[0, -0.25, 0]}
           estilo={{fondo: '#0B0F14', radio: 40}}
           op={ap(t, tPu, 0.5)}
         />
@@ -271,7 +272,7 @@ export const TemperaturaSonido3D: React.FC = () => {
         </group>
         <Caja tam={[0.6, 4, 5]} pos={[4.3, 2, 0]} material={M.color('#8D8A84', 0.9)} />
         <Arcos origen={[-3.8, 1.2, 0]} dir={Math.PI / 2} apertura={0.5} t={t} t0={0} vel={v / 343 * 6} n={20} cada={0.5} vida={8 / (v / 343 * 6)} color={temp > 15 ? '#FFB547' : CIAN} />
-        <TextoPlano lineas={[{t: `${temp.toFixed(0)} °C`, tam: 150, color: temp > 15 ? '#FFB547' : CIAN, mono: true}, {t: `${v.toFixed(0)} m/s`, tam: 110, color: '#E8EAED', mono: true}]} w={3.6} h={1.7} pos={[0, 5, -1.5]} estilo={{fondo: '#0B0F14', radio: 40}} />
+        <TextoPlano lineas={[{t: `${temp.toFixed(0)} °C`, tam: 150, color: temp > 15 ? '#FFB547' : CIAN, mono: true}, {t: `${v.toFixed(0)} m/s`, tam: 110, color: '#E8EAED', mono: true}]} w={3.6} h={1.7} pos={[-5.2, 3.6, -1.0]} estilo={{fondo: '#0B0F14', radio: 40}} />
       </Estudio>
       <TituloGrande texto="+0,6 m/s por cada grado" p={ap(t, tT, 0.5) * sal(t, tC - 0.3, 0.3)} y={96} />
       <TituloGrande texto="la medida cambia varios cm por metro" p={ap(t, tC, 0.5) * sal(t, tTe - 0.3, 0.3)} y={96} />

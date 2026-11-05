@@ -35,7 +35,7 @@ export const LuzGancho3D: React.FC = () => {
   const tSe = m('selva', 26.0);
   const fase = t < tC - 0.5 ? 0 : t < tCa - 0.5 ? 1 : 2;
   const camT: Camara = orbita([0, 6.2, 0], 34, 6, t * 3, 32);
-  const camC: Camara = orbita([0, 1.6, 1.4], 12, 3.5, 55 + t * 1.5, 30);
+  const camC: Camara = orbita([0, 1.4, 1.4], 12, 3.0, 55 + t * 1.5, 30);
   const camS: Camara = {pos: [6, 18, 16], obj: [0, 0, 0], fov: 34};
   const cam = fase === 0 ? camT : fase === 1 ? camC : camS;
   const anillo = useMemo(() => {
@@ -61,10 +61,10 @@ export const LuzGancho3D: React.FC = () => {
           <>
             <VL53L0X laser={1} />
             <group position={[0, 0.4, 3.2]}>
-              <Dedo alto={2.4} />
+              <Dedo alto={1.4} />
             </group>
-            <Pulso a={[-0.13, 0.35, 0.2]} b={[0, 2.8, 3.2]} q={ida * 2} />
-            <Pulso a={[0, 2.8, 3.2]} b={[0.13, 0.35, 0.2]} q={ida * 2 - 1} color="#FFB547" />
+            <Pulso a={[-0.13, 0.35, 0.2]} b={[0, 1.8, 3.2]} q={ida * 2} />
+            <Pulso a={[0, 1.8, 3.2]} b={[0.13, 0.35, 0.2]} q={ida * 2 - 1} color="#FFB547" />
           </>
         )}
         {fase === 2 && (
@@ -278,8 +278,9 @@ export const ToFESP32_3D: React.FC = () => {
   const tL = m('libreria', 6.0);
   const tN = m('normal', 11.0);
   const tD = m('direccion', 16.0);
-  const tP = m('proyectos', 22.0);
-  const tG = m('cuadricula', 30.0);
+  // proyectos y cuadrícula se narran en la vitrina siguiente: aquí no deben aparecer
+  const tP = m('proyectos', 1e9);
+  const tG = m('cuadricula', 1e9);
   const mano = 0.6 + 0.35 * Math.sin(t * 0.8);
   const mm = Math.round(mano * 1000);
   const cam = orbita([0.5, 1.6, 0.6], 13, 6, -15 + t * 0.8, 30);
@@ -301,10 +302,10 @@ export const ToFESP32_3D: React.FC = () => {
         {[['#C62828', 0.0], ['#1A1A1A', 0.25], ['#2563EB', 0.5], ['#F2C230', 0.75]].map(([c, z], i) => (
           <Tubo key={i} puntos={[[-1.9, 0.45, 0.3 + (z as number)], [-0.4, 0.9, 0.5 + (z as number)], [1.4, 0.6, 0.2 + (z as number)]]} radio={0.05} material={M.color(c as string, 0.4)} seg={16} />
         ))}
-        <group position={[-2.5, 0.4 + mano * 4, 0.5]}>
+        <group position={[-2.5, 0.4 + mano * 2.6, 0.5]}>
           <Caja tam={[1.8, 0.4, 2.4]} material={new THREE.MeshPhysicalMaterial({color: '#E3A987', roughness: 0.5})} radio={0.18} />
         </group>
-        <TextoPlano lineas={[{t: `${mm} mm`, tam: 150, color: '#7CFFB2', mono: true}]} w={3.4} h={0.9} pos={[3.2, 3.8, -2]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tL, 0.5)} />
+        <TextoPlano lineas={[{t: `${mm} mm`, tam: 150, color: '#7CFFB2', mono: true}]} w={3.4} h={0.9} pos={[3.4, 2.1, -2.8]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tL, 0.5)} />
       </Estudio>
       <TituloGrande texto="I2C: cuatro cables y 3,3 V" p={ap(t, tI, 0.5) * sal(t, tL - 0.3, 0.3)} y={96} />
       <TituloGrande texto="la distancia en milímetros, ~30 veces por segundo" p={ap(t, tL, 0.5) * sal(t, tN - 0.3, 0.3)} y={96} />
