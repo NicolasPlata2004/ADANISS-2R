@@ -1,0 +1,223 @@
+# S06 · La fuerza de los huracanes en tu bolsillo — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S06_NARRACION.wav  y ejecuta producir.bat S06_Giroscopio
+episodio: S06_Giroscopio
+titulo: "La fuerza de los huracanes en tu bolsillo"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: GloboHuracan3D
+    seccion: "GIROSCOPIO"
+    capitulo: "Intro: la fuerza de los huracanes"
+    desde: inicio
+    props: {modo: gancho}
+  - id: usosgancho
+    escena: Vitrina
+    desde: "Esa misma fuerza aparece"
+    props:
+      items:
+        - {modelo: mems, texto: "en tu celular, cada vez que lo giras", marca: celular}
+        - {modelo: dron, texto: "un dron quieto en el aire", marca: dron}
+        - {modelo: vr, texto: "gafas de realidad virtual", marca: vr}
+    marcas:
+      celular: "dentro de tu celular"
+      dron: "un dron se mantiene"
+      vr: "unas gafas de realidad virtual"
+  - id: mito
+    escena: Lavamanos3D
+    desde: "Y no, no es la fuerza"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama giroscopio MEMS"
+    props:
+      modelo: giroscopio
+      items:
+        - {texto: "Qué es la fuerza de Coriolis", marca: uno}
+        - {texto: "Un chip con una masa que vibra", marca: dos}
+        - {texto: "Por qué un giroscopio solo se pierde", marca: tres}
+        - {texto: "Un robot que se mantiene en equilibrio", marca: cuatro}
+    marcas:
+      uno: "qué es la fuerza de Coriolis"
+      dos: "una masa que vibra"
+      tres: "se pierde con el tiempo"
+      cuatro: "se mantenga en equilibrio"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el giroscopio"
+    desde: "En tu celular, el giroscopio"
+    props:
+      items:
+        - {modelo: celular, texto: "fotos panorámicas y juegos", marca: celular}
+        - {modelo: vr, texto: "realidad virtual", sub: "si se retrasa, te mareas", marca: vr}
+        - {modelo: dron, texto: "drones", sub: "cientos o miles de correcciones por segundo", marca: drones}
+        - {modelo: carro3d, texto: "control de derrape", marca: carros}
+        - {modelo: patinete, texto: "patinetes que se equilibran", marca: patinetes}
+        - {modelo: cohete, texto: "cohetes", marca: cohetes}
+    marcas:
+      celular: "Cuando giras el teléfono"
+      vr: "Las gafas de realidad virtual"
+      drones: "Los drones dependen"
+      carros: "Los carros modernos"
+      patinetes: "Los patinetes"
+      cohetes: "y los cohetes"
+
+  # ------------------------------------------------------------------ EL GIROSCOPIO CLÁSICO
+  - id: clasico
+    escena: ClasicoGiro3D
+    seccion: "EL GIROSCOPIO CLÁSICO"
+    capitulo: "El giroscopio clásico"
+    desde: "Antes de los chips"
+    marcas:
+      trompo: "jugaste con un trompo"
+      aros: "montada en aros"
+      foucault: "En 1852"
+      barcos: "guiaron barcos"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: carrusel
+    escena: Carrusel3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: la fuerza de Coriolis"
+    desde: "Para eso hay que entender"
+    marcas:
+      lanzas: "le lanzas una pelota"
+      afuera: "Desde afuera"
+      para: "Pero para ti"
+      coriolis: "Esa fuerza aparente"
+      mueve: "Aparece cuando algo"
+  - id: tierra
+    escena: GloboHuracan3D
+    desde: "La Tierra es un carrusel"
+    props: {modo: coriolis}
+    marcas:
+      norte: "en el hemisferio norte"
+  - id: lavamanos
+    escena: Lavamanos3D
+    desde: "Pero en tu lavamanos"
+    marcas:
+      forma: "la forma del recipiente"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: pordentro
+    escena: GiroMEMS3D
+    seccion: "POR DENTRO"
+    capitulo: "Por dentro: una masa que vibra"
+    desde: "Ahora, el chip"
+    marcas:
+      vibrar: "la hace vibrar"
+      nogira: "Mientras el celular no gira"
+      giras: "cuando lo giras"
+      empujon: "ese empujón también"
+      dedos: "A los lados hay dedos"
+      grados: "grados por segundo"
+      tres: "Con tres estructuras"
+
+  # ------------------------------------------------------------------ LA DERIVA
+  - id: deriva
+    escena: Deriva3D
+    seccion: "LA DERIVA"
+    capitulo: "La deriva y la fusión de sensores"
+    desde: "Aquí viene el gran problema"
+    marcas:
+      sumar: "hay que sumar"
+      grado: "un grado por segundo"
+      deriva: "se le llama deriva"
+      combinar: "La solución es combinar"
+      fusion: "fusión de sensores"
+      complementario: "filtro complementario"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: robot
+    escena: RobotEquilibrio3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: un robot en equilibrio"
+    desde: "El mismo módulo"
+    marcas:
+      velocidades: "tres velocidades de giro"
+      mezclas: "mezclas"
+      linea: "Esa sola línea"
+      horizontal: "El giro horizontal"
+      robot: "un robot que se equilibra"
+      pid: "un controlador PID"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "Los giroscopios MEMS de un celular"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: termometro, texto: "la deriva cambia con la temperatura", sub: "se recalibran cuando están quietos", marca: temperatura}
+        - {modelo: dron, texto: "un parlante pegado tumbó un dron", sub: "investigadores de Corea del Sur, 2015", marca: dron}
+        - {modelo: fibra, texto: "fibra óptica enrollada", sub: "aviones y cohetes", marca: fibra}
+        - {modelo: anillo, texto: "luz en un anillo de espejos", sub: "miles de veces más caros", marca: anillo}
+    marcas:
+      temperatura: "cambia con la temperatura"
+      dron: "En 2015"
+      fibra: "kilómetros de fibra óptica"
+      anillo: "un anillo de espejos"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para el camino"
+    props:
+      numerado: true
+      items:
+        - {modelo: mosca, texto: "las moscas tienen giroscopios", sub: "los halterios", marca: moscas}
+        - {modelo: celular, texto: "llegó al iPhone en 2010", sub: "con el iPhone 4", marca: iphone}
+        - {modelo: tierra, texto: "se puede medir el giro de la Tierra", sub: "una vuelta por día, sin ventanas", marca: tierra}
+    marcas:
+      moscas: "las moscas tienen giroscopios"
+      iphone: "el primer iPhone"
+      tierra: "la rotación de la Tierra"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: mems, texto: "una masa que vibra", marca: masa}
+        - {modelo: celular, texto: "giran las fotos", marca: fotos}
+        - {modelo: dron, texto: "se estabilizan los drones", marca: drones}
+        - {modelo: robot, texto: "se equilibran los robots", marca: robots}
+    marcas:
+      masa: "Una masa de silicio"
+      fotos: "giran las fotos"
+      drones: "se estabilizan los drones"
+      robots: "se equilibran los robots"
+  - id: final
+    escena: GloboHuracan3D
+    desde: "La próxima vez que veas"
+    props: {modo: gancho}
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S07 · el sensor ultrasónico"
+      items:
+        - {modelo: parqueo, texto: "tu carro ve la pared con sonido", marca: carro}
+        - {modelo: murcielago, texto: "como un murciélago", marca: murcielago}
+    marcas:
+      carro: "cómo tu carro ve"
+      murcielago: "como un murciélago"

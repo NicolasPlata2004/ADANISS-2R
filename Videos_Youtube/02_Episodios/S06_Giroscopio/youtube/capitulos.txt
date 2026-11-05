@@ -1,0 +1,10 @@
+00:00 Intro: la fuerza de los huracanes
+01:02 Dónde está el giroscopio
+01:56 El giroscopio clásico
+03:03 La física: la fuerza de Coriolis
+04:27 Por dentro: una masa que vibra
+05:41 La deriva y la fusión de sensores
+06:47 Con un ESP32: un robot en equilibrio
+07:48 Los límites
+08:45 Tres datos curiosos
+09:38 Resumen

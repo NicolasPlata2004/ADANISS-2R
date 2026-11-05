@@ -1,0 +1,715 @@
+1
+00:00:00,600 --> 00:00:04,824
+Los huracanes giran por una fuerza que aparece cuando algo se
+
+2
+00:00:04,824 --> 00:00:07,448
+mueve sobre un planeta que da vueltas.
+
+3
+00:00:08,748 --> 00:00:13,108
+Esa misma fuerza aparece dentro de tu celular cada vez que lo
+
+4
+00:00:13,108 --> 00:00:17,644
+giras, en un pedacito de silicio que vibra miles de veces por
+
+5
+00:00:17,644 --> 00:00:18,132
+segundo.
+
+6
+00:00:18,582 --> 00:00:22,494
+Gracias a ella, tu teléfono sabe que lo estás girando,
+
+7
+00:00:22,714 --> 00:00:27,254
+un dron se mantiene quieto en el aire y unas gafas de realidad
+
+8
+00:00:27,254 --> 00:00:29,386
+virtual te dejan mirar alrededor.
+
+9
+00:00:30,686 --> 00:00:35,718
+Y no, no es la fuerza que decide hacia dónde gira el agua de tu
+
+10
+00:00:35,718 --> 00:00:36,294
+lavamanos.
+
+11
+00:00:36,744 --> 00:00:40,396
+Eso es un mito, y hoy vas a entender por qué.
+
+12
+00:00:41,746 --> 00:00:43,390
+Se llama giroscopio MEMS.
+
+13
+00:00:43,840 --> 00:00:47,804
+En este video vas a ver qué es la fuerza de Coriolis,
+
+14
+00:00:48,024 --> 00:00:51,540
+cómo un chip la aprovecha con una masa que vibra,
+
+15
+00:00:51,760 --> 00:00:55,364
+por qué un giroscopio solo se pierde con el tiempo,
+
+16
+00:00:55,584 --> 00:01:00,432
+y cómo usarlo con un ESP32 para que un robot se mantenga en
+
+17
+00:01:00,432 --> 00:01:01,052
+equilibrio.
+
+18
+00:01:02,402 --> 00:01:06,710
+En tu celular, el giroscopio trabaja junto al acelerómetro del
+
+19
+00:01:06,710 --> 00:01:07,774
+episodio anterior.
+
+20
+00:01:09,074 --> 00:01:12,674
+Cuando giras el teléfono para ver una foto panorámica,
+
+21
+00:01:12,894 --> 00:01:16,986
+cuando apuntas en un juego moviendo el celular o cuando la
+
+22
+00:01:16,986 --> 00:01:20,230
+cámara estabiliza el video de tu mano temblorosa.
+
+23
+00:01:20,680 --> 00:01:25,128
+Las gafas de realidad virtual lo usan para que el mundo virtual
+
+24
+00:01:25,128 --> 00:01:27,704
+gire exactamente cuando giras la cabeza;
+
+25
+00:01:27,924 --> 00:01:29,880
+si se retrasa, te mareas.
+
+26
+00:01:31,180 --> 00:01:34,204
+Los drones dependen de él para no voltearse:
+
+27
+00:01:34,654 --> 00:01:39,102
+cientos o miles de veces por segundo miden cómo están girando y
+
+28
+00:01:39,102 --> 00:01:41,502
+corrigen la velocidad de cada motor.
+
+29
+00:01:41,952 --> 00:01:46,400
+Los carros modernos tienen un sensor de giro que nota cuando el
+
+30
+00:01:46,400 --> 00:01:50,400
+carro empieza a derrapar y frena una rueda para enderezarlo.
+
+31
+00:01:50,850 --> 00:01:55,118
+Los patinetes que se equilibran solos y los cohetes también lo
+
+32
+00:01:55,118 --> 00:01:55,474
+usan.
+
+33
+00:01:56,824 --> 00:02:01,404
+Antes de los chips, un giroscopio era una rueda que giraba muy
+
+34
+00:02:01,404 --> 00:02:01,848
+rápido.
+
+35
+00:02:03,148 --> 00:02:05,684
+Si alguna vez jugaste con un trompo,
+
+36
+00:02:05,904 --> 00:02:08,266
+ya lo conoces: mientras gira,
+
+37
+00:02:08,486 --> 00:02:11,558
+se resiste a caerse, y en vez de caer,
+
+38
+00:02:11,778 --> 00:02:13,646
+su eje da vueltas despacio.
+
+39
+00:02:14,096 --> 00:02:18,232
+Una rueda así, montada en aros que la dejan girar libre,
+
+40
+00:02:18,452 --> 00:02:22,140
+mantiene su eje apuntando siempre en la misma dirección.
+
+41
+00:02:22,590 --> 00:02:24,990
+Esa terquedad es el momento angular.
+
+42
+00:02:26,290 --> 00:02:31,266
+En 1852, el físico francés Léon Foucault usó una rueda así para
+
+43
+00:02:31,266 --> 00:02:33,222
+demostrar que la Tierra gira,
+
+44
+00:02:33,442 --> 00:02:36,072
+y le puso el nombre: giroscopio,
+
+45
+00:02:36,292 --> 00:02:39,048
+que significa algo como "observar el giro".
+
+46
+00:02:39,498 --> 00:02:43,994
+Un año antes había hecho lo mismo con su famoso péndulo en el
+
+47
+00:02:43,994 --> 00:02:45,150
+Panteón de París.
+
+48
+00:02:46,450 --> 00:02:50,310
+Durante el siglo veinte, los giroscopios mecánicos guiaron
+
+49
+00:02:50,310 --> 00:02:52,174
+barcos, aviones y misiles.
+
+50
+00:02:52,624 --> 00:02:54,444
+Eran maravillas de precisión,
+
+51
+00:02:54,664 --> 00:02:58,664
+pero pesadas, caras y llenas de piezas que se desgastan.
+
+52
+00:02:59,114 --> 00:03:02,230
+El reto era meter esa capacidad en un chip.
+
+53
+00:03:03,580 --> 00:03:06,916
+Para eso hay que entender la fuerza de Coriolis.
+
+54
+00:03:08,216 --> 00:03:12,352
+Imagina que estás sobre un carrusel girando y le lanzas una
+
+55
+00:03:12,352 --> 00:03:15,292
+pelota a un amigo que está en el borde.
+
+56
+00:03:15,742 --> 00:03:18,986
+Desde afuera, la pelota viaja en línea recta.
+
+57
+00:03:19,436 --> 00:03:22,460
+Pero para ti, que giras con el carrusel,
+
+58
+00:03:22,680 --> 00:03:25,084
+la pelota se curva hacia un lado,
+
+59
+00:03:25,304 --> 00:03:28,060
+como si una fuerza invisible la empujara.
+
+60
+00:03:28,510 --> 00:03:31,578
+Esa fuerza aparente es la fuerza de Coriolis.
+
+61
+00:03:32,878 --> 00:03:36,570
+Aparece cuando algo se mueve dentro de algo que gira.
+
+62
+00:03:37,020 --> 00:03:39,020
+Y tiene dos propiedades clave:
+
+63
+00:03:39,470 --> 00:03:42,398
+empuja de lado, perpendicular al movimiento,
+
+64
+00:03:42,618 --> 00:03:47,202
+y es más fuerte cuanto más rápido gira todo y cuanto más rápido
+
+65
+00:03:47,202 --> 00:03:48,582
+se mueve el objeto.
+
+66
+00:03:49,882 --> 00:03:52,150
+La Tierra es un carrusel gigante.
+
+67
+00:03:52,600 --> 00:03:57,140
+El aire que corre hacia un centro de baja presión se desvía de
+
+68
+00:03:57,140 --> 00:04:00,702
+lado y termina girando: en el hemisferio norte,
+
+69
+00:04:00,922 --> 00:04:03,370
+en contra de las agujas del reloj;
+
+70
+00:04:03,590 --> 00:04:05,282
+en el sur, a favor.
+
+71
+00:04:05,732 --> 00:04:08,488
+Así nacen los remolinos de los huracanes.
+
+72
+00:04:09,788 --> 00:04:14,144
+Pero en tu lavamanos la fuerza de Coriolis es diminuta comparada
+
+73
+00:04:14,144 --> 00:04:16,056
+con la forma del recipiente,
+
+74
+00:04:16,276 --> 00:04:20,860
+la manera en que lo llenaste o un pequeño remolino que quedó en
+
+75
+00:04:20,860 --> 00:04:21,484
+el agua.
+
+76
+00:04:21,934 --> 00:04:25,534
+El agua puede girar hacia cualquier lado en cualquier
+
+77
+00:04:25,534 --> 00:04:26,154
+hemisferio.
+
+78
+00:04:27,504 --> 00:04:28,748
+Ahora, el chip.
+
+79
+00:04:30,048 --> 00:04:34,004
+Dentro hay una pequeña masa de silicio colgada de resortes,
+
+80
+00:04:34,224 --> 00:04:36,268
+parecida a la del acelerómetro,
+
+81
+00:04:36,488 --> 00:04:39,606
+pero con una diferencia: no está quieta.
+
+82
+00:04:40,056 --> 00:04:42,636
+Un circuito la hace vibrar sin parar,
+
+83
+00:04:42,856 --> 00:04:46,416
+de un lado a otro, miles de veces por segundo,
+
+84
+00:04:46,636 --> 00:04:48,324
+como un columpio diminuto.
+
+85
+00:04:49,624 --> 00:04:51,536
+Mientras el celular no gira,
+
+86
+00:04:51,756 --> 00:04:54,292
+la masa solo vibra en esa dirección.
+
+87
+00:04:54,742 --> 00:04:58,430
+Pero cuando lo giras, aparece la fuerza de Coriolis:
+
+88
+00:04:58,880 --> 00:05:02,396
+la masa se está moviendo dentro de algo que gira,
+
+89
+00:05:02,616 --> 00:05:04,576
+así que la empuja de lado.
+
+90
+00:05:05,026 --> 00:05:09,298
+Como la masa va y viene, ese empujón también va y viene,
+
+91
+00:05:09,518 --> 00:05:11,698
+al mismo ritmo de la vibración.
+
+92
+00:05:12,998 --> 00:05:16,154
+A los lados hay dedos que forman condensadores,
+
+93
+00:05:16,374 --> 00:05:17,974
+como en el acelerómetro.
+
+94
+00:05:18,424 --> 00:05:20,732
+Miden ese pequeño movimiento lateral.
+
+95
+00:05:21,182 --> 00:05:24,026
+Cuanto más rápido giras, más grande es.
+
+96
+00:05:24,476 --> 00:05:28,748
+Así el chip mide la velocidad de giro en grados por segundo.
+
+97
+00:05:30,048 --> 00:05:33,556
+Con tres estructuras así, o diseños más ingeniosos,
+
+98
+00:05:33,776 --> 00:05:36,048
+mide el giro en los tres ejes:
+
+99
+00:05:36,498 --> 00:05:40,450
+cuando cabeceas, cuando giras y cuando ladeas el teléfono.
+
+100
+00:05:41,800 --> 00:05:43,712
+Aquí viene el gran problema.
+
+101
+00:05:45,012 --> 00:05:48,216
+El giroscopio no te dice en qué ángulo estás.
+
+102
+00:05:48,666 --> 00:05:51,246
+Te dice qué tan rápido estás girando.
+
+103
+00:05:51,696 --> 00:05:56,368
+Para saber el ángulo, hay que sumar esos giros a lo largo del
+
+104
+00:05:56,368 --> 00:05:56,812
+tiempo.
+
+105
+00:05:57,262 --> 00:06:00,862
+Y en esa suma, cualquier pequeño error se acumula.
+
+106
+00:06:02,162 --> 00:06:05,590
+Si el sensor marca un grado por segundo de más,
+
+107
+00:06:05,810 --> 00:06:10,034
+después de un minuto el teléfono cree que giró sesenta grados
+
+108
+00:06:10,034 --> 00:06:11,102
+que nunca giró.
+
+109
+00:06:11,552 --> 00:06:13,468
+A eso se le llama deriva.
+
+110
+00:06:14,768 --> 00:06:16,900
+La solución es combinar sensores.
+
+111
+00:06:17,350 --> 00:06:20,106
+El acelerómetro sabe dónde está el suelo,
+
+112
+00:06:20,326 --> 00:06:24,238
+pero es ruidoso y se confunde con los movimientos rápidos.
+
+113
+00:06:24,688 --> 00:06:27,356
+El giroscopio es preciso a corto plazo,
+
+114
+00:06:27,576 --> 00:06:29,668
+pero se deriva a largo plazo.
+
+115
+00:06:30,118 --> 00:06:34,118
+Si los mezclas, confiando sobre todo en el giroscopio y
+
+116
+00:06:34,118 --> 00:06:37,006
+corrigiendo poco a poco con el acelerómetro,
+
+117
+00:06:37,226 --> 00:06:39,318
+obtienes lo mejor de los dos.
+
+118
+00:06:39,768 --> 00:06:42,484
+A eso se le llama fusión de sensores,
+
+119
+00:06:42,704 --> 00:06:46,436
+y la versión más sencilla se llama filtro complementario.
+
+120
+00:06:47,786 --> 00:06:52,002
+El mismo módulo MPU-6050 del episodio anterior trae un
+
+121
+00:06:52,002 --> 00:06:52,622
+giroscopio.
+
+122
+00:06:53,922 --> 00:06:56,946
+Cada lectura te da tres velocidades de giro.
+
+123
+00:06:57,396 --> 00:07:01,748
+Para calcular un ángulo, multiplicas la velocidad por el tiempo
+
+124
+00:07:01,748 --> 00:07:05,396
+que pasó desde la lectura anterior y lo vas sumando.
+
+125
+00:07:05,846 --> 00:07:08,154
+Luego, en cada paso, mezclas:
+
+126
+00:07:08,604 --> 00:07:12,964
+noventa y ocho por ciento del ángulo del giroscopio y dos por
+
+127
+00:07:12,964 --> 00:07:15,940
+ciento del ángulo que calcula el acelerómetro.
+
+128
+00:07:16,390 --> 00:07:20,618
+Esa sola línea de código elimina casi toda la deriva de la
+
+129
+00:07:20,618 --> 00:07:21,282
+inclinación.
+
+130
+00:07:21,732 --> 00:07:24,888
+El giro horizontal, como el de una brújula,
+
+131
+00:07:25,108 --> 00:07:28,042
+necesita otra referencia: un magnetómetro.
+
+132
+00:07:29,342 --> 00:07:33,522
+Con eso puedes construir un robot que se equilibra sobre dos
+
+133
+00:07:33,522 --> 00:07:35,874
+ruedas, como un péndulo invertido.
+
+134
+00:07:36,324 --> 00:07:40,904
+El ESP32 lee el ángulo cientos de veces por segundo y un
+
+135
+00:07:40,904 --> 00:07:45,172
+controlador PID mueve los motores hacia donde el robot se está
+
+136
+00:07:45,172 --> 00:07:47,880
+cayendo, justo a tiempo para atraparlo.
+
+137
+00:07:49,230 --> 00:07:53,142
+Los giroscopios MEMS de un celular son baratos y pequeños,
+
+138
+00:07:53,362 --> 00:07:54,874
+pero no son perfectos.
+
+139
+00:07:56,174 --> 00:07:59,822
+Su deriva cambia con la temperatura y con el tiempo,
+
+140
+00:08:00,042 --> 00:08:04,130
+así que los teléfonos se recalibran solos cuando detectan que
+
+141
+00:08:04,130 --> 00:08:05,018
+están quietos.
+
+142
+00:08:05,468 --> 00:08:08,084
+Las vibraciones fuertes pueden confundirlos,
+
+143
+00:08:08,304 --> 00:08:12,484
+porque la masa ya está vibrando y otra vibración la perturba,
+
+144
+00:08:12,704 --> 00:08:15,460
+sobre todo si coincide con su frecuencia.
+
+145
+00:08:15,910 --> 00:08:20,706
+En 2015, unos investigadores de Corea del Sur hicieron caer un
+
+146
+00:08:20,706 --> 00:08:23,110
+dron con un parlante pegado a él,
+
+147
+00:08:23,330 --> 00:08:26,486
+sonando justo a la frecuencia de su giroscopio.
+
+148
+00:08:27,786 --> 00:08:31,966
+Por eso los aviones y los cohetes usan giroscopios mucho más
+
+149
+00:08:31,966 --> 00:08:34,678
+precisos, que miden el giro con luz:
+
+150
+00:08:35,128 --> 00:08:38,992
+unos la hacen recorrer kilómetros de fibra óptica enrollada;
+
+151
+00:08:39,212 --> 00:08:42,368
+otros, dar vueltas en un anillo de espejos.
+
+152
+00:08:42,818 --> 00:08:44,686
+Cuestan miles de veces más.
+
+153
+00:08:46,036 --> 00:08:47,860
+Tres datos para el camino.
+
+154
+00:08:49,160 --> 00:08:51,786
+Uno: las moscas tienen giroscopios.
+
+155
+00:08:52,236 --> 00:08:56,416
+Detrás de las alas tienen dos órganos diminutos con forma de
+
+156
+00:08:56,416 --> 00:09:00,232
+maza, llamados halterios, que vibran durante el vuelo.
+
+157
+00:09:00,682 --> 00:09:05,130
+Cuando la mosca gira, la fuerza de Coriolis los desvía y la
+
+158
+00:09:05,130 --> 00:09:06,242
+mosca lo siente.
+
+159
+00:09:06,692 --> 00:09:10,164
+Es el mismo principio que el chip de tu celular,
+
+160
+00:09:10,384 --> 00:09:11,940
+millones de años antes.
+
+161
+00:09:13,240 --> 00:09:16,446
+Dos: el primer iPhone no tenía giroscopio.
+
+162
+00:09:16,896 --> 00:09:19,960
+Llegó en 2010, con el iPhone 4,
+
+163
+00:09:20,180 --> 00:09:24,628
+y con él se popularizaron los juegos en los que apuntas girando
+
+164
+00:09:24,628 --> 00:09:25,428
+el teléfono.
+
+165
+00:09:26,728 --> 00:09:31,446
+Tres: con un giroscopio de altísima precisión se puede medir la
+
+166
+00:09:31,446 --> 00:09:34,602
+rotación de la Tierra, una vuelta cada día,
+
+167
+00:09:34,822 --> 00:09:37,486
+desde un laboratorio cerrado sin ventanas.
+
+168
+00:09:38,836 --> 00:09:39,588
+Recapitulemos.
+
+169
+00:09:40,038 --> 00:09:42,886
+Una masa de silicio que vibra sin parar,
+
+170
+00:09:43,106 --> 00:09:47,510
+una fuerza que aparece cuando algo se mueve dentro de algo que
+
+171
+00:09:47,510 --> 00:09:51,374
+gira, y unos condensadores que miden el empujón lateral.
+
+172
+00:09:51,824 --> 00:09:55,960
+Con eso giran las fotos, se estabilizan los drones y se
+
+173
+00:09:55,960 --> 00:09:57,336
+equilibran los robots.
+
+174
+00:09:58,636 --> 00:10:03,220
+La próxima vez que veas un huracán girando en el mapa del clima,
+
+175
+00:10:03,440 --> 00:10:07,932
+acuérdate de que la misma fuerza aparece en tu bolsillo cada vez
+
+176
+00:10:07,932 --> 00:10:09,400
+que giras el celular.
+
+177
+00:10:10,700 --> 00:10:15,646
+En el próximo episodio: cómo tu carro ve la pared de tu garaje
+
+178
+00:10:15,646 --> 00:10:16,402
+con sonido…
+
+179
+00:10:16,852 --> 00:10:18,096
+como un murciélago.
