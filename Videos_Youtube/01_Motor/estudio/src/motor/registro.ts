@@ -19,6 +19,7 @@ import * as S04_3D from '../formatos/taller/escenas/s04_3d';
 import * as S05_3D from '../formatos/taller/escenas/s05_3d';
 import * as S06_3D from '../formatos/taller/escenas/s06_3d';
 import * as S07_3D from '../formatos/taller/escenas/s07_3d';
+import * as S08_3D from '../formatos/taller/escenas/s08_3d';
 import type {EscenaPlan, Frase} from './tiempo';
 
 export type Formato = {
@@ -31,7 +32,7 @@ export type Formato = {
 };
 
 /** Objeto que gira en la pantalla final de cada episodio de la serie. */
-const HEROE: Record<string, string> = {S01_Piezo: 'piezo', S02_Tactil: 'celular', S03_PIR: 'pir', S04_Hall: 'control', S05_Acelerometro: 'mems', S06_Giroscopio: 'giroscopio', S07_Ultrasonico: 'hcsr04', S08_LiDAR: 'celularLidar'};
+const HEROE: Record<string, string> = {S01_Piezo: 'piezo', S02_Tactil: 'celular', S03_PIR: 'pir', S04_Hall: 'control', S05_Acelerometro: 'mems', S06_Giroscopio: 'giroscopio', S07_Ultrasonico: 'hcsr04', S08_LiDAR: 'carroLidar', S09_Temperatura: 'mesas'};
 const Cierre3DEpisodio: React.FC<{episodio?: string}> = ({episodio = ''}) => React.createElement(Comunes3D.Cierre3D, {modelo: HEROE[episodio] ?? 'piezo'});
 
 export const FORMATOS: Record<string, Formato> = {
@@ -55,7 +56,7 @@ export const FORMATOS: Record<string, Formato> = {
   // Serie Sensores, versión solo-3D: todas las escenas son renders 3D.
   taller3d: {
     fondo: '#050607',
-    escenas: {...Taller3D_S01, ...Comunes3D, ...S01Extra3D, ...S02_3D, ...S03_3D, ...S04_3D, ...S05_3D, ...S06_3D, ...S07_3D},
+    escenas: {...Taller3D_S01, ...Comunes3D, ...S01Extra3D, ...S02_3D, ...S03_3D, ...S04_3D, ...S05_3D, ...S06_3D, ...S07_3D, ...S08_3D},
     Falta: FaltaTaller,
     Rotulo: RotuloTaller,
     Subtitulos: SubtitulosTaller,

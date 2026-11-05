@@ -1,0 +1,224 @@
+# S08 · El chip que cronometra la luz — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S08_NARRACION.wav  y ejecuta producir.bat S08_LiDAR
+episodio: S08_LiDAR
+titulo: "El chip que cronometra la luz"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: LuzGancho3D
+    seccion: "TIEMPO DE VUELO"
+    capitulo: "Intro: cronometrar la luz"
+    desde: inicio
+    marcas:
+      vueltas: "siete vueltas y media"
+      chip: "hay un chip"
+      nano: "unas pocas milmillonésimas"
+      carros: "Con luz que rebota"
+      selva: "los arqueólogos encontraron"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama sensor de tiempo de vuelo"
+    props:
+      modelo: vl53
+      items:
+        - {texto: "Cómo se cronometra la luz", marca: uno}
+        - {texto: "Un fotón que dispara una avalancha", marca: dos}
+        - {texto: "Medir distancias con un ESP32", marca: tres}
+    marcas:
+      uno: "cómo se cronometra"
+      dos: "un solo fotón"
+      tres: "medir distancias con un ESP32"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el tiempo de vuelo"
+    desde: "En muchos celulares hay sensores"
+    props:
+      items:
+        - {modelo: celular, texto: "enfoque de la cámara", marca: enfoque}
+        - {modelo: celularLidar, texto: "LiDAR en teléfonos y tabletas", marca: lidar}
+        - {modelo: kinect, texto: "Kinect 2", sub: "una cámara de tiempo de vuelo", marca: kinect}
+        - {modelo: carroLidar, texto: "robotaxis", marca: robotaxis}
+        - {modelo: dron, texto: "drones que mapean", marca: drones}
+        - {modelo: selva, texto: "arqueología desde el aire", sub: "más de 60.000 estructuras en Guatemala", marca: selva}
+    marcas:
+      enfoque: "a enfocar rápido"
+      lidar: "traen un LiDAR"
+      kinect: "del Kinect"
+      robotaxis: "Muchos robotaxis"
+      drones: "Los drones"
+      selva: "los arqueólogos han barrido"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: fisica
+    escena: Nanosegundo3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: 30 cm por nanosegundo"
+    desde: "La luz viaja a casi"
+    marcas:
+      nano: "un nanosegundo"
+      ultrasonico: "lo mismo que el ultrasónico"
+      metro: "Si un objeto está a un metro"
+      centimetro: "con precisión de un centímetro"
+      directa: "La directa"
+      indirecta: "Y la indirecta"
+      triangulacion: "la triangulación"
+      nm940: "940 nanómetros"
+  - id: aspiradora
+    escena: Vitrina
+    desde: "Muchas aspiradoras robot usan"
+    props:
+      items:
+        - {modelo: aspiradora, texto: "la torrecita que gira", sub: "triangulación láser", marca: torre}
+    marcas:
+      torre: "la torrecita"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: pordentro
+    escena: SPAD3D
+    seccion: "POR DENTRO"
+    capitulo: "Por dentro: VCSEL, SPAD e histograma"
+    desde: "El sensor más popular para proyectos"
+    marcas:
+      vcsel: "llamado VCSEL"
+      clase: "clase uno"
+      spad: "llamados SPAD"
+      avalancha: "Cuando llega un único fotón"
+      histograma: "arman un histograma"
+      pico: "La posición de ese pico"
+      lidar: "Con miles de puntos"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: LunaLaser3D
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: un láser hasta la Luna"
+    desde: "La palabra LiDAR viene"
+    marcas:
+      laser: "el primer láser"
+      mit: "En 1962"
+      apolo: "En 1969"
+      hoy: "Todavía hoy"
+      aleja: "la Luna se aleja"
+  - id: darpa
+    escena: Vitrina
+    desde: "En 2007, en una competencia"
+    props:
+      items:
+        - {modelo: carroLidar, anio: "2007", texto: "5 de 6 finalistas", sub: "con el mismo LiDAR giratorio", marca: darpa}
+    marcas:
+      darpa: "cinco de los seis"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: esp32
+    escena: ToFESP32_3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: el VL53L0X"
+    desde: "El módulo VL53L0X usa"
+    marcas:
+      i2c: "el bus I2C"
+      libreria: "Con una librería"
+      normal: "En el modo normal"
+      direccion: "la misma dirección"
+  - id: proyectos
+    escena: Vitrina
+    desde: "Con eso puedes hacer"
+    props:
+      items:
+        - {modelo: contador, texto: "contador de personas", marca: contador}
+        - {modelo: persona, texto: "medidor de altura", marca: altura}
+        - {modelo: theremin, texto: "instrumento con la mano", marca: instrumento}
+        - {modelo: roboteduc, texto: "robot que mapea", marca: robot}
+        - {modelo: vl53, texto: "8 × 8 zonas", sub: "una cámara de profundidad de 64 píxeles", marca: zonas}
+    marcas:
+      zonas: "ocho por ocho"
+      contador: "un contador de personas"
+      altura: "un medidor de altura"
+      instrumento: "un instrumento"
+      robot: "un robot que mapea"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "La luz también tiene trampas"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: espuma, texto: "lo negro y mate devuelve poca luz", marca: negras}
+        - {modelo: ventana, texto: "vidrios y espejos lo engañan", marca: vidrios}
+        - {modelo: carroLidar, texto: "lluvia, niebla y nieve", marca: lluvia}
+        - {modelo: carroLidar, texto: "caro: unos 75.000 dólares en 2007", marca: caro}
+    marcas:
+      negras: "Las superficies negras"
+      vidrios: "Los vidrios"
+      lluvia: "la lluvia, la niebla"
+      caro: "aquel modelo giratorio"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para cerrar"
+    props:
+      numerado: true
+      items:
+        - {modelo: cara, texto: "desbloqueo facial: 30.000 puntos", sub: "no usa tiempo de vuelo", marca: cara}
+        - {modelo: celularLidar, texto: "una cuadrícula invisible", sub: "se ve con una cámara infrarroja", marca: cuadricula}
+        - {modelo: luna, texto: "10¹⁷ fotones por pulso", sub: "y vuelve más o menos uno", marca: luna}
+    marcas:
+      cara: "el desbloqueo facial"
+      cuadricula: "una cámara que vea infrarrojo"
+      luna: "cada pulso que se dispara"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: vl53, texto: "un láser invisible", marca: laser}
+        - {modelo: celular, texto: "tu celular enfoca", marca: enfoca}
+        - {modelo: aspiradora, texto: "los robots dibujan tu casa", marca: robots}
+        - {modelo: selva, texto: "ciudades perdidas", marca: ciudades}
+    marcas:
+      laser: "Un láser invisible"
+      enfoca: "tu celular enfoca"
+      robots: "los robots dibujan"
+      ciudades: "ciudades perdidas"
+  - id: final
+    escena: Vitrina
+    desde: "La próxima vez que tu cámara"
+    props:
+      items:
+        - {modelo: celularLidar, texto: "acaba de cronometrar la luz", marca: luz}
+    marcas:
+      luz: "cronometrar la luz"
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S09 · sensores de temperatura"
+      items:
+        - {modelo: mesas, texto: "¿el metal más frío que la madera?", marca: mesas}
+        - {modelo: termometro, texto: "están a la misma temperatura", marca: misma}
+    marcas:
+      mesas: "una mesa de metal"
+      misma: "a la misma temperatura"

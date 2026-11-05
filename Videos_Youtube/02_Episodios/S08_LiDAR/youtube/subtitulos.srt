@@ -1,0 +1,695 @@
+1
+00:00:00,600 --> 00:00:03,228
+La luz es lo más rápido que existe:
+
+2
+00:00:03,678 --> 00:00:07,818
+en un segundo le daría siete vueltas y media a la Tierra.
+
+3
+00:00:09,118 --> 00:00:13,790
+Y aun así, en muchos celulares hay un chip más pequeño que un
+
+4
+00:00:13,790 --> 00:00:18,150
+grano de arroz capaz de cronometrar cuánto tarda la luz en ir
+
+5
+00:00:18,150 --> 00:00:19,842
+hasta tu mano y volver.
+
+6
+00:00:20,292 --> 00:00:23,712
+Ese viaje dura unas pocas milmillonésimas de segundo.
+
+7
+00:00:25,012 --> 00:00:29,500
+Con luz que rebota, muchos carros autónomos dibujan la calle en
+
+8
+00:00:29,500 --> 00:00:34,032
+tres dimensiones, las aspiradoras robot hacen el mapa de tu casa
+
+9
+00:00:34,032 --> 00:00:37,936
+y los arqueólogos encontraron ciudades mayas enteras escondidas
+
+10
+00:00:37,936 --> 00:00:38,960
+bajo la selva.
+
+11
+00:00:39,410 --> 00:00:40,210
+Sin excavar.
+
+12
+00:00:41,560 --> 00:00:44,052
+Se llama sensor de tiempo de vuelo,
+
+13
+00:00:44,272 --> 00:00:47,876
+y su versión que escanea el entorno se llama LiDAR.
+
+14
+00:00:48,326 --> 00:00:52,910
+En este video vas a ver cómo se cronometra algo tan rápido como
+
+15
+00:00:52,910 --> 00:00:57,446
+la luz, por qué un solo fotón puede disparar una avalancha de
+
+16
+00:00:57,446 --> 00:01:02,554
+electrones, y cómo medir distancias con un ESP32 y un sensor del
+
+17
+00:01:02,554 --> 00:01:04,066
+tamaño de una lenteja.
+
+18
+00:01:05,416 --> 00:01:08,528
+En muchos celulares hay sensores de este tipo,
+
+19
+00:01:08,748 --> 00:01:11,596
+que ayudan a la cámara a enfocar rápido,
+
+20
+00:01:11,816 --> 00:01:13,284
+incluso con poca luz.
+
+21
+00:01:13,734 --> 00:01:17,914
+Algunos teléfonos y tabletas de gama alta traen un LiDAR que
+
+22
+00:01:17,914 --> 00:01:20,890
+mide la habitación entera en tres dimensiones,
+
+23
+00:01:21,110 --> 00:01:24,130
+para medir muebles o colocar objetos virtuales.
+
+24
+00:01:25,430 --> 00:01:27,430
+La segunda versión del Kinect,
+
+25
+00:01:27,650 --> 00:01:31,254
+el accesorio de Xbox que veía tu cuerpo para jugar,
+
+26
+00:01:31,474 --> 00:01:33,922
+era una cámara de tiempo de vuelo.
+
+27
+00:01:35,222 --> 00:01:38,022
+Muchos robotaxis llevan LiDAR en el techo,
+
+28
+00:01:38,242 --> 00:01:41,530
+girando o escaneando decenas de veces por segundo.
+
+29
+00:01:41,980 --> 00:01:44,692
+Los drones lo usan para mapear terrenos,
+
+30
+00:01:44,912 --> 00:01:47,444
+y los ingenieros para medir carreteras,
+
+31
+00:01:47,664 --> 00:01:49,976
+puentes y bosques árbol por árbol.
+
+32
+00:01:51,276 --> 00:01:55,316
+Y desde aviones, los arqueólogos han barrido selvas enteras.
+
+33
+00:01:55,766 --> 00:01:58,522
+Algunos pulsos se cuelan entre las hojas,
+
+34
+00:01:58,742 --> 00:02:02,430
+llegan al suelo y vuelven, y así aparecen pirámides,
+
+35
+00:02:02,650 --> 00:02:06,966
+caminos y canales que nadie veía desde hacía más de mil años.
+
+36
+00:02:07,416 --> 00:02:11,504
+En Guatemala, un solo estudio encontró más de sesenta mil
+
+37
+00:02:11,504 --> 00:02:12,168
+estructuras.
+
+38
+00:02:13,518 --> 00:02:17,470
+La luz viaja a casi 300.000 kilómetros por segundo.
+
+39
+00:02:17,920 --> 00:02:21,926
+Dicho de otra forma: en una milmillonésima de segundo,
+
+40
+00:02:22,146 --> 00:02:25,250
+un nanosegundo, recorre unos 30 centímetros.
+
+41
+00:02:26,550 --> 00:02:30,910
+Un sensor de tiempo de vuelo hace lo mismo que el ultrasónico
+
+42
+00:02:30,910 --> 00:02:33,804
+del episodio anterior: lanza un pulso,
+
+43
+00:02:34,024 --> 00:02:36,472
+espera el rebote y mide el tiempo.
+
+44
+00:02:36,922 --> 00:02:38,790
+La diferencia es la escala.
+
+45
+00:02:39,240 --> 00:02:41,468
+Si un objeto está a un metro,
+
+46
+00:02:41,688 --> 00:02:44,980
+la luz va y vuelve en unos 6,7 nanosegundos.
+
+47
+00:02:45,430 --> 00:02:48,230
+Para medir con precisión de un centímetro,
+
+48
+00:02:48,450 --> 00:02:52,402
+hay que distinguir diferencias de unas 67 billonésimas de
+
+49
+00:02:52,402 --> 00:02:52,890
+segundo.
+
+50
+00:02:53,340 --> 00:02:56,052
+Ningún cronómetro común se acerca a eso.
+
+51
+00:02:57,352 --> 00:02:58,640
+Hay dos estrategias.
+
+52
+00:02:59,090 --> 00:03:03,588
+La directa: disparar pulsos de láser muy cortos y medir la
+
+53
+00:03:03,588 --> 00:03:07,364
+llegada de cada uno con un reloj electrónico ultrarrápido.
+
+54
+00:03:07,814 --> 00:03:12,624
+Y la indirecta: encender y apagar la luz millones de veces por
+
+55
+00:03:12,624 --> 00:03:16,624
+segundo y medir cuánto se atrasa ese parpadeo cuando vuelve.
+
+56
+00:03:17,924 --> 00:03:20,728
+Hay un tercer truco que no mide tiempo:
+
+57
+00:03:21,178 --> 00:03:22,198
+la triangulación.
+
+58
+00:03:22,648 --> 00:03:27,588
+El láser sale por un lado, el punto de luz aparece en una cámara
+
+59
+00:03:27,588 --> 00:03:31,816
+al otro lado, y su posición en la imagen depende de la
+
+60
+00:03:31,816 --> 00:03:32,392
+distancia.
+
+61
+00:03:32,842 --> 00:03:37,154
+Muchas aspiradoras robot usan esa idea en la torrecita que gira
+
+62
+00:03:37,154 --> 00:03:37,598
+encima.
+
+63
+00:03:38,898 --> 00:03:40,942
+Casi todos usan luz infrarroja,
+
+64
+00:03:41,162 --> 00:03:42,362
+invisible para ti.
+
+65
+00:03:42,812 --> 00:03:45,964
+Muchos trabajan cerca de los 940 nanómetros,
+
+66
+00:03:46,184 --> 00:03:49,656
+un color que llega debilitado en la luz del sol,
+
+67
+00:03:49,876 --> 00:03:53,036
+porque el vapor de agua del aire lo absorbe.
+
+68
+00:03:53,486 --> 00:03:55,266
+Así el sol molesta menos.
+
+69
+00:03:56,616 --> 00:04:00,700
+El sensor más popular para proyectos es el VL53L0X,
+
+70
+00:04:00,920 --> 00:04:02,744
+del tamaño de una lenteja.
+
+71
+00:04:04,044 --> 00:04:07,468
+Por un lado tiene un láser diminuto llamado VCSEL:
+
+72
+00:04:07,918 --> 00:04:10,814
+en vez de salir por el borde del chip,
+
+73
+00:04:11,034 --> 00:04:14,234
+la luz sale hacia arriba, por la superficie.
+
+74
+00:04:14,684 --> 00:04:19,752
+Emite en 940 nanómetros, y su potencia es tan baja que es seguro
+
+75
+00:04:19,752 --> 00:04:23,142
+para los ojos: es un láser de clase uno.
+
+76
+00:04:24,442 --> 00:04:26,934
+Por el otro lado tiene el receptor,
+
+77
+00:04:27,154 --> 00:04:32,056
+y aquí está la magia: una matriz de diodos de avalancha de un
+
+78
+00:04:32,056 --> 00:04:33,920
+solo fotón, llamados SPAD.
+
+79
+00:04:34,370 --> 00:04:38,822
+Cada diodo se carga con un voltaje por encima de su punto de
+
+80
+00:04:38,822 --> 00:04:41,842
+ruptura, como una trampa lista para saltar.
+
+81
+00:04:42,292 --> 00:04:44,204
+Cuando llega un único fotón,
+
+82
+00:04:44,424 --> 00:04:48,600
+libera un electrón; ese electrón se acelera y arranca otros,
+
+83
+00:04:48,820 --> 00:04:50,376
+que arrancan otros más…
+
+84
+00:04:50,826 --> 00:04:55,138
+y en una fracción de nanosegundo hay una avalancha de corriente
+
+85
+00:04:55,138 --> 00:04:56,518
+que se puede medir.
+
+86
+00:04:56,968 --> 00:04:59,772
+Un solo grano de luz dispara la trampa.
+
+87
+00:05:00,222 --> 00:05:03,694
+Luego el circuito la apaga y la vuelve a cargar.
+
+88
+00:05:04,994 --> 00:05:09,178
+Pero un fotón suelto también puede venir del sol o de una
+
+89
+00:05:09,178 --> 00:05:09,666
+lámpara.
+
+90
+00:05:10,116 --> 00:05:14,252
+Por eso muchos de estos sensores disparan miles de pulsos y
+
+91
+00:05:14,252 --> 00:05:18,610
+arman un histograma: cuentan cuántos fotones llegaron en cada
+
+92
+00:05:18,610 --> 00:05:19,142
+instante.
+
+93
+00:05:19,592 --> 00:05:23,284
+La luz ambiente cae en todos los instantes por igual,
+
+94
+00:05:23,504 --> 00:05:28,044
+pero el eco del láser siempre llega al mismo tiempo y forma un
+
+95
+00:05:28,044 --> 00:05:28,400
+pico.
+
+96
+00:05:28,850 --> 00:05:31,698
+La posición de ese pico es la distancia.
+
+97
+00:05:32,998 --> 00:05:36,690
+Con un solo punto así tienes un medidor de distancia.
+
+98
+00:05:37,140 --> 00:05:41,500
+Con miles de puntos, o con un espejo que barre el espacio,
+
+99
+00:05:41,720 --> 00:05:42,832
+tienes un LiDAR.
+
+100
+00:05:44,182 --> 00:05:46,494
+La palabra LiDAR viene del inglés:
+
+101
+00:05:46,944 --> 00:05:49,788
+detección y medición de distancias con luz.
+
+102
+00:05:51,088 --> 00:05:53,044
+Apareció en los años sesenta,
+
+103
+00:05:53,264 --> 00:05:57,440
+poco después de que Theodore Maiman construyera el primer láser,
+
+104
+00:05:57,660 --> 00:05:58,636
+en 1960.
+
+105
+00:05:59,086 --> 00:06:04,018
+En 1962, investigadores del MIT apuntaron un láser a la Luna y
+
+106
+00:06:04,018 --> 00:06:07,130
+detectaron el eco que volvía de su superficie.
+
+107
+00:06:08,430 --> 00:06:13,538
+En 1969, los astronautas del Apolo 11 dejaron allá un panel de
+
+108
+00:06:13,538 --> 00:06:17,490
+reflectores especiales que devuelven la luz justo hacia donde
+
+109
+00:06:17,490 --> 00:06:17,846
+vino.
+
+110
+00:06:18,296 --> 00:06:22,604
+Todavía hoy, observatorios en la Tierra les disparan pulsos de
+
+111
+00:06:22,604 --> 00:06:26,648
+láser, cronometran un viaje de unos dos segundos y medio,
+
+112
+00:06:26,868 --> 00:06:30,960
+y miden la distancia a la Luna con precisión de milímetros.
+
+113
+00:06:31,410 --> 00:06:36,126
+Gracias a eso sabemos que la Luna se aleja de nosotros unos 3,8
+
+114
+00:06:36,126 --> 00:06:37,458
+centímetros cada año.
+
+115
+00:06:38,758 --> 00:06:43,418
+En 2007, en una competencia de carros autónomos organizada por
+
+116
+00:06:43,418 --> 00:06:46,350
+el Departamento de Defensa de Estados Unidos,
+
+117
+00:06:46,570 --> 00:06:50,838
+cinco de los seis carros que terminaron la carrera llevaban el
+
+118
+00:06:50,838 --> 00:06:53,150
+mismo LiDAR giratorio en el techo.
+
+119
+00:06:54,500 --> 00:06:57,784
+El módulo VL53L0X usa el bus I2C,
+
+120
+00:06:58,004 --> 00:06:59,960
+así que bastan cuatro cables:
+
+121
+00:07:00,410 --> 00:07:03,430
+alimentación, tierra y dos líneas de datos,
+
+122
+00:07:03,650 --> 00:07:07,830
+y la mayoría de módulos trabajan sin problema con los 3,3
+
+123
+00:07:07,830 --> 00:07:09,470
+voltios del ESP32.
+
+124
+00:07:10,770 --> 00:07:14,990
+Con una librería, pides una medida y recibes directamente la
+
+125
+00:07:14,990 --> 00:07:18,718
+distancia en milímetros, unas treinta veces por segundo.
+
+126
+00:07:19,168 --> 00:07:22,732
+En el modo normal llega a algo más de un metro,
+
+127
+00:07:22,952 --> 00:07:25,224
+y en el modo de largo alcance,
+
+128
+00:07:25,444 --> 00:07:26,780
+a unos dos metros.
+
+129
+00:07:28,080 --> 00:07:32,934
+Un detalle: todos salen de fábrica con la misma dirección en el
+
+130
+00:07:32,934 --> 00:07:33,246
+bus.
+
+131
+00:07:33,696 --> 00:07:38,052
+Si quieres usar varios, tienes que encenderlos uno por uno y
+
+132
+00:07:38,052 --> 00:07:39,516
+cambiarles la dirección.
+
+133
+00:07:40,816 --> 00:07:45,220
+Con eso puedes hacer un contador de personas que pasan por una
+
+134
+00:07:45,220 --> 00:07:47,352
+puerta, un medidor de altura,
+
+135
+00:07:47,572 --> 00:07:51,844
+un instrumento que suena según la distancia de tu mano o un
+
+136
+00:07:51,844 --> 00:07:56,068
+robot que mapea una habitación girando el sensor con un servo.
+
+137
+00:07:56,518 --> 00:08:01,006
+Y si quieres más, existen versiones que miden una cuadrícula de
+
+138
+00:08:01,006 --> 00:08:03,234
+ocho por ocho zonas a la vez:
+
+139
+00:08:03,684 --> 00:08:07,284
+una cámara de profundidad de sesenta y cuatro píxeles.
+
+140
+00:08:08,634 --> 00:08:10,590
+La luz también tiene trampas.
+
+141
+00:08:11,890 --> 00:08:15,446
+Las superficies negras y mate devuelven muy poca luz,
+
+142
+00:08:15,666 --> 00:08:17,402
+así que el alcance baja.
+
+143
+00:08:17,852 --> 00:08:22,436
+Los vidrios dejan pasar el pulso y los espejos lo mandan a otra
+
+144
+00:08:22,436 --> 00:08:22,836
+parte.
+
+145
+00:08:23,286 --> 00:08:27,290
+El sol directo inunda el receptor de fotones y le cuesta
+
+146
+00:08:27,290 --> 00:08:28,446
+encontrar el eco.
+
+147
+00:08:29,746 --> 00:08:34,414
+En los carros, la lluvia, la niebla y la nieve dispersan los
+
+148
+00:08:34,414 --> 00:08:36,282
+pulsos y crean ecos falsos.
+
+149
+00:08:36,732 --> 00:08:39,936
+Y los LiDAR de alta gama siguen siendo caros:
+
+150
+00:08:40,386 --> 00:08:44,954
+aquel modelo giratorio de 2007 costaba unos 75.000 dólares.
+
+151
+00:08:45,404 --> 00:08:47,984
+Hoy hay modelos sin piezas que giren,
+
+152
+00:08:48,204 --> 00:08:49,404
+mucho más baratos.
+
+153
+00:08:50,754 --> 00:08:52,310
+Tres datos para cerrar.
+
+154
+00:08:53,610 --> 00:08:58,328
+Uno: el desbloqueo facial de algunos celulares no usa tiempo de
+
+155
+00:08:58,328 --> 00:08:58,728
+vuelo.
+
+156
+00:08:59,178 --> 00:09:03,222
+Proyecta más de treinta mil puntos infrarrojos sobre tu cara,
+
+157
+00:09:03,442 --> 00:09:06,066
+y una cámara analiza cómo se deforman.
+
+158
+00:09:07,366 --> 00:09:12,264
+Dos: con una cámara que vea infrarrojo puedes ver los puntos que
+
+159
+00:09:12,264 --> 00:09:14,356
+lanza el LiDAR de un celular:
+
+160
+00:09:14,806 --> 00:09:19,030
+una cuadrícula de luz invisible que se posa sobre los muebles.
+
+161
+00:09:20,330 --> 00:09:25,228
+Tres: cada pulso que se dispara hacia los reflectores de la Luna
+
+162
+00:09:25,228 --> 00:09:27,940
+lleva unos cien mil billones de fotones.
+
+163
+00:09:28,390 --> 00:09:32,218
+Y aun con buen clima, se detecta más o menos uno.
+
+164
+00:09:33,568 --> 00:09:34,320
+Recapitulemos.
+
+165
+00:09:34,770 --> 00:09:39,034
+Un láser invisible, un pulso que vuelve en milmillonésimas de
+
+166
+00:09:39,034 --> 00:09:43,126
+segundo, diodos que se disparan con un solo fotón y un
+
+167
+00:09:43,126 --> 00:09:45,794
+histograma que separa el eco del ruido.
+
+168
+00:09:46,244 --> 00:09:50,380
+Con eso tu celular enfoca, los robots dibujan tu casa y
+
+169
+00:09:50,380 --> 00:09:52,108
+descubrimos ciudades perdidas.
+
+170
+00:09:53,408 --> 00:09:56,788
+La próxima vez que tu cámara enfoque al instante,
+
+171
+00:09:57,008 --> 00:10:00,076
+piensa que quizá acaba de cronometrar la luz.
+
+172
+00:10:01,376 --> 00:10:06,366
+En el próximo episodio: por qué una mesa de metal se siente más
+
+173
+00:10:06,366 --> 00:10:08,058
+fría que una de madera…
+
+174
+00:10:08,508 --> 00:10:11,572
+aunque estén exactamente a la misma temperatura.

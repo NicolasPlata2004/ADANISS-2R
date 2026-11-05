@@ -1,0 +1,9 @@
+00:00 Intro: cronometrar la luz
+01:05 Dónde está el tiempo de vuelo
+02:13 La física: 30 cm por nanosegundo
+03:56 Por dentro: VCSEL, SPAD e histograma
+05:43 La historia: un láser hasta la Luna
+06:54 Con un ESP32: el VL53L0X
+08:08 Los límites
+08:50 Tres datos curiosos
+09:33 Resumen
