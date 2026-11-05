@@ -23,7 +23,11 @@ import {
   Tubo,
 } from '../modelos/Piezas';
 import {M} from '../materiales';
-import {Dato, EtiquetaGuia, Leyenda, Medidor, Osciloscopio, proyectar, senalGolpe, Signo, TituloGrande} from '../ui';
+import {Dato, EtiquetaGuia, Leyenda, proyectar, senalGolpe, Signo, TituloGrande} from '../ui';
+import {EnPantalla, Osciloscopio3D, Voltimetro3D} from '../modelos/Instrumentos';
+import {Cil} from '../modelos/Objetos';
+import {TextoPlano} from '../texto3d';
+import * as THREE from 'three';
 import {FUENTES} from '../../../config/marca';
 
 const Q = {escala: 0.8} as const; // calidad de render para la nube (1 = máxima)
@@ -128,6 +132,11 @@ export const RedAtomos: React.FC = () => {
     <Fondo3D>
       <Estudio camara={cam} fondo="negro" centroLuz={CENTRO_RED} {...Q}>
         <RedAtomica pos={CENTRO_RED} t={t} aparicion={ap(t, 0.2, 5, (x) => x)} color={ap(t, tQ, 1.4)} compresion={0} corrimiento={0} />
+        {ap(t, tN - 0.5, 0.5) > 0.01 && (
+          <EnPantalla cam={cam} x={1690} y={270} ancho={300 * ap(t, tN - 0.5, 0.5)} anchoObjeto={3.2}>
+            <Voltimetro3D valor={0} etiqueta="neutro: 0" />
+          </EnPantalla>
+        )}
       </Estudio>
       <Leyenda
         x={70}
@@ -138,13 +147,12 @@ export const RedAtomos: React.FC = () => {
           {color: t > tQ ? '#4F8DFF' : '#D9D4CC', texto: t > tQ ? 'oxígeno  (−)' : 'oxígeno'},
         ]}
       />
-      <Medidor x={1560} y={150} valor={0} p={ap(t, tN - 0.5, 0.5)} etiqueta="neutro: 0" />
     </Fondo3D>
   );
 };
 
 /** Escena compartida: red que se aprieta, se polariza y (opcional) se conecta. */
-const RedConPlacas: React.FC<{compresion: number; corrimiento: number; vibra?: number; t: number; cam: Camara; cable?: number; pila?: number}> = ({
+const RedConPlacas: React.FC<{compresion: number; corrimiento: number; vibra?: number; t: number; cam: Camara; cable?: number; pila?: number; children?: React.ReactNode}> = ({
   compresion,
   corrimiento,
   vibra = 0,
@@ -152,6 +160,7 @@ const RedConPlacas: React.FC<{compresion: number; corrimiento: number; vibra?: n
   cam,
   cable = 0,
   pila = 0,
+  children,
 }) => {
   const sep = RED.alto * (1 - 0.22 * compresion) + 1.0;
   const xI = -RED.ancho / 2 - 0.9;
@@ -178,6 +187,7 @@ const RedConPlacas: React.FC<{compresion: number; corrimiento: number; vibra?: n
           <Tubo puntos={[[xD + 0.1, y - 1.2, 2.2], [xD + 0.4, y - 3.6, 3.2], [2.4, y - 4.4, 3.2]]} radio={0.08} material={M.goma('#B5121B')} progreso={pila} />
         </>
       )}
+      {children}
     </Estudio>
   );
 };
@@ -203,10 +213,15 @@ export const RedAprieta: React.FC = () => {
   const cable = ap(t, tK, 1.2);
   return (
     <Fondo3D>
-      <RedConPlacas compresion={compresion} corrimiento={corrimiento} t={t} cam={cam} cable={cable} />
+      <RedConPlacas compresion={compresion} corrimiento={corrimiento} t={t} cam={cam} cable={cable}>
+        {ap(t, tV - 0.4, 0.5) > 0.01 && (
+          <EnPantalla cam={cam} x={1700} y={270} ancho={300 * ap(t, tV - 0.4, 0.5)} anchoObjeto={3.2}>
+            <Voltimetro3D valor={corrimiento * (1 - cable * 0.8)} />
+          </EnPantalla>
+        )}
+      </RedConPlacas>
       <Signo x={pD.x + 20} y={pD.y} signo="+" p={ap(t, tC, 0.5)} />
       <Signo x={pI.x - 20} y={pI.y} signo="−" p={ap(t, tC + 0.3, 0.5)} />
-      <Medidor x={1580} y={140} valor={corrimiento * (1 - cable * 0.8)} p={ap(t, tV - 0.4, 0.5)} />
       <TituloGrande texto="eso es un voltaje" p={ap(t, tV - 0.1, 0.4) * sal(t, tK + 1.5, 0.4)} y={110} />
     </Fondo3D>
   );
@@ -333,13 +348,19 @@ export const PiezoCorte: React.FC = () => {
         <group scale={[2.6, 5, 2.6]} position={[0, 0.2, 0]}>
           <PiezoDisco flex={flex} corte={1.6} cables={false} />
         </group>
+        {ap(t, tV - 0.6, 0.5) > 0.01 && (
+          <EnPantalla cam={cam} x={1560} y={660} ancho={520 * ap(t, tV - 0.6, 0.5)} anchoObjeto={7.2} dist={5}>
+            <group position={[0, -2.35, 0]}>
+              <Osciloscopio3D muestras={senalGolpe(t, tV, 220, 1.4, 0.95)} titulo="voltaje entre los cables" color="#C88BFF" />
+            </group>
+          </EnPantalla>
+        )}
       </Estudio>
       <div style={{position: 'absolute', left: 0, right: 0, top: 130, display: 'flex', justifyContent: 'center', gap: 50, fontFamily: FUENTES.sans}}>
         <div style={{opacity: ap(t, tC, 0.5), background: 'rgba(8,10,12,0.72)', borderRadius: 16, padding: '10px 22px', color: '#FFC266', fontSize: 34, fontWeight: 800}}>latón: se curva</div>
         <div style={{opacity: ap(t, tC + 1.2, 0.5), background: 'rgba(8,10,12,0.72)', borderRadius: 16, padding: '10px 22px', color: '#FF9DBB', fontSize: 34, fontWeight: 800}}>cerámica: se comprime o se estira</div>
       </div>
       <div style={{position: 'absolute', right: 60, bottom: 170, fontFamily: FUENTES.sans, color: 'rgba(255,255,255,0.6)', fontSize: 20, opacity: ap(t, 0.5, 0.5)}}>grosor exagerado ×5</div>
-      <Osciloscopio x={1380} y={560} w={420} h={190} muestras={senalGolpe(t, tV, 220, 1.4, 0.95)} p={ap(t, tV - 0.6, 0.5)} titulo="voltaje entre los cables" />
     </Fondo3D>
   );
 };
@@ -357,8 +378,14 @@ export const PiezoGolpe: React.FC = () => {
       <Estudio camara={cam} fondo="tapete" {...Q}>
         <PiezoDisco flex={flex} />
         <Lapiz pos={[0.05, yLapiz, 0]} rot={[0, 0, 0.12]} />
+        {ap(t, 0.2, 0.5) > 0.01 && (
+          <EnPantalla cam={cam} x={350} y={290} ancho={540 * ap(t, 0.2, 0.5)} anchoObjeto={7.2} dist={9}>
+            <group position={[0, -2.35, 0]}>
+              <Osciloscopio3D muestras={senalGolpe(t, tP, 240, 1.2, 0.95)} titulo="piezo · golpe con el dedo" color="#C88BFF" />
+            </group>
+          </EnPantalla>
+        )}
       </Estudio>
-      <Osciloscopio x={90} y={130} w={460} h={210} muestras={senalGolpe(t, tP, 240, 1.2, 0.95)} p={ap(t, 0.2, 0.5)} titulo="piezo · golpe con el dedo" />
       <Dato x={1500} y={270} valor="varios V" sub="en milésimas de segundo" p={ap(t, tP + 0.3, 0.4)} />
     </Fondo3D>
   );
@@ -378,8 +405,14 @@ export const Zumbador: React.FC = () => {
       <Estudio camara={cam} fondo="tapete" {...Q}>
         <PiezoDisco flex={flex} />
         {vib > 0.01 && <Ondas centro={[0, 0.06, 0]} t={t} t0={tV - 0.2} velocidad={2.4} n={8} color="#9FE0FF" />}
+        {ap(t, 1.0, 0.5) > 0.01 && (
+          <EnPantalla cam={cam} x={340} y={420} ancho={500 * ap(t, 1.0, 0.5)} anchoObjeto={7.2} dist={9}>
+            <group position={[0, -2.35, 0]}>
+              <Osciloscopio3D muestras={Array.from({length: 200}, (_, i) => vib * 0.75 * Math.sign(Math.sin(i * 0.35 + t * 20)))} titulo="señal: sube y baja miles de veces" color="#7FD1FF" />
+            </group>
+          </EnPantalla>
+        )}
       </Estudio>
-      <Osciloscopio x={90} y={130} w={420} h={180} muestras={Array.from({length: 200}, (_, i) => vib * 0.75 * Math.sign(Math.sin(i * 0.35 + t * 20)))} p={ap(t, 1.0, 0.5)} titulo="señal: sube y baja miles de veces" color="#7FD1FF" />
       <TituloGrande texto="el zumbador del microondas" p={ap(t, tMi - 0.2, 0.4) * sal(t, tE - 0.4, 0.3)} y={110} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 120, display: 'flex', justifyContent: 'center', gap: 40, fontFamily: FUENTES.sans}}>
         <div style={{opacity: ap(t, tE - 0.1, 0.4), background: 'rgba(8,10,12,0.65)', borderRadius: 18, padding: '12px 28px', color: '#FF8FB1', fontSize: 38, fontWeight: 800}}>escucha: sensor</div>
@@ -457,6 +490,12 @@ export const Mesa: React.FC = () => {
     ],
     t,
   );
+  const giroCam = (() => {
+    const c = new THREE.PerspectiveCamera(34, 16 / 9, 0.1, 400);
+    c.position.set(...cam.pos);
+    c.lookAt(...cam.obj);
+    return c.quaternion.clone();
+  })();
   return (
     <Fondo3D>
       <Estudio camara={cam} fondo="tapete" centroLuz={[0, 2, 0]} {...Q}>
@@ -465,20 +504,24 @@ export const Mesa: React.FC = () => {
           <PiezoDisco key={i} posicion={d} cables={false} flex={t > llegada[i] ? 0.8 * Math.exp(-(t - llegada[i]) / 0.25) * Math.cos(30 * (t - llegada[i])) : 0} />
         ))}
         <Ondas centro={[toque[0], 1.63, toque[2]]} t={t} t0={tGolpe} velocidad={vel} n={3} color="#FFD27F" />
+        {/* orden de llegada: insignias 3D que miran a la cámara */}
+        {discos.map((d, i) => {
+          const q = ap(t, Math.max(llegada[i], tO - 0.4), 0.3);
+          if (q <= 0.01) return null;
+          return (
+            <group key={i} position={[d[0], 5.2, d[2]]} quaternion={giroCam} scale={q}>
+              <Cil r={1.5} h={0.25} rot={[Math.PI / 2, 0, 0]} mat={M.color('#FF5A5F', 0.4)} seg={40} />
+              <TextoPlano lineas={[{t: String(orden.indexOf(i) + 1), tam: 700, color: '#FFFFFF'}]} w={2.2} h={2.2} pos={[0, 0, 0.16]} />
+            </group>
+          );
+        })}
+        {ap(t, tE, 0.4) > 0.01 && (
+          <mesh position={[toque[0], 1.72, toque[2]]} rotation={[Math.PI / 2, 0, 0]} scale={ap(t, tE, 0.4)}>
+            <torusGeometry args={[2.4, 0.22, 16, 64]} />
+            <meshBasicMaterial color="#FFD27F" toneMapped={false} />
+          </mesh>
+        )}
       </Estudio>
-      {discos.map((d, i) => {
-        const p = proyectar([d[0], d[1], d[2]], cam);
-        const pos = orden.indexOf(i) + 1;
-        return (
-          <div key={i} style={{position: 'absolute', left: p.x - 32, top: p.y - 110, width: 64, height: 64, borderRadius: 32, background: '#FF5A5F', color: '#fff', fontFamily: FUENTES.sans, fontWeight: 800, fontSize: 38, textAlign: 'center', lineHeight: '64px', opacity: ap(t, Math.max(llegada[i], tO - 0.4), 0.3), boxShadow: '0 6px 20px rgba(0,0,0,0.4)'}}>
-            {pos}
-          </div>
-        );
-      })}
-      {(() => {
-        const p = proyectar(toque, cam);
-        return <div style={{position: 'absolute', left: p.x - 46, top: p.y - 46, width: 92, height: 92, borderRadius: 46, border: '5px solid #FFD27F', opacity: ap(t, tE, 0.4), boxShadow: '0 0 30px #FFD27F'}} />;
-      })()}
       <TituloGrande texto="¿dónde tocaste?" p={ap(t, tE + 0.3, 0.4)} y={90} />
     </Fondo3D>
   );
@@ -494,31 +537,34 @@ export const RelojCuarzo: React.FC = () => {
   const tS = m('segundo', 21.2);
   const cam = orbita([0, 2.8, 0], 11, 1.6, -30 + (t / dur) * 50, 32);
   const vib = ap(t, tV - 0.3, 0.5);
+  // panel 3D: primero 32.768 = 2^15; luego la cadena de divisiones entre 2 hasta 1 por segundo
+  const pasos = Array.from({length: 16}, (_, k) => 32768 / 2 ** k);
+  const lineas =
+    t < tDi - 0.2
+      ? [
+          {t: '32.768', tam: 150, color: '#FFFFFF', mono: true},
+          {t: 'vibraciones por segundo', tam: 64, color: '#C9D1D9', peso: 600},
+          {t: t > tP - 0.1 ? '= 2¹⁵' : ' ', tam: 130, color: '#C88BFF'},
+        ]
+      : pasos.map((v, k) => ({
+          t: t > tDi + k * 0.28 ? `${k ? '÷2 → ' : ''}${v.toLocaleString('es-ES')}${k === 15 ? ' por segundo' : ''}` : ' ',
+          tam: k === 15 ? 62 : 54,
+          color: k === 15 && t > tS ? '#FF5A5F' : k ? '#E8EAED' : '#FFFFFF',
+          mono: true,
+        }));
+  const panel = ap(t, tV, 0.4);
   return (
     <Fondo3D>
       <Estudio camara={cam} fondo="negro" centroLuz={[0, 2.5, 0]} {...Q}>
-        <group scale={ap(t, Math.max(0, tD - 2), 1.2, easeInOut) * 0.999 + 0.001}>
+        <group scale={ap(t, 0.2, 1.0, easeInOut) * 0.999 + 0.001}>
           <Diapason vib={vib} t={t} abierto={0} lata={1 - ap(t, tD - 0.3, 1.2, easeInOut)} />
         </group>
+        {panel > 0.01 && (
+          <EnPantalla cam={cam} x={1580} y={540} ancho={440 * panel} anchoObjeto={4.2}>
+            <TextoPlano lineas={lineas} w={4.2} h={t < tDi - 0.2 ? 2.4 : 5.2} estilo={{fondo: '#0B0F14', radio: 40, alinear: t < tDi - 0.2 ? 'center' : 'left', relleno: 60}} />
+          </EnPantalla>
+        )}
       </Estudio>
-      <Dato x={1440} y={250} valor="32.768" unidad="veces/s" sub="un diapasón de cuarzo" p={ap(t, tV, 0.4) * sal(t, tDi - 0.2, 0.3)} />
-      <div style={{position: 'absolute', left: 1180, top: 380, fontFamily: FUENTES.sans, color: '#fff', fontSize: 64, fontWeight: 800, opacity: ap(t, tP - 0.1, 0.4) * sal(t, tDi - 0.2, 0.3)}}>
-        = 2<sup style={{fontSize: 36}}>15</sup>
-      </div>
-      <div style={{position: 'absolute', right: 90, top: 120, fontFamily: FUENTES.mono, color: '#F3F4F5', fontSize: 30, fontWeight: 700, lineHeight: 1.32, textAlign: 'right'}}>
-        {Array.from({length: 16}, (_, i) => {
-          const v = 32768 / 2 ** i;
-          const p = ap(t, tDi + i * 0.28, 0.25);
-          const ultimo = i === 15;
-          return (
-            <div key={i} style={{opacity: p, color: ultimo && t > tS ? '#FF5A5F' : '#F3F4F5', fontSize: ultimo ? 40 : 28}}>
-              {i > 0 ? <span style={{color: '#C88BFF', fontSize: 20}}>÷2 </span> : null}
-              {v.toLocaleString('es-ES')}
-              {ultimo ? ' por segundo' : ''}
-            </div>
-          );
-        })}
-      </div>
     </Fondo3D>
   );
 };

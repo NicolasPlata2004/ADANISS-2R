@@ -3,7 +3,7 @@ import React from 'react';
 import * as THREE from 'three';
 import {M} from '../materiales';
 import type {V3} from '../Estudio';
-import {useLienzo} from '../texto3d';
+import {TextoPlano, useLienzo} from '../texto3d';
 import {Caja} from './Piezas';
 import {Cil} from './Objetos';
 
@@ -177,5 +177,53 @@ export const Pedestal: React.FC<{pos?: V3; r?: number; luz?: number; color?: str
       <ringGeometry args={[r - 0.18, r - 0.06, 96]} />
       <meshBasicMaterial color={color} transparent opacity={0.08 + 0.85 * luz} toneMapped={false} depthWrite={false} side={THREE.DoubleSide} />
     </mesh>
+  </group>
+);
+
+/**
+ * Coloca un objeto 3D (con luz y perspectiva reales) en un punto fijo de la pantalla, de frente a la
+ * cámara: sirve para instrumentos que antes eran paneles 2D. `x`, `y` en píxeles de 1920×1080 (centro
+ * del objeto); `ancho` = cuántos píxeles debe medir un objeto de `anchoObjeto` unidades.
+ */
+export const EnPantalla: React.FC<{cam: {pos: V3; obj: V3; fov?: number}; x: number; y: number; ancho: number; anchoObjeto: number; dist?: number; children: React.ReactNode}> = ({
+  cam,
+  x,
+  y,
+  ancho,
+  anchoObjeto,
+  dist = 6,
+  children,
+}) => {
+  const c = new THREE.PerspectiveCamera(cam.fov ?? 30, 16 / 9, 0.05, 400);
+  c.position.set(...cam.pos);
+  c.lookAt(...cam.obj);
+  c.updateMatrixWorld();
+  const dir = new THREE.Vector3((x / 1920) * 2 - 1, 1 - (y / 1080) * 2, 0.5).unproject(c).sub(c.position).normalize();
+  const adelante = new THREE.Vector3();
+  c.getWorldDirection(adelante);
+  const p = c.position.clone().add(dir.multiplyScalar(dist / dir.dot(adelante)));
+  const anchoVisible = 2 * dist * Math.tan(((cam.fov ?? 30) * Math.PI) / 360) * (16 / 9);
+  const s = ((ancho / 1920) * anchoVisible) / anchoObjeto;
+  return (
+    <group position={[p.x, p.y, p.z]} quaternion={c.quaternion.clone()} scale={s}>
+      {children}
+    </group>
+  );
+};
+
+/** Voltímetro de aguja. `valor` en [-1, 1] (0 = aguja al centro). Centrado en su origen, mira a +z. */
+export const Voltimetro3D: React.FC<{valor: number; etiqueta?: string}> = ({valor, etiqueta = 'voltaje'}) => (
+  <group>
+    <Caja tam={[3.2, 2.5, 0.6]} material={M.color('#F2C230', 0.45)} radio={0.18} />
+    <Caja tam={[2.7, 1.55, 0.05]} pos={[0, 0.3, 0.31]} material={M.color('#F4F1E8', 0.55)} radio={0.06} />
+    {Array.from({length: 11}, (_, i) => {
+      const a = -0.9 + i * 0.18;
+      return <Caja key={i} tam={[0.035, i % 5 === 0 ? 0.24 : 0.14, 0.02]} pos={[Math.sin(a) * 1.0, -0.35 + Math.cos(a) * 1.0, 0.345]} rot={[0, 0, -a]} material={M.color('#1A1A1A', 0.5)} />;
+    })}
+    <group position={[0, -0.35, 0.36]} rotation={[0, 0, -Math.max(-1, Math.min(1, valor)) * 0.9]}>
+      <Caja tam={[0.045, 1.05, 0.02]} pos={[0, 0.52, 0]} material={M.color('#C62828', 0.4)} />
+    </group>
+    <Cil r={0.09} h={0.05} pos={[0, -0.35, 0.37]} rot={[Math.PI / 2, 0, 0]} mat={M.color('#1A1A1A', 0.4)} seg={16} />
+    <TextoPlano lineas={[{t: etiqueta, tam: 120, color: '#1A1A1A'}]} w={2.8} h={0.42} pos={[0, -0.85, 0.32]} />
   </group>
 );
