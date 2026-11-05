@@ -1,0 +1,238 @@
+# S07 · El grito que tu carro lanza y tú no oyes — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S07_NARRACION.wav  y ejecuta producir.bat S07_Ultrasonico
+episodio: S07_Ultrasonico
+titulo: "El grito que tu carro lanza y tú no oyes"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: GritoGancho3D
+    seccion: "ULTRASONIDO"
+    capitulo: "Intro: el carro que grita"
+    desde: inicio
+    marcas:
+      gritando: "está gritando"
+      eco: "Cuando vuelve el eco"
+      distancia: "a qué distancia está"
+      murcielagos: "Los murciélagos"
+      sensor: "un sensor que cuesta"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "Se llama sensor ultrasónico"
+    props:
+      modelo: hcsr04
+      items:
+        - {texto: "Qué es el ultrasonido", marca: uno}
+        - {texto: "Cómo un eco se vuelve una distancia", marca: dos}
+        - {texto: "Por qué la temperatura cambia la medida", marca: tres}
+        - {texto: "Un medidor de distancia con un ESP32", marca: cuatro}
+    marcas:
+      uno: "qué es el ultrasonido"
+      dos: "cómo un eco"
+      tres: "la temperatura del aire"
+      cuatro: "con un ESP32"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde está el ultrasonido"
+    desde: "Los sensores de parqueo son"
+    props:
+      items:
+        - {modelo: parqueo, texto: "sensores de parqueo", marca: parqueo}
+        - {modelo: celular, texto: "huellas dactilares", sub: "a través del vidrio", marca: huella}
+        - {modelo: tanque, texto: "nivel de tanques", marca: tanques}
+        - {modelo: tuberia, texto: "medidores de agua y gas", marca: flujo}
+        - {modelo: barco, texto: "ecosondas y sonar de pesca", marca: barcos}
+        - {modelo: roboteduc, texto: "robots educativos", marca: robots}
+        - {modelo: ecografia, texto: "ecografías", sub: "millones de vibraciones por segundo", marca: eco}
+    marcas:
+      parqueo: "Los sensores de parqueo"
+      huella: "huella dactilar"
+      tanques: "En fábricas y tanques"
+      flujo: "medidores de agua"
+      barcos: "Los barcos miden"
+      robots: "robots educativos"
+      eco: "la ecografía"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: onda
+    escena: OndaPresion3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: ecos y velocidad del sonido"
+    desde: "El sonido es una onda"
+    marcas:
+      frecuencia: "la frecuencia"
+      oidos: "Tus oídos captan"
+      ultrasonido: "Todo lo que está por encima"
+      velocidad: "343 metros por segundo"
+  - id: eco
+    escena: EcoDistancia3D
+    desde: "Comparado con la luz"
+    marcas:
+      pulso: "lanza un pulso corto"
+      idavuelta: "ida y vuelta"
+      dos: "dividido entre dos"
+      ejemplo: "Un ejemplo"
+      porque: "por qué ultrasonido"
+      centimetro: "A cuarenta mil vibraciones"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: murciélagos, Titanic y sonar"
+    desde: "La idea la inventó la naturaleza"
+    props:
+      separacion: 11
+      items:
+        - {modelo: murcielago, anio: "1793", texto: "Spallanzani", sub: "esquivan obstáculos sin ver", marca: spallanzani}
+        - {modelo: polilla, anio: "1794", texto: "Jurine", sub: "oídos tapados: chocan", marca: jurine}
+        - {modelo: murcielago, anio: "1938", texto: "Donald Griffin", sub: "gritos de ultrasonido: ecolocalización", marca: griffin}
+        - {modelo: iceberg, anio: "1912", texto: "después del Titanic", sub: "detectar icebergs con ecos", marca: titanic}
+        - {modelo: transductor, anio: "1917", texto: "el sonar", sub: "cuarzo de Langevin", marca: sonar}
+    marcas:
+      spallanzani: "Lazzaro Spallanzani"
+      jurine: "Louis Jurine"
+      griffin: "Donald Griffin"
+      titanic: "del Titanic"
+      sonar: "nació el sonar"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: pordentro
+    escena: HCSR04Dentro3D
+    seccion: "POR DENTRO"
+    capitulo: "Por dentro del HC-SR04"
+    desde: "el sensor más popular"
+    marcas:
+      ojos: "Uno habla"
+      piezo: "un elemento piezoeléctrico"
+      trigger: "llamado Trigger"
+      rafaga: "una ráfaga de ocho ciclos"
+      vuelve: "El sonido sale"
+      ancho: "el ancho de ese pulso"
+      rango: "Según su fabricante"
+  - id: parqueo
+    escena: Vitrina
+    desde: "Los sensores de parqueo usan"
+    props:
+      items:
+        - {modelo: parqueo, texto: "una sola pieza sellada", sub: "grita y luego escucha", marca: pieza}
+    marcas:
+      pieza: "una sola pieza"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: esp32
+    escena: UltraESP32_3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: medir distancias"
+    desde: "Conectarlo es fácil"
+    marcas:
+      cinco: "se alimenta con cinco"
+      divisor: "un divisor de voltaje"
+      trigger: "El pin Trigger"
+      pulsein: "la función pulseIn"
+      cincuenta: "divides entre unos 58"
+  - id: proyectos
+    escena: Vitrina
+    desde: "Con eso puedes hacer"
+    props:
+      items:
+        - {modelo: parqueo, texto: "sensor de parqueo para el garaje", marca: garaje}
+        - {modelo: tanque, texto: "nivel del tanque de agua", marca: tanque}
+        - {modelo: roboteduc, texto: "robot que esquiva obstáculos", marca: robot}
+        - {modelo: theremin, texto: "instrumento que suena con la mano", marca: musica}
+    marcas:
+      garaje: "un sensor de parqueo"
+      tanque: "un medidor del nivel"
+      robot: "un robot que esquiva"
+      musica: "un instrumento musical"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: temperatura
+    escena: TemperaturaSonido3D
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "El ultrasonido tiene sus trampas"
+    marcas:
+      temperatura: "cambia con la temperatura"
+      centimetros: "varios centímetros"
+      termometro: "llevan un termómetro"
+  - id: limites
+    escena: Vitrina
+    desde: "Las superficies blandas"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: espuma, texto: "lo blando absorbe el sonido", marca: blandas}
+        - {modelo: rampa, texto: "lo inclinado lo desvía", marca: inclinadas}
+        - {modelo: hcsr04, texto: "muy cerca queda ciego", marca: ciego}
+        - {modelo: roboteduc, texto: "dos sensores se confunden", marca: dos}
+    marcas:
+      blandas: "Las superficies blandas"
+      inclinadas: "Las superficies inclinadas"
+      ciego: "el sensor queda ciego"
+      dos: "si dos sensores"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para tu próxima"
+    props:
+      numerado: true
+      items:
+        - {modelo: polilla, texto: "polillas contra el sonar", sub: "se lanzan en picada o lo confunden", marca: polillas}
+        - {modelo: barco, texto: "en el agua: ~1.500 m/s", sub: "unas cuatro veces más rápido", marca: agua}
+        - {modelo: persona, texto: "personas que ecolocalizan", sub: "el eco activa zonas de la vista", marca: personas}
+    marcas:
+      polillas: "algunas polillas"
+      agua: "en el agua"
+      personas: "hay personas ciegas"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: hcsr04, texto: "un piezo que grita", marca: piezo}
+        - {modelo: parqueo, texto: "se estaciona un carro", marca: carro}
+        - {modelo: tanque, texto: "se mide un tanque", marca: tanque}
+        - {modelo: murcielago, texto: "caza un murciélago", marca: murcielago}
+    marcas:
+      piezo: "Un piezo que grita"
+      carro: "se estaciona un carro"
+      tanque: "se mide un tanque"
+      murcielago: "caza un murciélago"
+  - id: final
+    escena: GritoGancho3D
+    desde: "La próxima vez que tu carro"
+    props: {final: true}
+    marcas:
+      gritando: "tu carro pite"
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S08 · el sensor de tiempo de vuelo"
+      items:
+        - {modelo: celularLidar, texto: "mide distancias con luz", marca: luz}
+        - {modelo: aspiradora, texto: "un viaje de milmillonésimas de segundo", marca: viaje}
+    marcas:
+      luz: "mide distancias con luz"
+      viaje: "cronometrando un viaje"

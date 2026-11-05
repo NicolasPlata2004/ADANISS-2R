@@ -1,0 +1,723 @@
+1
+00:00:00,600 --> 00:00:03,936
+Cada vez que un carro retrocede hacia una pared,
+
+2
+00:00:04,156 --> 00:00:05,044
+está gritando.
+
+3
+00:00:06,344 --> 00:00:10,664
+Grita en un tono tan agudo que tus oídos no lo pueden oír:
+
+4
+00:00:11,114 --> 00:00:14,002
+decenas de miles de vibraciones por segundo.
+
+5
+00:00:14,452 --> 00:00:16,232
+Luego se calla y escucha.
+
+6
+00:00:16,682 --> 00:00:19,834
+Cuando vuelve el eco, cronometra cuánto tardó,
+
+7
+00:00:20,054 --> 00:00:23,838
+y con ese tiempo sabe a qué distancia está la pared.
+
+8
+00:00:25,138 --> 00:00:28,870
+Los murciélagos hacen lo mismo desde hace unos cincuenta
+
+9
+00:00:28,870 --> 00:00:32,914
+millones de años, y cazan insectos en la oscuridad total.
+
+10
+00:00:33,364 --> 00:00:34,696
+Los delfines también.
+
+11
+00:00:35,146 --> 00:00:39,774
+Y tú puedes hacerlo con un sensor que cuesta menos que un helado
+
+12
+00:00:39,774 --> 00:00:41,378
+y que tiene dos ojos…
+
+13
+00:00:41,828 --> 00:00:43,076
+que no son ojos.
+
+14
+00:00:44,426 --> 00:00:46,202
+Se llama sensor ultrasónico.
+
+15
+00:00:46,652 --> 00:00:50,036
+En este video vas a ver qué es el ultrasonido,
+
+16
+00:00:50,256 --> 00:00:53,192
+cómo un eco se convierte en una distancia,
+
+17
+00:00:53,412 --> 00:00:56,792
+por qué la temperatura del aire cambia la medida,
+
+18
+00:00:57,012 --> 00:01:00,168
+qué hay dentro de esos dos cilindros plateados,
+
+19
+00:01:00,388 --> 00:01:05,324
+y cómo hacer con un ESP32 un medidor de distancia que no toca
+
+20
+00:01:05,324 --> 00:01:05,680
+nada.
+
+21
+00:01:07,030 --> 00:01:10,142
+Los sensores de parqueo son los más conocidos:
+
+22
+00:01:10,592 --> 00:01:13,212
+esos círculos pequeños en el parachoques.
+
+23
+00:01:14,512 --> 00:01:18,248
+Cada uno lanza pulsos de ultrasonido y escucha el eco,
+
+24
+00:01:18,468 --> 00:01:22,516
+y el carro convierte la distancia en pitidos cada vez más
+
+25
+00:01:22,516 --> 00:01:23,004
+rápidos.
+
+26
+00:01:23,454 --> 00:01:24,878
+Pero hay muchos más.
+
+27
+00:01:25,328 --> 00:01:28,968
+Algunos celulares leen tu huella dactilar con ultrasonido,
+
+28
+00:01:29,188 --> 00:01:31,680
+a través del vidrio de la pantalla,
+
+29
+00:01:31,900 --> 00:01:36,040
+midiendo los ecos de las crestas y los valles de tu dedo.
+
+30
+00:01:36,490 --> 00:01:40,938
+En fábricas y tanques se mide el nivel de líquidos sin tocarlos,
+
+31
+00:01:41,158 --> 00:01:45,342
+y muchos medidores de agua y de gas calculan el flujo con
+
+32
+00:01:45,342 --> 00:01:46,006
+ultrasonido.
+
+33
+00:01:47,306 --> 00:01:50,994
+Los barcos miden la profundidad del fondo con ecosondas,
+
+34
+00:01:51,214 --> 00:01:54,322
+y los pescadores encuentran cardúmenes con sonar.
+
+35
+00:01:54,772 --> 00:01:58,016
+Muchos robots educativos usan uno para no chocar.
+
+36
+00:01:59,316 --> 00:02:03,360
+Y en los hospitales, la ecografía usa el mismo principio,
+
+37
+00:02:03,580 --> 00:02:06,512
+pero con millones de vibraciones por segundo,
+
+38
+00:02:06,732 --> 00:02:08,512
+para ver órganos y bebés.
+
+39
+00:02:09,862 --> 00:02:12,266
+El sonido es una onda de presión:
+
+40
+00:02:12,716 --> 00:02:17,032
+las moléculas del aire se empujan unas a otras y ese empujón
+
+41
+00:02:17,032 --> 00:02:21,568
+viaja, como cuando una fila de personas se pasa un empujón de
+
+42
+00:02:21,568 --> 00:02:22,724
+hombro en hombro.
+
+43
+00:02:23,174 --> 00:02:27,578
+Lo que llamamos tono es cuántas veces por segundo se repite el
+
+44
+00:02:27,578 --> 00:02:29,404
+empujón: la frecuencia.
+
+45
+00:02:30,704 --> 00:02:32,836
+Tus oídos captan, como mucho,
+
+46
+00:02:33,056 --> 00:02:35,632
+unas veinte mil vibraciones por segundo,
+
+47
+00:02:35,852 --> 00:02:37,632
+y con la edad, menos.
+
+48
+00:02:38,082 --> 00:02:41,062
+Todo lo que está por encima es ultrasonido.
+
+49
+00:02:41,512 --> 00:02:45,786
+No es un sonido distinto: es sonido demasiado agudo para
+
+50
+00:02:45,786 --> 00:02:46,318
+nosotros.
+
+51
+00:02:47,618 --> 00:02:52,686
+En el aire, el sonido viaja a unos 343 metros por segundo cuando
+
+52
+00:02:52,686 --> 00:02:53,930
+hace 20 grados.
+
+53
+00:02:54,380 --> 00:02:56,916
+Comparado con la luz es una tortuga,
+
+54
+00:02:57,136 --> 00:03:01,326
+y eso lo hace útil: un eco tarda lo suficiente para
+
+55
+00:03:01,326 --> 00:03:02,790
+cronometrarlo con calma.
+
+56
+00:03:04,090 --> 00:03:05,558
+El truco es sencillo.
+
+57
+00:03:06,008 --> 00:03:08,188
+El sensor lanza un pulso corto,
+
+58
+00:03:08,408 --> 00:03:10,588
+el pulso viaja hasta un objeto,
+
+59
+00:03:10,808 --> 00:03:11,920
+rebota y vuelve.
+
+60
+00:03:12,370 --> 00:03:16,022
+El tiempo medido es el del viaje de ida y vuelta,
+
+61
+00:03:16,242 --> 00:03:20,602
+así que la distancia es la velocidad del sonido por el tiempo,
+
+62
+00:03:20,822 --> 00:03:22,066
+dividido entre dos.
+
+63
+00:03:23,366 --> 00:03:27,508
+Un ejemplo: si el eco tarda seis milésimas de segundo,
+
+64
+00:03:27,728 --> 00:03:31,332
+el sonido recorrió algo más de dos metros en total,
+
+65
+00:03:31,552 --> 00:03:34,628
+y la pared está a poco más de un metro.
+
+66
+00:03:35,928 --> 00:03:39,088
+¿Y por qué ultrasonido y no un pitido normal?
+
+67
+00:03:39,538 --> 00:03:44,118
+Porque no molesta a nadie, y porque las ondas cortas forman un
+
+68
+00:03:44,118 --> 00:03:47,318
+haz más angosto y detectan objetos más pequeños.
+
+69
+00:03:47,768 --> 00:03:50,300
+A cuarenta mil vibraciones por segundo,
+
+70
+00:03:50,520 --> 00:03:53,144
+cada onda mide menos de un centímetro.
+
+71
+00:03:54,494 --> 00:03:56,762
+La idea la inventó la naturaleza,
+
+72
+00:03:56,982 --> 00:03:58,982
+y nos costó siglos entenderla.
+
+73
+00:04:00,282 --> 00:04:04,586
+En 1793, el italiano Lazzaro Spallanzani comprobó que los
+
+74
+00:04:04,586 --> 00:04:08,314
+murciélagos esquivaban obstáculos en la oscuridad aunque no
+
+75
+00:04:08,314 --> 00:04:09,158
+pudieran ver.
+
+76
+00:04:09,608 --> 00:04:14,008
+Al año siguiente, el cirujano suizo Louis Jurine les tapó los
+
+77
+00:04:14,008 --> 00:04:14,408
+oídos…
+
+78
+00:04:14,858 --> 00:04:16,994
+y empezaron a chocar con todo.
+
+79
+00:04:17,444 --> 00:04:20,868
+Algo hacían con el oído, pero nadie sabía qué.
+
+80
+00:04:22,168 --> 00:04:24,388
+La respuesta llegó en 1938.
+
+81
+00:04:24,838 --> 00:04:27,634
+Donald Griffin, un estudiante de Harvard,
+
+82
+00:04:27,854 --> 00:04:31,810
+llevó murciélagos al laboratorio de un físico que tenía un
+
+83
+00:04:31,810 --> 00:04:36,206
+detector de ultrasonido, y descubrió que gritaban todo el tiempo
+
+84
+00:04:36,206 --> 00:04:38,386
+en tonos que ningún humano oye.
+
+85
+00:04:38,836 --> 00:04:40,748
+Años después le puso nombre:
+
+86
+00:04:41,198 --> 00:04:42,038
+ecolocalización.
+
+87
+00:04:43,338 --> 00:04:47,558
+Para entonces, los humanos ya hacíamos algo parecido bajo el
+
+88
+00:04:47,558 --> 00:04:47,914
+agua.
+
+89
+00:04:48,364 --> 00:04:50,628
+Después del hundimiento del Titanic,
+
+90
+00:04:50,848 --> 00:04:55,288
+en 1912, se buscaron formas de detectar icebergs con ecos,
+
+91
+00:04:55,508 --> 00:04:59,332
+y durante la Primera Guerra Mundial nació el sonar para
+
+92
+00:04:59,332 --> 00:05:03,460
+encontrar submarinos, con los transductores de cuarzo de Paul
+
+93
+00:05:03,460 --> 00:05:06,436
+Langevin, el mismo del episodio del piezo.
+
+94
+00:05:07,786 --> 00:05:11,654
+Ahora, el sensor más popular para hacer esto en casa:
+
+95
+00:05:12,104 --> 00:05:13,344
+el HC-SR04.
+
+96
+00:05:14,644 --> 00:05:17,752
+Esos dos "ojos" son dos transductores ultrasónicos.
+
+97
+00:05:18,202 --> 00:05:20,250
+Uno habla y el otro escucha.
+
+98
+00:05:20,700 --> 00:05:24,832
+Dentro de cada cilindro hay un elemento piezoeléctrico unido a
+
+99
+00:05:24,832 --> 00:05:28,032
+un pequeño cono, como en el primer episodio:
+
+100
+00:05:28,482 --> 00:05:30,614
+si le aplicas voltaje, vibra;
+
+101
+00:05:30,834 --> 00:05:32,838
+si una onda lo hace vibrar,
+
+102
+00:05:33,058 --> 00:05:33,990
+genera voltaje.
+
+103
+00:05:34,440 --> 00:05:37,464
+La malla metálica de encima solo lo protege.
+
+104
+00:05:38,764 --> 00:05:39,608
+Funciona así.
+
+105
+00:05:40,058 --> 00:05:44,146
+El microcontrolador le manda un pulso de diez millonésimas de
+
+106
+00:05:44,146 --> 00:05:46,502
+segundo por el pin llamado Trigger.
+
+107
+00:05:46,952 --> 00:05:50,820
+El módulo responde lanzando una ráfaga de ocho ciclos de
+
+108
+00:05:50,820 --> 00:05:54,236
+ultrasonido, a cuarenta mil vibraciones por segundo,
+
+109
+00:05:54,456 --> 00:05:56,596
+y pone en alto su pin Echo.
+
+110
+00:05:57,896 --> 00:06:00,296
+El sonido sale, rebota y vuelve.
+
+111
+00:06:00,746 --> 00:06:03,190
+El receptor capta una señal diminuta.
+
+112
+00:06:03,640 --> 00:06:05,372
+Un amplificador la agranda,
+
+113
+00:06:05,592 --> 00:06:08,348
+un comparador decide cuándo llegó el eco,
+
+114
+00:06:08,568 --> 00:06:11,908
+y en ese instante el pin Echo vuelve a bajar.
+
+115
+00:06:13,208 --> 00:06:17,660
+Así que el ancho de ese pulso corresponde al tiempo de ida y
+
+116
+00:06:17,660 --> 00:06:18,104
+vuelta.
+
+117
+00:06:18,554 --> 00:06:22,862
+Según su fabricante, el módulo mide desde unos dos centímetros
+
+118
+00:06:22,862 --> 00:06:27,130
+hasta unos cuatro metros, dentro de un cono de unos quince
+
+119
+00:06:27,130 --> 00:06:27,574
+grados.
+
+120
+00:06:28,874 --> 00:06:33,322
+Los sensores de parqueo usan una sola pieza sellada que grita y
+
+121
+00:06:33,322 --> 00:06:34,210
+luego escucha.
+
+122
+00:06:35,560 --> 00:06:38,756
+Conectarlo es fácil, con un cuidado importante.
+
+123
+00:06:40,056 --> 00:06:43,784
+El HC-SR04 clásico se alimenta con cinco voltios,
+
+124
+00:06:44,004 --> 00:06:46,896
+y su pin Echo también responde con cinco.
+
+125
+00:06:47,346 --> 00:06:52,590
+El ESP32 trabaja a 3,3, así que pon un divisor de voltaje con
+
+126
+00:06:52,590 --> 00:06:56,502
+dos resistencias, por ejemplo de mil y dos mil ohmios,
+
+127
+00:06:56,722 --> 00:06:58,190
+para bajar esa señal.
+
+128
+00:06:58,640 --> 00:07:03,524
+El pin Trigger normalmente acepta los 3,3 voltios del ESP32 sin
+
+129
+00:07:03,524 --> 00:07:04,056
+problema.
+
+130
+00:07:05,356 --> 00:07:08,512
+En el programa, mandas el pulso de disparo,
+
+131
+00:07:08,732 --> 00:07:13,044
+mides cuántos microsegundos dura el pulso de eco con la función
+
+132
+00:07:13,044 --> 00:07:17,172
+pulseIn, y divides entre unos 58 para obtener centímetros.
+
+133
+00:07:17,622 --> 00:07:19,402
+¿De dónde sale ese número?
+
+134
+00:07:19,852 --> 00:07:24,204
+El sonido tarda unos 29 microsegundos en recorrer un centímetro,
+
+135
+00:07:24,424 --> 00:07:27,232
+y hay que contar la ida y la vuelta.
+
+136
+00:07:28,532 --> 00:07:33,116
+Con eso puedes hacer un sensor de parqueo para tu garaje con un
+
+137
+00:07:33,116 --> 00:07:37,564
+LED que cambia de color, un medidor del nivel del tanque de
+
+138
+00:07:37,564 --> 00:07:41,872
+agua, un robot que esquiva obstáculos o un instrumento musical
+
+139
+00:07:41,872 --> 00:07:44,852
+que suena más agudo cuando acercas la mano.
+
+140
+00:07:46,202 --> 00:07:48,334
+El ultrasonido tiene sus trampas.
+
+141
+00:07:49,634 --> 00:07:52,922
+La velocidad del sonido cambia con la temperatura:
+
+142
+00:07:53,372 --> 00:07:56,840
+sube unos 0,6 metros por segundo por cada grado.
+
+143
+00:07:57,290 --> 00:08:00,494
+Entre una mañana helada y una tarde de calor,
+
+144
+00:08:00,714 --> 00:08:04,490
+la medida puede cambiar varios centímetros por cada metro.
+
+145
+00:08:04,940 --> 00:08:08,584
+Por eso los medidores serios llevan un termómetro para
+
+146
+00:08:08,584 --> 00:08:09,204
+corregirla.
+
+147
+00:08:10,504 --> 00:08:13,076
+Las superficies blandas, como cortinas,
+
+148
+00:08:13,296 --> 00:08:17,520
+espuma o ropa, absorben el sonido y casi no devuelven eco.
+
+149
+00:08:17,970 --> 00:08:21,434
+Las superficies inclinadas lo desvían hacia otro lado,
+
+150
+00:08:21,654 --> 00:08:22,722
+como un espejo.
+
+151
+00:08:23,172 --> 00:08:26,456
+Los objetos muy delgados pueden pasar desapercibidos.
+
+152
+00:08:26,906 --> 00:08:29,350
+Muy cerca, el sensor queda ciego,
+
+153
+00:08:29,570 --> 00:08:33,926
+porque después de gritar sigue vibrando un instante y no alcanza
+
+154
+00:08:33,926 --> 00:08:34,682
+a escuchar.
+
+155
+00:08:35,132 --> 00:08:37,444
+Y si dos sensores trabajan juntos,
+
+156
+00:08:37,664 --> 00:08:40,912
+uno puede oír el grito del otro y confundirse.
+
+157
+00:08:42,262 --> 00:08:44,838
+Tres datos para tu próxima conversación.
+
+158
+00:08:46,138 --> 00:08:50,720
+Uno: algunas polillas se defienden del sonar de los murciélagos.
+
+159
+00:08:51,170 --> 00:08:54,550
+Muchas oyen su ultrasonido y se lanzan en picada.
+
+160
+00:08:55,000 --> 00:08:58,064
+Otras responden con chasquidos que lo confunden,
+
+161
+00:08:58,284 --> 00:08:59,704
+como una interferencia.
+
+162
+00:09:01,004 --> 00:09:05,946
+Dos: en el agua, el sonido viaja unas cuatro veces más rápido
+
+163
+00:09:05,946 --> 00:09:09,990
+que en el aire, cerca de 1.500 metros por segundo.
+
+164
+00:09:10,440 --> 00:09:14,756
+Por eso un sonar marino tiene que hacer sus cuentas con otra
+
+165
+00:09:14,756 --> 00:09:15,332
+velocidad.
+
+166
+00:09:16,632 --> 00:09:20,634
+Tres: hay personas ciegas que aprendieron a ecolocalizar.
+
+167
+00:09:21,084 --> 00:09:23,708
+Chasquean la lengua y, por el eco,
+
+168
+00:09:23,928 --> 00:09:27,436
+reconocen paredes, carros y árboles a su alrededor.
+
+169
+00:09:27,886 --> 00:09:31,882
+Estudios con resonancia magnética muestran que en sus cerebros
+
+170
+00:09:31,882 --> 00:09:35,482
+el eco activa zonas que normalmente procesan la vista.
+
+171
+00:09:36,832 --> 00:09:37,584
+Recapitulemos.
+
+172
+00:09:38,034 --> 00:09:43,058
+Un piezo que grita, un pulso que viaja a 343 metros por segundo,
+
+173
+00:09:43,278 --> 00:09:47,194
+un eco que vuelve y un cronómetro que divide entre dos.
+
+174
+00:09:47,644 --> 00:09:49,780
+Con eso se estaciona un carro,
+
+175
+00:09:50,000 --> 00:09:54,184
+se mide un tanque, se ve un bebé y caza un murciélago.
+
+176
+00:09:55,484 --> 00:09:59,624
+La próxima vez que tu carro pite al acercarse a la pared,
+
+177
+00:09:59,844 --> 00:10:02,158
+acuérdate: lleva rato gritando,
+
+178
+00:10:02,378 --> 00:10:03,762
+y tú no lo oías.
+
+179
+00:10:05,062 --> 00:10:09,692
+En el próximo episodio: el sensor que mide distancias con luz,
+
+180
+00:10:09,912 --> 00:10:13,864
+cronometrando un viaje que dura unas pocas milmillonésimas de
+
+181
+00:10:13,864 --> 00:10:14,352
+segundo.

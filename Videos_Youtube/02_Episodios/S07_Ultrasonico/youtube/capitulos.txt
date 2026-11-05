@@ -1,0 +1,9 @@
+00:00 Intro: el carro que grita
+01:06 Dónde está el ultrasonido
+02:09 La física: ecos y velocidad del sonido
+03:54 La historia: murciélagos, Titanic y sonar
+05:08 Por dentro del HC-SR04
+06:35 Con un ESP32: medir distancias
+07:45 Los límites
+08:42 Tres datos curiosos
+09:36 Resumen
