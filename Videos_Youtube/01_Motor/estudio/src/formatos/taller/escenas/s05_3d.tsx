@@ -12,6 +12,7 @@ import {Persona} from '../modelos/ObjetosS03';
 import {MPU6050, NivelBurbuja, Volante} from '../modelos/ObjetosS05';
 import {Osciloscopio3D} from '../modelos/Instrumentos';
 import {TextoPlano, useLienzo} from '../texto3d';
+import {CATALOGO} from '../modelos/catalogo';
 
 const Q = {escala: 0.8} as const;
 const CIAN = '#7CF0FF';
@@ -423,6 +424,18 @@ export const NivelESP32: React.FC = () => {
 };
 
 // ------------------------------------------------------------------ límites: integrar dos veces acumula errores
+/** Acelerómetro de un eje: caja de vidrio con una pesa entre dos resortes (eje x de la caja). */
+const Acel1D: React.FC<{desp: number}> = ({desp}) => (
+  <group>
+    <Caja tam={[4.4, 1.7, 1.7]} material={M.vidrio()} radio={0.12} />
+    <Caja tam={[0.15, 1.6, 1.6]} pos={[-2.12, 0, 0]} material={M.aceroMate()} />
+    <Caja tam={[0.15, 1.6, 1.6]} pos={[2.12, 0, 0]} material={M.aceroMate()} />
+    <Resorte3D x0={-2.05} largo={desp - 0.45 + 2.05} radio={0.32} vueltas={7} grosor={0.05} />
+    <Resorte3D x0={desp + 0.45} largo={2.05 - desp - 0.45} radio={0.32} vueltas={7} grosor={0.05} />
+    <Caja tam={[0.9, 0.9, 0.9]} pos={[desp, 0, 0]} material={M.laton()} radio={0.06} />
+  </group>
+);
+
 export const Integracion3D: React.FC = () => {
   const {t, M: m, dur} = useEscena();
   const tD = m('debilidad', 0.5);
@@ -436,11 +449,56 @@ export const Integracion3D: React.FC = () => {
     const u = (i * prog) / 19;
     return [-8 + 16 * u, 0.3, -6 * u * u * 1.4];
   });
-  const cam = orbita([0, 0, -2], 20, 16, -10 + t * 1.0, 32);
+  // Parte 1: inclinado 20° y quieto = horizontal acelerando a g·sen 20° ≈ 0,34 g: la pesa se corre igual.
+  const parte1 = ap(t, tD - 0.4, 0.8) * (1 - ap(t, tInt - 0.8, 0.6));
+  const desp = -0.55 * ap(t, tD + 0.6, 0.8);
+  const ciclo = (t % 3.2) / 3.2;
+  const xCarro = 4.4 - 1.6 + 3.2 * ciclo * ciclo;
+  const giro = ap(t, tGi, 0.8) * (1 - ap(t, tInt - 0.8, 0.6));
+  const G = CATALOGO.giroscopio?.C;
+  const camA: Camara = {pos: [0, 5.2, 17.5], obj: [0, 3.0, 0], fov: 30};
+  const camB = orbita([0, 0, -2], 20, 16, -10 + t * 1.0, 32);
+  const q = ap(t, tInt - 0.6, 1.6, easeInOut);
+  const cam: Camara = {pos: camA.pos.map((v, k) => mix(v, camB.pos[k], q)) as V3, obj: camA.obj.map((v, k) => mix(v, camB.obj[k], q)) as V3, fov: mix(30, 32, q)};
+  const lectura = (x: number, texto: string, sub: string) => (
+    <TextoPlano lineas={[{t: texto, tam: 140, color: '#7CFFB2', mono: true}, {t: sub, tam: 90, color: '#C9D1D9', peso: 600}]} w={3.6} h={1.3} pos={[x, 4.6, 0]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tD + 1.2, 0.5) * parte1} />
+  );
   return (
     <AbsoluteFill>
       <Estudio camara={cam} fondo="negro" centroLuz={[0, 1, 0]} {...Q}>
         <gridHelper args={[30, 30, '#2A2F36', '#1B1F24']} position={[0, 0.02, 0]} />
+        {parte1 > 0.01 && (
+          <group scale={parte1}>
+            {/* inclinado y quieto */}
+            <Caja tam={[0.9, 1.45, 1.2]} pos={[-4.4, 0.73, 0]} material={M.plasticoNegro()} radio={0.06} />
+            <group position={[-4.4, 2.2, 0]} rotation={[0, 0, 0.349]}>
+              <Acel1D desp={desp} />
+            </group>
+            {/* horizontal sobre un carrito que acelera hacia la derecha */}
+            <group position={[xCarro, 0, 0]}>
+              <Caja tam={[4.8, 0.35, 2.2]} pos={[0, 0.62, 0]} material={M.color('#3A4048', 0.5, 0.4)} radio={0.06} />
+              {[-1.7, 1.7].map((x) => [-1.0, 1.0].map((z) => <Cil key={`${x}${z}`} r={0.3} h={0.22} pos={[x, 0.32, z]} rot={[Math.PI / 2, 0, 0]} mat={M.goma('#151617')} seg={20} />))}
+              <group position={[0, 1.66, 0]}>
+                <Acel1D desp={desp} />
+              </group>
+              <group position={[2.9, 1.66, 0]} rotation={[0, 0, -Math.PI / 2]}>
+                <mesh position={[0, 0.5, 0]}>
+                  <coneGeometry args={[0.28, 0.6, 18]} />
+                  <meshBasicMaterial color="#FFB547" toneMapped={false} />
+                </mesh>
+                <Cil r={0.09} h={0.7} pos={[0, -0.1, 0]} mat={M.emisivo('#FFB547', 1.2)} />
+              </group>
+            </group>
+            {lectura(-4.4, 'x: +0,34 g', 'inclinado 20°, quieto')}
+            {lectura(4.4, 'x: +0,34 g', 'acelerando a 0,34 g')}
+            <TextoPlano lineas={[{t: '=', tam: 600, color: '#FFFFFF'}]} w={1.8} h={1.8} pos={[0, 4.6, 0]} op={ap(t, tD + 1.8, 0.5) * parte1} />
+          </group>
+        )}
+        {G && giro > 0.01 && (
+          <group position={[0, 0.3, -3.0]} scale={0.55 * giro} rotation={[0, t * 0.6, 0]}>
+            <G t={t} a={1} />
+          </group>
+        )}
         {prog > 0.02 && <Tubo puntos={real} radio={0.12} material={M.emisivo(CIAN, 1.5)} seg={40} />}
         {prog > 0.02 && <Tubo puntos={estim} radio={0.12} material={M.emisivo('#FF8A3D', 1.5)} seg={40} />}
         {t > tGps && (
@@ -453,7 +511,8 @@ export const Integracion3D: React.FC = () => {
           </group>
         )}
       </Estudio>
-      <TituloGrande texto="no distingue gravedad de aceleración" sub="por eso trabaja junto a un giroscopio" p={ap(t, tD, 0.5) * sal(t, tInt - 0.3, 0.3)} y={96} />
+      <TituloGrande texto="no distingue gravedad de aceleración" sub="inclinado o acelerando: la misma lectura" p={ap(t, tD, 0.5) * sal(t, tGi - 0.3, 0.3)} y={96} />
+      <TituloGrande texto="por eso trabaja junto a un giroscopio" p={ap(t, tGi, 0.5) * sal(t, tInt - 0.3, 0.3)} y={96} />
       <TituloGrande texto="integrar dos veces: el error crece rápido" p={ap(t, tAc, 0.5) * sal(t, tGps - 0.3, 0.3)} y={96} />
       <TituloGrande texto="un acelerómetro solo no reemplaza al GPS" p={ap(t, tGps, 0.5) * sal(t, dur, 0.3)} y={96} />
     </AbsoluteFill>
