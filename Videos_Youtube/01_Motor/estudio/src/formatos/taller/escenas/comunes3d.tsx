@@ -16,12 +16,12 @@ import {M} from '../materiales';
 const Q = {escala: 0.8} as const;
 
 /** Rótulo centrado sobre un punto proyectado de la escena. */
-export const EtiquetaFlotante: React.FC<{x: number; y: number; texto: string; sub?: string; p: number; color?: string; numero?: string; acento?: string; anio?: string}> = ({x, y, texto, sub, p, color = '#FFFFFF', numero, acento = '#7CF0FF', anio}) => {
+export const EtiquetaFlotante: React.FC<{x: number; y: number; texto: string; sub?: string; p: number; color?: string; numero?: string; acento?: string; anio?: string; escala?: number}> = ({x, y, texto, sub, p, color = '#FFFFFF', numero, acento = '#7CF0FF', anio, escala = 1}) => {
   if (p <= 0.01) return null;
   const q = clamp01(p);
   y = Math.max(y, (anio ? 290 : 200) + (numero ? 60 : 0));
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%, -100%) translateY(${(1 - q) * 14}px)`, opacity: q, textAlign: 'center', fontFamily: FUENTES.sans, color, textShadow: '0 3px 18px rgba(0,0,0,0.75)', whiteSpace: 'nowrap'}}>
+    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%, -100%) translateY(${(1 - q) * 14}px) scale(${escala})`, transformOrigin: '50% 100%', opacity: q, textAlign: 'center', fontFamily: FUENTES.sans, color, textShadow: '0 3px 18px rgba(0,0,0,0.75)', whiteSpace: 'nowrap'}}>
       {numero && <div style={{display: 'inline-block', marginBottom: 8, width: 54, height: 54, lineHeight: '54px', borderRadius: 27, background: acento, color: '#061016', fontWeight: 800, fontSize: 32, textShadow: 'none'}}>{numero}</div>}
       {anio && <div style={{fontSize: 76, fontWeight: 800, color: acento, letterSpacing: '-0.02em', lineHeight: 1}}>{anio}</div>}
       <div style={{fontSize: 38, fontWeight: 800, letterSpacing: '-0.01em'}}>{texto}</div>
@@ -30,7 +30,7 @@ export const EtiquetaFlotante: React.FC<{x: number; y: number; texto: string; su
   );
 };
 
-export type ItemVitrina = {modelo: string; texto: string; sub?: string; marca?: string; anio?: string; props?: Record<string, unknown>};
+export type ItemVitrina = {modelo: string; texto: string; sub?: string; marca?: string; anio?: string; numero?: string; escala?: number; props?: Record<string, unknown>};
 
 /**
  * Vitrina: objetos sobre pedestales que aparecen cuando la narración los nombra; la cámara
@@ -82,7 +82,7 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
             <group key={i}>
               <Pedestal pos={[xs[i], 0, 0]} luz={activo} color={color} />
               {C && ap0 > 0.01 && (
-                <group position={[xs[i], 0.5, 0]} scale={(f.escala ?? 1) * ap0}>
+                <group position={[xs[i], 0.5, 0]} scale={(it.escala ?? f.escala ?? 1) * ap0}>
                   <C t={Math.max(0, t - ts[i])} a={activo} {...(it.props ?? {})} />
                 </group>
               )}
@@ -92,17 +92,18 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
       </Estudio>
       {items.map((it, i) => {
         const f = OBJETOS[it.modelo];
-        const p0 = proyectar([xs[i], 0.5 + (f?.alto ?? 3) * (f?.escala ?? 1) + 0.9, 0], cam);
-        const p = {x: p0.x, y: p0.y - (i % 2) * 70 * abre};
+        const p0 = proyectar([xs[i], 0.5 + (f?.alto ?? 3) * (it.escala ?? f?.escala ?? 1) + 0.9, 0], cam);
+        const p = {x: p0.x, y: p0.y - (i % 2) * 90 * abre};
         return (
           <EtiquetaFlotante
             key={i}
             x={p.x}
             y={p.y}
             texto={it.texto}
-            sub={it.sub}
+            sub={abre > 0.6 ? undefined : it.sub}
+            escala={1 - 0.28 * abre}
             p={ap(t, ts[i] - 0.1, 0.5) * (0.15 + 0.85 * enfocado(i))}
-            numero={numerado ? String(i + 1) : undefined}
+            numero={it.numero !== undefined ? it.numero || undefined : numerado ? String(i + 1) : undefined}
             acento={color}
             anio={it.anio}
           />

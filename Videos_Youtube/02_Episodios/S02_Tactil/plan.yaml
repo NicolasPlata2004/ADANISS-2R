@@ -169,8 +169,8 @@ escenas:
       linea: true
       separacion: 11
       items:
-        - {modelo: radar, anio: "1965", texto: "Eric Johnson", sub: "tráfico aéreo", marca: johnson}
-        - {modelo: crt, anio: "1973", texto: "Beck y Stumpe, CERN", sub: "control de un acelerador", marca: cern}
+        - {modelo: radar, escala: 0.8, anio: "1965", texto: "Eric Johnson", sub: "tráfico aéreo", marca: johnson}
+        - {modelo: crt, escala: 0.72, anio: "1973", texto: "Beck y Stumpe, CERN", sub: "control de un acelerador", marca: cern}
         - {modelo: celular, anio: "2007", texto: "multitáctil en el bolsillo", marca: salto}
     marcas:
       johnson: "Eric Johnson"

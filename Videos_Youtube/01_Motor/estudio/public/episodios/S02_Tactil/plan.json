@@ -8236,6 +8236,7 @@
     "items": [
      {
       "modelo": "radar",
+      "escala": 0.8,
       "anio": "1965",
       "texto": "Eric Johnson",
       "sub": "tráfico aéreo",
@@ -8243,6 +8244,7 @@
      },
      {
       "modelo": "crt",
+      "escala": 0.72,
       "anio": "1973",
       "texto": "Beck y Stumpe, CERN",
       "sub": "control de un acelerador",

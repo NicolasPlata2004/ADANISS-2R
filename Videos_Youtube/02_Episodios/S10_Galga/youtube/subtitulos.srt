@@ -1,0 +1,715 @@
+1
+00:00:00,600 --> 00:00:03,224
+Cuando te subes a una báscula digital,
+
+2
+00:00:03,444 --> 00:00:06,428
+el metal que está debajo de ti se dobla.
+
+3
+00:00:07,728 --> 00:00:08,396
+Muy poco.
+
+4
+00:00:08,846 --> 00:00:13,158
+El sensor pegado a ese metal se estira apenas unas millonésimas
+
+5
+00:00:13,158 --> 00:00:17,124
+de metro: mucho menos que el grosor de un cabello.
+
+6
+00:00:17,574 --> 00:00:20,506
+Y aun así, con ese estiramiento diminuto,
+
+7
+00:00:20,726 --> 00:00:24,594
+la báscula muestra tu peso con divisiones de cien gramos.
+
+8
+00:00:25,894 --> 00:00:27,982
+Ese mismo sensor vigila puentes,
+
+9
+00:00:28,202 --> 00:00:32,426
+pesa camiones enteros y comprueba que las alas de los aviones
+
+10
+00:00:32,426 --> 00:00:32,958
+aguanten.
+
+11
+00:00:33,408 --> 00:00:35,316
+Se llama galga extensiométrica,
+
+12
+00:00:35,536 --> 00:00:38,832
+y en el fondo es una tira de metal finísima,
+
+13
+00:00:39,052 --> 00:00:42,872
+en zigzag, que cambia su resistencia cuando la estiras.
+
+14
+00:00:44,222 --> 00:00:48,762
+En este video vas a ver por qué un metal cambia su resistencia
+
+15
+00:00:48,762 --> 00:00:52,802
+al estirarse, cómo un puente de cuatro resistencias detecta
+
+16
+00:00:52,802 --> 00:00:56,802
+cambios diminutos, qué hay dentro de una celda de carga,
+
+17
+00:00:57,022 --> 00:00:58,798
+dónde hay galgas escondidas,
+
+18
+00:00:59,018 --> 00:01:02,218
+y cómo hacer una báscula con un ESP32.
+
+19
+00:01:03,568 --> 00:01:07,440
+Las básculas de baño y de cocina son el ejemplo obvio.
+
+20
+00:01:07,890 --> 00:01:10,646
+Las de baño suelen tener cuatro sensores,
+
+21
+00:01:10,866 --> 00:01:14,606
+uno en cada pata, y suman lo que mide cada uno.
+
+22
+00:01:15,906 --> 00:01:19,286
+En el supermercado está la báscula de las frutas;
+
+23
+00:01:19,506 --> 00:01:23,590
+en las carreteras, las básculas que pesan camiones completos;
+
+24
+00:01:23,810 --> 00:01:27,902
+en las grúas, el sistema que impide levantar más de lo
+
+25
+00:01:27,902 --> 00:01:28,478
+permitido.
+
+26
+00:01:28,928 --> 00:01:33,236
+Algunas impresoras 3D detectan cuándo la boquilla toca la cama
+
+27
+00:01:33,236 --> 00:01:35,056
+midiendo una fuerza diminuta.
+
+28
+00:01:36,356 --> 00:01:38,888
+Los ingenieros pegan galgas en puentes,
+
+29
+00:01:39,108 --> 00:01:43,332
+presas y edificios para vigilar cómo se deforman con los años,
+
+30
+00:01:43,552 --> 00:01:47,780
+y en piezas de aviones y carros de carreras para medir los
+
+31
+00:01:47,780 --> 00:01:48,800
+esfuerzos reales.
+
+32
+00:01:50,100 --> 00:01:52,948
+Y en muchos celulares hay un primo suyo:
+
+33
+00:01:53,398 --> 00:01:57,614
+el barómetro, una membrana diminuta de silicio con resistencias
+
+34
+00:01:57,614 --> 00:02:00,950
+que cambian cuando la presión del aire la dobla.
+
+35
+00:02:01,400 --> 00:02:05,672
+Es tan sensible que puede notar que subiste un piso por las
+
+36
+00:02:05,672 --> 00:02:06,248
+escaleras.
+
+37
+00:02:07,598 --> 00:02:11,466
+¿Por qué un metal cambia su resistencia cuando lo estiras?
+
+38
+00:02:12,766 --> 00:02:16,014
+La resistencia de un hilo depende de su forma:
+
+39
+00:02:16,464 --> 00:02:18,644
+cuanto más largo y más delgado,
+
+40
+00:02:18,864 --> 00:02:21,356
+más le cuesta a la corriente pasar,
+
+41
+00:02:21,576 --> 00:02:25,984
+como a la gente que trata de avanzar por un pasillo largo y
+
+42
+00:02:25,984 --> 00:02:26,516
+estrecho.
+
+43
+00:02:26,966 --> 00:02:31,590
+Cuando estiras un hilo, se alarga y se adelgaza al mismo tiempo,
+
+44
+00:02:31,810 --> 00:02:33,322
+y su resistencia sube.
+
+45
+00:02:33,772 --> 00:02:35,460
+Si lo comprimes, baja.
+
+46
+00:02:36,760 --> 00:02:38,404
+El cambio es pequeñísimo.
+
+47
+00:02:38,854 --> 00:02:41,750
+Por eso una galga no es un hilo recto:
+
+48
+00:02:42,200 --> 00:02:44,604
+es una lámina de metal en zigzag,
+
+49
+00:02:44,824 --> 00:02:49,224
+con muchas idas y vueltas, sobre una película plástica que se
+
+50
+00:02:49,224 --> 00:02:50,472
+pega a la pieza.
+
+51
+00:02:50,922 --> 00:02:54,346
+Así, en un espacio pequeño cabe un hilo largo,
+
+52
+00:02:54,566 --> 00:02:58,838
+y todas sus idas y vueltas se estiran en la misma dirección.
+
+53
+00:03:00,138 --> 00:03:02,898
+Un número clave es el factor de galga,
+
+54
+00:03:03,118 --> 00:03:06,854
+que en las galgas metálicas comunes vale cerca de dos.
+
+55
+00:03:07,304 --> 00:03:11,752
+Significa que si la pieza se estira una millonésima de su largo,
+
+56
+00:03:11,972 --> 00:03:14,724
+la resistencia cambia unas dos millonésimas.
+
+57
+00:03:16,024 --> 00:03:19,542
+Un ejemplo: con una galga de 350 ohmios,
+
+58
+00:03:19,762 --> 00:03:22,698
+estirar el metal una milésima de su largo,
+
+59
+00:03:22,918 --> 00:03:26,034
+que ya es bastante para una pieza de acero,
+
+60
+00:03:26,254 --> 00:03:28,962
+cambia su resistencia apenas 0,7 ohmios.
+
+61
+00:03:29,412 --> 00:03:31,548
+Medir algo así exige un truco.
+
+62
+00:03:32,898 --> 00:03:36,322
+El primero en notar el efecto fue William Thomson,
+
+63
+00:03:36,542 --> 00:03:38,542
+más conocido como Lord Kelvin,
+
+64
+00:03:38,762 --> 00:03:43,972
+en 1856: vio que los hilos de cobre y de hierro cambiaban su
+
+65
+00:03:43,972 --> 00:03:45,524
+resistencia al estirarlos.
+
+66
+00:03:46,824 --> 00:03:49,668
+Pero la galga pegada nació en 1938,
+
+67
+00:03:49,888 --> 00:03:53,088
+inventada casi al mismo tiempo por dos personas.
+
+68
+00:03:53,538 --> 00:03:57,578
+Edward Simmons, en el Instituto de Tecnología de California,
+
+69
+00:03:57,798 --> 00:04:01,086
+estudiaba cómo responden los metales a los golpes.
+
+70
+00:04:01,536 --> 00:04:06,244
+Y Arthur Ruge, en el MIT, estudiaba cómo los terremotos sacudían
+
+71
+00:04:06,244 --> 00:04:08,200
+los tanques de agua elevados,
+
+72
+00:04:08,420 --> 00:04:12,600
+con un modelo tan delgado que ningún instrumento de la época
+
+73
+00:04:12,600 --> 00:04:14,600
+podía medir cómo se deformaba.
+
+74
+00:04:15,050 --> 00:04:17,718
+Ruge pegó un hilo finísimo sobre papel,
+
+75
+00:04:17,938 --> 00:04:19,674
+pegó el papel al tanque…
+
+76
+00:04:20,124 --> 00:04:20,880
+y funcionó.
+
+77
+00:04:22,180 --> 00:04:26,668
+Desde entonces, la galga se volvió una herramienta básica de la
+
+78
+00:04:26,668 --> 00:04:27,288
+ingeniería.
+
+79
+00:04:28,638 --> 00:04:32,770
+El truco para medir cambios tan pequeños tiene casi doscientos
+
+80
+00:04:32,770 --> 00:04:35,176
+años: el puente de Wheatstone.
+
+81
+00:04:36,476 --> 00:04:39,452
+Imagina cuatro resistencias en forma de rombo,
+
+82
+00:04:39,672 --> 00:04:42,028
+alimentadas por arriba y por abajo.
+
+83
+00:04:42,478 --> 00:04:46,970
+Si las cuatro son iguales, los dos lados del rombo quedan al
+
+84
+00:04:46,970 --> 00:04:50,614
+mismo voltaje, y entre ellos la diferencia es cero.
+
+85
+00:04:51,064 --> 00:04:53,200
+Pero si una cambia un poquito,
+
+86
+00:04:53,420 --> 00:04:56,084
+aparece una pequeña diferencia de voltaje.
+
+87
+00:04:57,384 --> 00:05:01,924
+La gracia es que medir algo pequeño que parte de cero es mucho
+
+88
+00:05:01,924 --> 00:05:06,104
+más fácil que medir un cambio diminuto sobre un valor grande.
+
+89
+00:05:06,554 --> 00:05:09,450
+Y si en vez de una galga pones cuatro,
+
+90
+00:05:09,670 --> 00:05:12,742
+dos que se estiran y dos que se comprimen,
+
+91
+00:05:12,962 --> 00:05:15,274
+la señal se multiplica por cuatro,
+
+92
+00:05:15,494 --> 00:05:18,250
+y los cambios de temperatura se cancelan,
+
+93
+00:05:18,470 --> 00:05:21,094
+porque afectan a las cuatro por igual.
+
+94
+00:05:22,394 --> 00:05:26,930
+Aun así, la señal final es de apenas unas milésimas de voltio.
+
+95
+00:05:28,280 --> 00:05:33,260
+Ahora, la celda de carga, la pieza que está dentro de tu báscula
+
+96
+00:05:33,260 --> 00:05:33,972
+de cocina.
+
+97
+00:05:35,272 --> 00:05:39,100
+Es una barra de aluminio con un agujero en el centro,
+
+98
+00:05:39,320 --> 00:05:41,188
+con forma de ocho alargado.
+
+99
+00:05:41,638 --> 00:05:44,794
+Ese agujero adelgaza la barra en cuatro puntos,
+
+100
+00:05:45,014 --> 00:05:47,594
+y justo ahí están pegadas las galgas.
+
+101
+00:05:48,044 --> 00:05:50,268
+Cuando pones peso en un extremo,
+
+102
+00:05:50,488 --> 00:05:53,604
+la barra se deforma como una ese muy suave:
+
+103
+00:05:54,054 --> 00:05:56,946
+dos puntos se estiran y dos se comprimen.
+
+104
+00:05:58,246 --> 00:06:01,178
+Esas cuatro galgas forman el puente completo.
+
+105
+00:06:01,628 --> 00:06:03,540
+Por eso salen cuatro cables:
+
+106
+00:06:03,990 --> 00:06:05,946
+dos para alimentar el puente,
+
+107
+00:06:06,166 --> 00:06:09,590
+normalmente rojo y negro, y dos para la señal,
+
+108
+00:06:09,810 --> 00:06:11,542
+normalmente verde y blanco.
+
+109
+00:06:12,842 --> 00:06:15,066
+La barra está diseñada para que,
+
+110
+00:06:15,286 --> 00:06:19,910
+con su peso máximo, se doble apenas unas décimas de milímetro y
+
+111
+00:06:19,910 --> 00:06:21,734
+vuelva siempre a su forma.
+
+112
+00:06:22,184 --> 00:06:26,628
+Si la sobrecargas mucho, el aluminio se deforma para siempre y
+
+113
+00:06:26,628 --> 00:06:28,316
+la celda queda inservible.
+
+114
+00:06:29,666 --> 00:06:33,574
+Para leer esas milésimas de voltio necesitas un amplificador
+
+115
+00:06:33,574 --> 00:06:36,234
+especial, como el módulo HX711.
+
+116
+00:06:37,534 --> 00:06:39,802
+Es un convertidor de 24 bits:
+
+117
+00:06:40,252 --> 00:06:43,988
+divide su rango en más de dieciséis millones de pasos.
+
+118
+00:06:44,438 --> 00:06:48,970
+Amplifica la señal del puente 128 veces y entrega el resultado
+
+119
+00:06:48,970 --> 00:06:53,058
+por dos pines digitales, diez u ochenta veces por segundo.
+
+120
+00:06:53,508 --> 00:06:57,552
+La celda se conecta al HX711 con sus cuatro cables,
+
+121
+00:06:57,772 --> 00:07:01,368
+y el HX711 al ESP32 con otros cuatro:
+
+122
+00:07:01,818 --> 00:07:04,434
+alimentación, tierra, datos y reloj.
+
+123
+00:07:05,734 --> 00:07:07,290
+Luego hay que calibrar.
+
+124
+00:07:07,740 --> 00:07:09,916
+Primero, con la báscula vacía,
+
+125
+00:07:10,136 --> 00:07:12,092
+guardas la lectura como cero:
+
+126
+00:07:12,542 --> 00:07:13,746
+eso es la tara.
+
+127
+00:07:14,196 --> 00:07:16,596
+Después pones algo de peso conocido,
+
+128
+00:07:16,816 --> 00:07:18,908
+por ejemplo un litro de agua,
+
+129
+00:07:19,128 --> 00:07:22,464
+que sin el envase pesa casi exactamente un kilo,
+
+130
+00:07:22,684 --> 00:07:26,772
+y calculas cuántos pasos del convertidor equivalen a un gramo.
+
+131
+00:07:28,072 --> 00:07:31,052
+Con eso puedes hacer una báscula de cocina,
+
+132
+00:07:31,272 --> 00:07:35,408
+un comedero que avisa cuando tu mascota se queda sin comida,
+
+133
+00:07:35,628 --> 00:07:40,212
+un contador de piezas por peso o una colmena que te dice cuánta
+
+134
+00:07:40,212 --> 00:07:40,968
+miel tiene.
+
+135
+00:07:42,318 --> 00:07:44,274
+Las galgas tienen sus manías.
+
+136
+00:07:45,574 --> 00:07:49,530
+La temperatura cambia la resistencia del metal y dilata la
+
+137
+00:07:49,530 --> 00:07:52,862
+barra, así que los buenos diseños la compensan.
+
+138
+00:07:53,312 --> 00:07:55,892
+Si dejas un peso encima mucho tiempo,
+
+139
+00:07:56,112 --> 00:07:58,424
+la lectura se arrastra un poquito:
+
+140
+00:07:58,874 --> 00:08:00,878
+a eso se le llama fluencia.
+
+141
+00:08:01,328 --> 00:08:03,104
+Las vibraciones meten ruido,
+
+142
+00:08:03,324 --> 00:08:07,332
+y si la fuerza llega de lado o en el punto equivocado,
+
+143
+00:08:07,552 --> 00:08:08,976
+la lectura sale mal.
+
+144
+00:08:10,276 --> 00:08:14,148
+Por eso una báscula de precisión no es solo un sensor:
+
+145
+00:08:14,598 --> 00:08:17,134
+es una pieza de metal bien diseñada,
+
+146
+00:08:17,354 --> 00:08:21,490
+una galga bien pegada y una electrónica que filtra el ruido.
+
+147
+00:08:22,840 --> 00:08:25,064
+Tres datos para cerrar la serie.
+
+148
+00:08:26,364 --> 00:08:28,682
+Uno: tu báscula mide fuerza,
+
+149
+00:08:28,902 --> 00:08:29,526
+no masa.
+
+150
+00:08:29,976 --> 00:08:34,252
+En los polos la gravedad es un poco más fuerte que en el
+
+151
+00:08:34,252 --> 00:08:38,652
+ecuador, así que la misma persona marcaría cerca de medio por
+
+152
+00:08:38,652 --> 00:08:39,408
+ciento más.
+
+153
+00:08:39,858 --> 00:08:42,614
+Una balanza de dos platos, en cambio,
+
+154
+00:08:42,834 --> 00:08:46,258
+compara masas y marca lo mismo en cualquier lugar.
+
+155
+00:08:47,558 --> 00:08:52,804
+Dos: hasta 2019, el kilogramo era un cilindro de metal guardado
+
+156
+00:08:52,804 --> 00:08:55,828
+bajo tres campanas de vidrio cerca de París.
+
+157
+00:08:56,278 --> 00:09:00,106
+Hoy se define a partir de una constante de la física,
+
+158
+00:09:00,326 --> 00:09:01,882
+la constante de Planck.
+
+159
+00:09:03,182 --> 00:09:06,476
+Tres: para certificar un avión de pasajeros,
+
+160
+00:09:06,696 --> 00:09:10,836
+sus alas se cargan hasta una vez y media la máxima carga
+
+161
+00:09:10,836 --> 00:09:14,656
+esperada en vuelo, llenas de galgas que registran cada
+
+162
+00:09:14,656 --> 00:09:15,320
+deformación.
+
+163
+00:09:15,770 --> 00:09:18,082
+En la prueba del Boeing 787,
+
+164
+00:09:18,302 --> 00:09:23,146
+en 2010, las puntas de las alas subieron unos siete metros y
+
+165
+00:09:23,146 --> 00:09:23,546
+medio.
+
+166
+00:09:24,896 --> 00:09:25,648
+Recapitulemos.
+
+167
+00:09:26,098 --> 00:09:28,502
+Un metal en zigzag que se alarga,
+
+168
+00:09:28,722 --> 00:09:32,766
+un puente de cuatro resistencias que convierte ese cambio en
+
+169
+00:09:32,766 --> 00:09:36,946
+voltaje y un amplificador que lo cuenta en millones de pasos.
+
+170
+00:09:37,396 --> 00:09:39,444
+Con eso se pesan tus frutas,
+
+171
+00:09:39,664 --> 00:09:41,532
+tus maletas y los camiones,
+
+172
+00:09:41,752 --> 00:09:43,932
+y se vigilan puentes y aviones.
+
+173
+00:09:45,232 --> 00:09:48,304
+La próxima vez que te subas a una báscula,
+
+174
+00:09:48,524 --> 00:09:53,334
+acuérdate: debajo de ti hay un metal que se estira mucho menos
+
+175
+00:09:53,334 --> 00:09:55,382
+que el grosor de un cabello…
+
+176
+00:09:55,832 --> 00:09:56,680
+y lo nota.
+
+177
+00:09:57,980 --> 00:10:01,092
+Con esto cerramos esta serie de diez sensores.
+
+178
+00:10:01,542 --> 00:10:04,962
+¿Cuál quieres que expliquemos en la próxima temporada?
+
+179
+00:10:05,412 --> 00:10:07,100
+Déjalo en los comentarios.

@@ -259,7 +259,7 @@ export const CATALOGO_S09 = {
   caseta: {C: Caseta, alto: 5.8, escala: 0.85},
   galileo: {C: TermometroGalileo, alto: 7.2, escala: 0.75},
   bascula: {C: BasculaBano as React.FC<Anim>, alto: 0.8},
-  celda: {C: CeldaCarga as React.FC<Anim>, alto: 2.4, escala: 0.75},
+  celda: {C: CeldaCarga as React.FC<Anim>, alto: 2.4, escala: 0.55},
   camion: {C: Camion, alto: 3.4},
   grua: {C: Grua, alto: 8.4, escala: 0.75},
   puente: {C: Puente, alto: 3.6, escala: 0.7},

@@ -59,9 +59,14 @@ export const texturaTexto = (lineas: Linea[], ancho: number, alto: number, estil
   const x = izq ? (estilo.relleno ?? 40) : ancho / 2;
   g.textAlign = izq ? 'left' : 'center';
   g.textBaseline = 'middle';
+  // Si una línea no cabe en la placa, se achica (nunca se recorta).
+  const margen = estilo.relleno ?? (estilo.fondo ? 34 : 6);
+  const disponible = izq ? ancho - x - margen : ancho - 2 * margen;
   for (const l of lineas) {
     const fam = l.mono ? '"JetBrains Mono", Consolas, monospace' : 'Inter, "Segoe UI", Arial, sans-serif';
     g.font = `${l.peso ?? 800} ${l.tam}px ${fam}`;
+    const medida = g.measureText(l.t).width;
+    if (medida > disponible) g.font = `${l.peso ?? 800} ${Math.floor((l.tam * disponible) / medida)}px ${fam}`;
     g.fillStyle = l.color ?? '#FFFFFF';
     g.fillText(l.t, x, y + (l.tam * 1.18) / 2);
     y += l.tam * 1.18;

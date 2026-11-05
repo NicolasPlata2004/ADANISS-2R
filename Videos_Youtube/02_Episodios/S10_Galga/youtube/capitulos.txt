@@ -1,0 +1,11 @@
+00:00 Intro: la báscula se dobla
+01:03 Dónde hay galgas
+02:07 La física: estirar un hilo
+03:32 La historia: Kelvin, Simmons y Ruge
+04:28 El puente de Wheatstone
+05:28 Dentro de una celda de carga
+06:29 Con un ESP32: el HX711
+07:42 Los límites
+08:22 Tres datos curiosos
+09:24 Resumen
+09:57 Fin de la serie

@@ -1,0 +1,273 @@
+# S10 · El metal que se estira cuando te pesas — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S10_NARRACION.wav  y ejecuta producir.bat S10_Galga
+episodio: S10_Galga
+titulo: "El metal que se estira cuando te pesas"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: BasculaGancho3D
+    seccion: "GALGAS"
+    capitulo: "Intro: la báscula se dobla"
+    desde: inicio
+    marcas:
+      dobla: "el metal que está debajo de ti"
+      poco: "Muy poco"
+      cabello: "el grosor de un cabello"
+      cien: "divisiones de cien gramos"
+  - id: usosgancho
+    escena: Vitrina
+    desde: "Ese mismo sensor vigila puentes"
+    props:
+      items:
+        - {modelo: puente, texto: "vigila puentes", marca: puentes}
+        - {modelo: camion, texto: "pesa camiones enteros", marca: camiones}
+        - {modelo: ala, texto: "prueba las alas de los aviones", marca: alas}
+    marcas:
+      puentes: "vigila puentes"
+      camiones: "pesa camiones"
+      alas: "las alas de los aviones"
+  - id: galga
+    escena: GalgaZigzag3D
+    desde: "Se llama galga extensiométrica"
+    props: {modo: presenta}
+    marcas:
+      galga: "Se llama galga"
+      zigzag: "en zigzag"
+      estiras: "cuando la estiras"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "En este video vas a ver por qué"
+    props:
+      modelo: celda
+      items:
+        - {texto: "Por qué un metal estirado cambia su resistencia", marca: uno}
+        - {texto: "Un puente de cuatro resistencias", marca: dos}
+        - {texto: "Qué hay dentro de una celda de carga", marca: tres}
+        - {texto: "Dónde hay galgas escondidas", marca: cuatro}
+        - {texto: "Una báscula con un ESP32", marca: cinco}
+    marcas:
+      uno: "por qué un metal cambia"
+      dos: "cómo un puente de cuatro"
+      tres: "qué hay dentro de una celda"
+      cuatro: "dónde hay galgas escondidas"
+      cinco: "cómo hacer una báscula"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: patas
+    escena: CuatroPatas3D
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde hay galgas"
+    desde: "Las básculas de baño y de cocina"
+    marcas:
+      cuatro: "cuatro sensores"
+      suman: "y suman"
+  - id: usos
+    escena: Vitrina
+    desde: "En el supermercado"
+    props:
+      items:
+        - {modelo: basculaFrutas, texto: "la báscula de las frutas", marca: super}
+        - {modelo: camion, texto: "básculas para camiones", marca: camiones}
+        - {modelo: grua, texto: "grúas: no levantar de más", marca: gruas}
+        - {modelo: impresora3d, texto: "impresoras 3D", sub: "la boquilla siente cuándo toca la cama", marca: impresora}
+        - {modelo: puente, texto: "puentes, presas y edificios", marca: puentes}
+        - {modelo: ala, texto: "aviones y carros de carreras", marca: aviones}
+        - {modelo: celular, texto: "el barómetro del celular", sub: "una membrana de silicio que se dobla", marca: barometro}
+    marcas:
+      super: "En el supermercado"
+      camiones: "en las carreteras"
+      gruas: "en las grúas"
+      impresora: "Algunas impresoras 3D"
+      puentes: "Los ingenieros pegan galgas"
+      aviones: "en piezas de aviones"
+      barometro: "el barómetro"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: hilo
+    escena: EstirarHilo3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: estirar un hilo"
+    desde: "Por qué un metal cambia su resistencia cuando lo estiras"
+    marcas:
+      forma: "depende de su forma"
+      pasillo: "como a la gente"
+      estiras: "Cuando estiras un hilo"
+      sube: "y su resistencia sube"
+      comprimes: "Si lo comprimes"
+  - id: zigzag
+    escena: GalgaZigzag3D
+    desde: "El cambio es pequeñísimo"
+    props: {modo: explica}
+    marcas:
+      zigzag: "es una lámina de metal en zigzag"
+      direccion: "en la misma dirección"
+      factor: "el factor de galga"
+      millonesimas: "unas dos millonésimas"
+      ejemplo: "Un ejemplo"
+      ohmios: "apenas 0,7 ohmios"
+      truco: "exige un truco"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: Kelvin, Simmons y Ruge"
+    desde: "El primero en notar el efecto"
+    props:
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: bobina, anio: "1856", texto: "Lord Kelvin", sub: "el cobre y el hierro cambian su resistencia al estirarlos", marca: kelvin}
+        - {modelo: impacto, anio: "1938", texto: "Edward Simmons · Caltech", sub: "metales bajo golpes", marca: simmons}
+        - {modelo: tanqueElevado, anio: "1938", texto: "Arthur Ruge · MIT", sub: "terremotos y tanques de agua", marca: ruge}
+    marcas:
+      kelvin: "William Thomson"
+      simmons: "Edward Simmons"
+      ruge: "Y Arthur Ruge"
+  - id: ruge
+    escena: TanqueRuge3D
+    desde: "Ruge pegó un hilo finísimo"
+    marcas:
+      tanque: "pegó el papel al tanque"
+      funciono: "y funcionó"
+      desde: "Desde entonces"
+
+  # ------------------------------------------------------------------ EL PUENTE
+  - id: puente
+    escena: PuenteWheatstone3D
+    seccion: "EL PUENTE"
+    capitulo: "El puente de Wheatstone"
+    desde: "El truco para medir cambios tan pequeños"
+    marcas:
+      wheatstone: "el puente de Wheatstone"
+      rombo: "cuatro resistencias en forma de rombo"
+      cero: "la diferencia es"
+      cambia: "si una cambia"
+      gracia: "La gracia es que"
+      cuatro: "pones cuatro"
+      temperatura: "y los cambios de temperatura"
+      mili: "unas milésimas de voltio"
+
+  # ------------------------------------------------------------------ POR DENTRO
+  - id: celda
+    escena: CeldaDentro3D
+    seccion: "POR DENTRO"
+    capitulo: "Dentro de una celda de carga"
+    desde: "Ahora, la celda de carga"
+    marcas:
+      barra: "Es una barra de aluminio"
+      puntos: "en cuatro puntos"
+      ese: "como una ese"
+      puente: "forman el puente completo"
+      cables: "salen cuatro cables"
+      senal: "dos para la señal"
+      decimas: "unas décimas de milímetro"
+      sobrecarga: "Si la sobrecargas"
+
+  # ------------------------------------------------------------------ CON UN ESP32
+  - id: esp32
+    escena: HX711_ESP32_3D
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: el HX711"
+    desde: "Para leer esas milésimas"
+    marcas:
+      hx711: "el módulo HX711"
+      bits: "Es un convertidor de 24 bits"
+      ganancia: "Amplifica la señal"
+      veces: "diez u ochenta veces"
+      cables: "La celda se conecta"
+      calibrar: "Luego hay que calibrar"
+      tara: "eso es la tara"
+      litro: "un litro de agua"
+      pasos: "cuántos pasos"
+  - id: proyectos
+    escena: Vitrina
+    desde: "Con eso puedes hacer una báscula de cocina"
+    props:
+      items:
+        - {modelo: basculaCocina, texto: "una báscula de cocina", marca: cocina}
+        - {modelo: comedero, texto: "un comedero que avisa", marca: comedero}
+        - {modelo: tornillos, texto: "contar piezas por peso", marca: piezas}
+        - {modelo: colmena, texto: "una colmena que pesa su miel", marca: colmena}
+    marcas:
+      cocina: "una báscula de cocina"
+      comedero: "un comedero"
+      piezas: "un contador de piezas"
+      colmena: "una colmena"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: LimitesCelda3D
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "Las galgas tienen sus manías"
+    marcas:
+      temperatura: "La temperatura cambia"
+      fluencia: "Si dejas un peso"
+      vibra: "Las vibraciones meten ruido"
+      lado: "si la fuerza llega de lado"
+      precision: "Por eso una báscula de precisión"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para cerrar la serie"
+    props:
+      numerado: true
+      separacion: 13
+      items:
+        - {modelo: tierra, escala: 0.5, numero: "1", texto: "mide fuerza, no masa", sub: "en los polos marcaría ~0,5 % más", marca: fuerza}
+        - {modelo: balanza, numero: "", texto: "la balanza compara masas", sub: "marca lo mismo en cualquier lugar", marca: balanza}
+        - {modelo: kilogramo, numero: "2", texto: "el kilo: un cilindro hasta 2019", sub: "hoy se define con la constante de Planck", marca: kilo}
+        - {modelo: ala, numero: "3", texto: "787: alas a 1,5 × su carga máxima", sub: "las puntas subieron unos 7,5 m (2010)", marca: avion}
+    marcas:
+      fuerza: "tu báscula mide fuerza"
+      balanza: "Una balanza de dos platos"
+      kilo: "hasta 2019"
+      avion: "para certificar un avión"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: galga, texto: "un metal en zigzag que se alarga", marca: zigzag}
+        - {modelo: wheatstone, texto: "un puente de cuatro resistencias", marca: puente}
+        - {modelo: hx711, texto: "un amplificador que cuenta millones de pasos", marca: amplificador}
+        - {modelo: camion, texto: "frutas, maletas y camiones", marca: pesan}
+        - {modelo: ala, texto: "puentes y aviones vigilados", marca: vigilan}
+    marcas:
+      zigzag: "Un metal en zigzag"
+      puente: "un puente de cuatro resistencias"
+      amplificador: "un amplificador"
+      pesan: "se pesan tus frutas"
+      vigilan: "se vigilan puentes"
+  - id: final
+    escena: BasculaGancho3D
+    desde: "La próxima vez que te subas"
+    props: {final: true}
+    marcas:
+      cabello: "el grosor de un cabello"
+      nota: "y lo nota"
+  - id: serie
+    escena: SerieDiez3D
+    seccion: "FIN DE LA SERIE"
+    capitulo: "Fin de la serie"
+    desde: "Con esto cerramos esta serie"
+    marcas:
+      cual: "Cuál quieres"
+      comentarios: "en los comentarios"

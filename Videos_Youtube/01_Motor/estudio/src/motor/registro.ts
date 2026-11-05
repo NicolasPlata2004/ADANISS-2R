@@ -21,6 +21,7 @@ import * as S06_3D from '../formatos/taller/escenas/s06_3d';
 import * as S07_3D from '../formatos/taller/escenas/s07_3d';
 import * as S08_3D from '../formatos/taller/escenas/s08_3d';
 import * as S09_3D from '../formatos/taller/escenas/s09_3d';
+import * as S10_3D from '../formatos/taller/escenas/s10_3d';
 import type {EscenaPlan, Frase} from './tiempo';
 
 export type Formato = {
@@ -57,7 +58,7 @@ export const FORMATOS: Record<string, Formato> = {
   // Serie Sensores, versión solo-3D: todas las escenas son renders 3D.
   taller3d: {
     fondo: '#050607',
-    escenas: {...Taller3D_S01, ...Comunes3D, ...S01Extra3D, ...S02_3D, ...S03_3D, ...S04_3D, ...S05_3D, ...S06_3D, ...S07_3D, ...S08_3D, ...S09_3D},
+    escenas: {...Taller3D_S01, ...Comunes3D, ...S01Extra3D, ...S02_3D, ...S03_3D, ...S04_3D, ...S05_3D, ...S06_3D, ...S07_3D, ...S08_3D, ...S09_3D, ...S10_3D},
     Falta: FaltaTaller,
     Rotulo: RotuloTaller,
     Subtitulos: SubtitulosTaller,

@@ -124,7 +124,7 @@ export const TituloGrande: React.FC<{texto: string; sub?: string; p: number; y?:
   const q = clamp01(p);
   return (
     <div style={{position: 'absolute', left: 0, right: 0, top: y, textAlign: 'center', opacity: q, transform: `translateY(${(1 - q) * 16}px)`, fontFamily: FUENTES.sans, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.55)'}}>
-      <div style={{fontSize: 92, fontWeight: 800, letterSpacing: '-0.02em'}}>{texto}</div>
+      <div style={{fontSize: texto.length > 34 ? Math.max(62, Math.round((92 * 34) / texto.length)) : 92, fontWeight: 800, letterSpacing: '-0.02em', padding: '0 60px'}}>{texto}</div>
       {sub && <div style={{fontSize: 32, fontWeight: 600, opacity: 0.85, marginTop: 6}}>{sub}</div>}
     </div>
   );
