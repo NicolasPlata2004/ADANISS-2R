@@ -1,0 +1,244 @@
+# S09 · Tu piel no es un termómetro — versión solo-3D.
+# Sin audio todavía: los tiempos salen del guion (guion_a_tiempos.py). Cuando llegue la voz:
+#   añade  audio: audio/S09_NARRACION.wav  y ejecuta producir.bat S09_Temperatura
+episodio: S09_Temperatura
+titulo: "Tu piel no es un termómetro"
+formato: taller3d
+fps: 24
+cola: 10
+adelanto: 0.25
+subtitulos: true
+
+escenas:
+  # ------------------------------------------------------------------ GANCHO
+  - id: gancho
+    escena: MesasGancho3D
+    seccion: "TEMPERATURA"
+    capitulo: "Intro: el metal que parece más frío"
+    desde: inicio
+    marcas:
+      metal: "Toca una mesa de metal"
+      frio: "más frío"
+      misma: "exactamente a la misma temperatura"
+      piel: "Tu piel no mide"
+      roba: "El metal le roba calor"
+      sensores: "hay sensores escondidos"
+
+  # ------------------------------------------------------------------ PROMESA
+  - id: agenda
+    escena: Agenda3D
+    desde: "En este video vas a ver qué es realmente"
+    props:
+      modelo: termopar
+      items:
+        - {texto: "Un metal que se dobla", marca: uno}
+        - {texto: "Una resistencia que cambia", marca: dos}
+        - {texto: "Dos metales que fabrican voltaje", marca: tres}
+        - {texto: "Un sensor que mide sin tocar", marca: cuatro}
+    marcas:
+      uno: "un metal que se dobla"
+      dos: "una resistencia que cambia"
+      tres: "dos metales que fabrican"
+      cuatro: "mide calor sin tocar"
+
+  # ------------------------------------------------------------------ DÓNDE ESTÁ
+  - id: usos
+    escena: Vitrina
+    seccion: "DÓNDE ESTÁ"
+    capitulo: "Dónde hay sensores de temperatura"
+    desde: "Hay sensores de temperatura por todas partes"
+    props:
+      items:
+        - {modelo: celular, texto: "batería y procesador", marca: celular}
+        - {modelo: carro3d, texto: "motor y aire del carro", marca: carro}
+        - {modelo: hervidor, texto: "nevera, horno, plancha…", marca: casa}
+        - {modelo: estufagas, texto: "la perilla de la estufa de gas", sub: "un termopar que vigila la llama", marca: estufa}
+        - {modelo: mems, texto: "dentro de cada procesador", sub: "~2 mV menos por cada grado", marca: procesador}
+    marcas:
+      celular: "Tu celular tiene varios"
+      carro: "Tu carro mide"
+      casa: "La nevera, el horno"
+      estufa: "si tu estufa de gas"
+      procesador: "dentro de cada procesador"
+
+  # ------------------------------------------------------------------ LA FÍSICA
+  - id: fisica
+    escena: Agitacion3D
+    seccion: "LA FÍSICA"
+    capitulo: "La física: agitación y calor"
+    desde: "Primero, ¿qué es la temperatura?"
+    marcas:
+      agitados: "qué tan agitados"
+      calor: "El calor es otra cosa"
+  - id: mesas
+    escena: MesasGancho3D
+    desde: "Volvamos a las mesas"
+    props: {explica: true}
+    marcas:
+      temps: "La superficie de tu piel"
+      conduce: "El metal conduce"
+      madera: "La madera, en cambio"
+      piel: "Tu piel siente"
+  - id: regla
+    escena: Agitacion3D
+    desde: "la regla de oro"
+    props: {termometro: true}
+    marcas:
+      propia: "solo mide su propia"
+      equilibrio: "llegue al equilibrio"
+  - id: medir
+    escena: Vitrina
+    desde: "Y para medir, se aprovecha"
+    props:
+      items:
+        - {modelo: eiffel, texto: "el tamaño de un metal", marca: tamano}
+        - {modelo: termistor, texto: "su resistencia eléctrica", marca: resistencia}
+        - {modelo: termopar, texto: "un voltaje", marca: voltaje}
+        - {modelo: pistola, texto: "la luz infrarroja", marca: luz}
+    marcas:
+      tamano: "el tamaño de un metal"
+      resistencia: "su resistencia eléctrica"
+      voltaje: "un voltaje"
+      luz: "la luz infrarroja"
+
+  # ------------------------------------------------------------------ EL METAL QUE SE DOBLA
+  - id: bimetal
+    escena: Bimetal3D
+    seccion: "EL METAL QUE SE DOBLA"
+    capitulo: "El bimetal"
+    desde: "Los metales se dilatan"
+    marcas:
+      dilatan: "Los metales se dilatan"
+      eiffel: "La torre Eiffel"
+      bimetal: "Eso es un"
+      hervidores: "muchos hervidores"
+      clic: "con un clic"
+
+  # ------------------------------------------------------------------ RESISTENCIAS Y VOLTAJES
+  - id: resistencias
+    escena: ResistenciaTemp3D
+    seccion: "RESISTENCIAS Y VOLTAJES"
+    capitulo: "Termistor, Pt100 y termopar"
+    desde: "En electrónica, el sensor más común"
+    marcas:
+      termistor: "el sensor más común"
+      baja: "su resistencia baja"
+      diez: "diez mil ohmios"
+      platino: "se usa platino"
+      termopar: "Y luego está el"
+      seebeck: "Thomas Seebeck"
+      mil: "más de mil grados"
+      diferencia: "mide la diferencia"
+
+  # ------------------------------------------------------------------ SIN TOCAR
+  - id: sintocar
+    escena: SinTocar3D
+    seccion: "SIN TOCAR"
+    capitulo: "Termómetros infrarrojos"
+    desde: "Y los termómetros de frente"
+    marcas:
+      brilla: "brilla en infrarrojo"
+      termopila: "con una"
+      trampa: "no todo brilla igual"
+      olla: "una olla de acero"
+
+  # ------------------------------------------------------------------ LA HISTORIA
+  - id: historia
+    escena: Vitrina
+    seccion: "LA HISTORIA"
+    capitulo: "La historia: Galileo, Fahrenheit y Celsius"
+    desde: "Medir temperatura con números"
+    props:
+      linea: true
+      separacion: 11
+      items:
+        - {modelo: galileo, anio: "~1600", texto: "termoscopio de Galileo", sub: "aire y una columna de agua, sin escala", marca: galileo}
+        - {modelo: termometro, anio: "1714", texto: "Fahrenheit", sub: "termómetros de mercurio confiables", marca: fahrenheit}
+        - {modelo: termometro, anio: "1742", texto: "Celsius… al revés", sub: "el agua hervía a 0 y se congelaba a 100", marca: celsius}
+    marcas:
+      galileo: "Hacia 1600"
+      fahrenheit: "En 1714"
+      celsius: "en 1742"
+
+  # ------------------------------------------------------------------ ESP32
+  - id: esp32
+    escena: DS18B20_ESP32
+    seccion: "CON UN ESP32"
+    capitulo: "Con un ESP32: el DS18B20"
+    desde: "Para tu proyecto"
+    marcas:
+      sonda: "en una sonda metálica"
+      cables: "con tres cables"
+      serie: "un número de serie único"
+      usos: "vigilar la nevera"
+
+  # ------------------------------------------------------------------ LÍMITES
+  - id: limites
+    escena: Vitrina
+    seccion: "LÍMITES"
+    capitulo: "Los límites"
+    desde: "Medir temperatura tiene trampas"
+    props:
+      numerado: true
+      color: "#FFB547"
+      items:
+        - {modelo: caseta, texto: "el sol lo calienta", sub: "por eso van en casetas a la sombra", marca: sol}
+        - {modelo: ds18b20, texto: "tiempo de respuesta", marca: respuesta}
+        - {modelo: termistor, texto: "se calienta al medirlo", marca: corriente}
+        - {modelo: ventana, texto: "dónde lo pones importa", marca: donde}
+    marcas:
+      sol: "La primera: el sol"
+      respuesta: "La segunda"
+      corriente: "La tercera"
+      donde: "Y la cuarta"
+
+  # ------------------------------------------------------------------ TRES DATOS
+  - id: datos
+    escena: Vitrina
+    seccion: "TRES DATOS"
+    capitulo: "Tres datos curiosos"
+    desde: "Tres datos para cerrar"
+    props:
+      numerado: true
+      items:
+        - {modelo: termometro, texto: "los 37 °C de Wunderlich", sub: "hoy los promedios rondan 36,6 °C", marca: wunderlich}
+        - {modelo: galileo, texto: "el termómetro “de Galileo”", sub: "lo hicieron en Florencia, después", marca: galileo}
+        - {modelo: termometro, texto: "el cero absoluto: −273,15 °C", sub: "nunca se alcanza", marca: cero}
+    marcas:
+      wunderlich: "los famosos 37 grados"
+      galileo: "el termómetro de Galileo"
+      cero: "el cero absoluto"
+
+  # ------------------------------------------------------------------ CIERRE
+  - id: recap
+    escena: Vitrina
+    seccion: "RESUMEN"
+    capitulo: "Resumen"
+    desde: "Recapitulemos"
+    props:
+      items:
+        - {modelo: hervidor, texto: "un metal que se dobla", marca: metal}
+        - {modelo: termistor, texto: "una resistencia que cambia", marca: ceramica}
+        - {modelo: termopar, texto: "dos metales que fabrican voltaje", marca: metales}
+        - {modelo: pistola, texto: "el brillo infrarrojo", marca: brillo}
+    marcas:
+      metal: "Un metal que se dobla"
+      ceramica: "una cerámica"
+      metales: "dos metales que fabrican"
+      brillo: "el brillo infrarrojo"
+  - id: final
+    escena: MesasGancho3D
+    desde: "La próxima vez que una mesa"
+    props: {final: true}
+  - id: proximo
+    escena: Vitrina
+    desde: "En el próximo episodio"
+    props:
+      titulo: "Próximo episodio"
+      sub: "S10 · galgas y básculas"
+      items:
+        - {modelo: bascula, texto: "cómo sabe cuánto pesas", marca: bascula}
+        - {modelo: celda, texto: "un metal que se estira", marca: metal}
+    marcas:
+      bascula: "cómo sabe tu báscula"
+      metal: "un metal que se estira"

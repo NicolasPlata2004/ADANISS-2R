@@ -1,0 +1,11 @@
+00:00 Intro: el metal que parece más frío
+01:05 Dónde hay sensores de temperatura
+02:06 La física: agitación y calor
+03:25 El bimetal
+04:08 Termistor, Pt100 y termopar
+05:30 Termómetros infrarrojos
+06:18 La historia: Galileo, Fahrenheit y Celsius
+07:00 Con un ESP32: el DS18B20
+07:58 Los límites
+08:44 Tres datos curiosos
+09:42 Resumen
