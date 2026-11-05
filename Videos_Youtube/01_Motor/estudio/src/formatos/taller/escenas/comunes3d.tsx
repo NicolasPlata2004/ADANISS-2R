@@ -32,6 +32,14 @@ export const EtiquetaFlotante: React.FC<{x: number; y: number; texto: string; su
 
 export type ItemVitrina = {modelo: string; texto: string; sub?: string; marca?: string; anio?: string; numero?: string; escala?: number; props?: Record<string, unknown>};
 
+/** En el plano cercano de la vitrina cabe un objeto de ~4,3 de alto con su etiqueta encima: los más altos se achican. */
+const ALTO_MAX_VITRINA = 4.3;
+const escalaItem = (it: ItemVitrina) => {
+  const f = OBJETOS[it.modelo];
+  const base = it.escala ?? f?.escala ?? 1;
+  return f ? Math.min(base, ALTO_MAX_VITRINA / f.alto) : base;
+};
+
 /**
  * Vitrina: objetos sobre pedestales que aparecen cuando la narración los nombra; la cámara
  * pasa de uno a otro y al final se abre para verlos todos.
@@ -75,6 +83,7 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
         )}
         {items.map((it, i) => {
           const f = OBJETOS[it.modelo];
+          const esc = escalaItem(it);
           // El primer objeto ya está en su pedestal desde el comienzo (nunca un pedestal vacío);
           // su etiqueta sigue esperando a que la voz lo nombre.
           const ap0 = ap(t, (i === 0 ? Math.min(ts[0], 0.35) : ts[i]) - 0.35, 0.8, easeOutBack);
@@ -84,7 +93,7 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
             <group key={i}>
               <Pedestal pos={[xs[i], 0, 0]} luz={activo} color={color} />
               {C && ap0 > 0.01 && (
-                <group position={[xs[i], 0.5, 0]} scale={(it.escala ?? f.escala ?? 1) * ap0}>
+                <group position={[xs[i], 0.5, 0]} scale={esc * ap0}>
                   <C t={Math.max(0, t - ts[i])} a={activo} {...(it.props ?? {})} />
                 </group>
               )}
@@ -94,7 +103,7 @@ export const Vitrina: React.FC<{items: ItemVitrina[]; titulo?: string; sub?: str
       </Estudio>
       {items.map((it, i) => {
         const f = OBJETOS[it.modelo];
-        const p0 = proyectar([xs[i], 0.5 + (f?.alto ?? 3) * (it.escala ?? f?.escala ?? 1) + 0.9, 0], cam);
+        const p0 = proyectar([xs[i], 0.5 + (f?.alto ?? 3) * escalaItem(it) + 0.9, 0], cam);
         const p = {x: p0.x, y: p0.y - (i % 2) * 90 * abre};
         return (
           <EtiquetaFlotante
