@@ -11,7 +11,7 @@ import {Cil, Esf, pintura, Toro} from '../modelos/Objetos';
 import {Dedo} from '../modelos/ObjetosS02';
 import {matTermico, Persona} from '../modelos/ObjetosS03';
 import {MesasMetalMadera} from '../modelos/ObjetosS08';
-import {DS18B20, EstufaGas, Termistor, Termopar} from '../modelos/ObjetosS09';
+import {DS18B20, EstufaGas, Termistor, Termopar, TorreEiffel} from '../modelos/ObjetosS09';
 import {TextoPlano} from '../texto3d';
 
 const Q = {escala: 0.8} as const;
@@ -135,9 +135,14 @@ export const Bimetal3D: React.FC = () => {
   const tD = m('dilatan', 1.0);
   const tE = m('eiffel', 3.0);
   const tB = m('bimetal', 8.0);
+  const tP = m('pegas', tB - 4.0);
   const tH = m('hervidores', 13.0);
   const tC = m('clic', 17.0);
-  const calor = ap(t, tB - 1.0, 3.0, easeInOut);
+  // la lámina se calienta cuando la voz dice «si pegas dos láminas… y las calientas»
+  const calor = ap(t, tP + 0.8, 3.0, easeInOut);
+  // fase Eiffel: la torre crece en verano (exagerado: en la realidad, hasta ~15 cm en 330 m)
+  const eiffel = t > tE - 0.3 && t < tP - 0.3;
+  const verano = 0.5 - 0.5 * Math.cos(Math.max(0, t - tE - 0.6) * 1.1);
   // Curvatura exagerada para que se vea; el latón (abajo) queda en el lado convexo porque se estira más.
   const curv = calor * 0.13;
   const geo = useMemo(() => new THREE.BoxGeometry(8, 0.18, 1.4, 60, 1, 1), []);
@@ -169,11 +174,32 @@ export const Bimetal3D: React.FC = () => {
   const angLamina = Math.atan(sube / -X_PIVOTE);
   const cerrado = vuelta < 0.5;
   const chispa = t > tC && t < tC + 0.3 ? 1 - (t - tC) / 0.3 : 0;
-  const cam: Camara = t < tH ? orbita([0, 2.4, 0], 14, 3.5, -10 + t * 0.8, 32) : orbita([0.6, 2.2, 0], 11.5, 1.8, 8 + (t - tH) * 0.8, 30);
+  const cam: Camara = eiffel
+    ? orbita([0, 3.3, 0], 17, 2.6, -12 + (t - tE) * 1.5, 30)
+    : t < tH
+      ? orbita([0, 2.4, 0], 14, 3.5, -10 + t * 0.8, 32)
+      : orbita([0.6, 2.2, 0], 11.5, 1.8, 8 + (t - tH) * 0.8, 30);
   return (
     <AbsoluteFill>
       <Estudio camara={cam} fondo="negro" centroLuz={[0, 1, 0]} {...Q}>
-        {t < tH ? (
+        {eiffel ? (
+          <group>
+            <group scale={[0.75, 0.75 * (1 + 0.06 * verano), 0.75]}>
+              <TorreEiffel />
+            </group>
+            <TextoPlano
+              lineas={[
+                {t: verano > 0.5 ? 'verano' : 'invierno', tam: 150, color: verano > 0.5 ? '#FFB547' : '#7CF0FF'},
+                {t: 'en verano, hasta ~15 cm más alta', tam: 90, color: '#E8EAED', peso: 600},
+                {t: '(aquí, exagerado)', tam: 80, color: '#9AA3AD', peso: 600},
+              ]}
+              w={4.6}
+              h={2.0}
+              pos={[4.4, 2.2, 0.5]}
+              estilo={{fondo: '#0B0F14', radio: 40}}
+            />
+          </group>
+        ) : t < tH ? (
           <group position={[-3, 1.4, 0]}>
             <Caja tam={[0.8, 2.8, 2.0]} pos={[-0.4, -0.2, 0]} material={M.color('#2B2E33', 0.4)} />
             <mesh geometry={g1} position={[4, 0, 0]} material={M.color('#9AA3AD', 0.3, 1)} castShadow />
@@ -231,7 +257,8 @@ export const Bimetal3D: React.FC = () => {
         )}
       </Estudio>
       <TituloGrande texto="los metales se dilatan con el calor" p={ap(t, tD, 0.5) * sal(t, tE - 0.3, 0.3)} y={96} />
-      <TituloGrande texto="la torre Eiffel es varios cm más alta en verano" p={ap(t, tE, 0.5) * sal(t, tB - 0.3, 0.3)} y={96} />
+      <TituloGrande texto="la torre Eiffel es varios cm más alta en verano" p={ap(t, tE, 0.5) * sal(t, tP - 0.3, 0.3)} y={96} />
+      <TituloGrande texto="dos láminas pegadas que se estiran distinto" p={ap(t, tP, 0.5) * sal(t, tB - 0.3, 0.3)} y={96} />
       <TituloGrande texto="bimetal: dos metales que se estiran distinto" sub="el latón se estira más: la lámina se curva hacia el acero" p={ap(t, tB, 0.5) * sal(t, tH - 0.3, 0.3)} y={96} />
       <TituloGrande texto="el disco del hervidor se voltea de golpe" sub="es sensor e interruptor a la vez" p={ap(t, tC, 0.5) * sal(t, dur, 0.3)} y={96} />
     </AbsoluteFill>
@@ -363,7 +390,7 @@ export const DS18B20_ESP32: React.FC = () => {
   const tSe = m('serie', 13.0);
   const tUs = m('usos', 19.0);
   const temps = [4.2 + 0.3 * Math.sin(t), 25.8 + 0.2 * Math.sin(t * 1.3), 63.5 + 1.5 * Math.sin(t * 0.7)];
-  const cam: Camara = orbita([0.5, 1.4, 0.6], 14, 7, -15 + t * 0.8, 30);
+  const cam: Camara = orbita([-0.6, 1.4, 0.4], 15.5, 7, -15 + t * 0.8, 30);
   const varios = ap(t, tSe, 0.8);
   return (
     <AbsoluteFill>
@@ -371,11 +398,16 @@ export const DS18B20_ESP32: React.FC = () => {
         <Protoboard pos={[0.4, 0, 0.8]} />
         <ESP32 pos={[3.8, 1.15, 0.8]} rotY={Math.PI / 2} led={1} />
         <ResistenciaAxial pos={[-0.6, 0.85, 1.4]} bandas={['#F2C230', '#6B3FA0', '#C62828', '#D4AF37']} />
-        {[0, 1, 2].map((i) => (
-          <group key={i} position={[-6.5 + (i ? 0 : 0), 0.3, -2.6 + i * 2.6]} scale={i === 0 || varios > 0.5 ? 0.8 : 0.0}>
-            <DS18B20 />
-          </group>
-        ))}
+        {/* sondas acostadas sobre la protoboard, con su cable hasta el circuito */}
+        {[0, 1, 2].map((i) =>
+          i === 0 || varios > 0.5 ? (
+            <group key={i}>
+              <Cil r={0.24} h={1.8} pos={[-5.9, 1.1, -1.2 + i * 1.6]} rot={[0, 0, Math.PI / 2]} mat={M.acero()} />
+              <Esf r={0.24} pos={[-6.8, 1.1, -1.2 + i * 1.6]} mat={M.acero()} />
+              <Tubo puntos={[[-5.0, 1.1, -1.2 + i * 1.6], [-4.0, 1.2, -1.0 + i * 1.5], [-2.9, 1.05, 0.9 + i * 0.3], [-2.0, 0.95, 1.2 + i * 0.25]]} radio={0.09} material={M.plasticoNegro()} seg={30} />
+            </group>
+          ) : null,
+        )}
         <TextoPlano
           lineas={[
             {t: `#1  ${temps[0].toFixed(1).replace('.', ',')} °C  nevera`, tam: 80, color: '#7CF0FF', mono: true},
@@ -384,7 +416,7 @@ export const DS18B20_ESP32: React.FC = () => {
           ]}
           w={6.4}
           h={2.2}
-          pos={[1.5, 4.4, -2.4]}
+          pos={[2.4, 1.8, -4.6]}
           estilo={{fondo: '#0B0F14', radio: 40, alinear: 'left'}}
           op={ap(t, tC, 0.5)}
         />

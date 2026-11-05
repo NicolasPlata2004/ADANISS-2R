@@ -110,6 +110,7 @@ escenas:
     marcas:
       dilatan: "Los metales se dilatan"
       eiffel: "La torre Eiffel"
+      pegas: "Si pegas dos láminas"
       bimetal: "Eso es un"
       hervidores: "muchos hervidores"
       clic: "con un clic"
