@@ -34,8 +34,8 @@ export const LuzGancho3D: React.FC = () => {
   const tCa = m('carros', 20.0);
   const tSe = m('selva', 26.0);
   const fase = t < tC - 0.5 ? 0 : t < tCa - 0.5 ? 1 : 2;
-  const camT: Camara = orbita([0, 6.2, 0], 22, 3, t * 3, 32);
-  const camC: Camara = orbita([0, 1.8, 1.2], 9, 4, -20 + t * 1.5, 30);
+  const camT: Camara = orbita([0, 6.2, 0], 34, 6, t * 3, 32);
+  const camC: Camara = orbita([0, 1.6, 1.4], 12, 3.5, 55 + t * 1.5, 30);
   const camS: Camara = {pos: [6, 18, 16], obj: [0, 0, 0], fov: 34};
   const cam = fase === 0 ? camT : fase === 1 ? camC : camS;
   const anillo = useMemo(() => {
@@ -133,7 +133,7 @@ export const Nanosegundo3D: React.FC = () => {
           fotones.map((p, i) => (
             <Esf key={i} r={0.06} pos={[U / 2 + p[0], 0.5 + p[1], p[2]]} mat={M.emisivo(i % 4 ? '#FFF4D6' : ROJO, 2)} seg={6} />
           ))}
-        <TextoPlano lineas={[{t: `${ns.toFixed(1).replace('.', ',')} ns`, tam: 140, color: '#7CFFB2', mono: true}]} w={3.2} h={0.9} pos={[3, 3.4, -2.6]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tM, 0.5) * (fase === 0 ? 1 : 0)} />
+        <TextoPlano lineas={[{t: `${ns.toFixed(1).replace('.', ',')} ns`, tam: 140, color: '#7CFFB2', mono: true}]} w={3.2} h={0.9} pos={[3, 2.8, -2.8]} estilo={{fondo: '#0B0F14', radio: 40}} op={ap(t, tM, 0.5) * (fase === 0 ? 1 : 0)} />
       </Estudio>
       <TituloGrande texto="en un nanosegundo, la luz recorre ~30 cm" p={ap(t, tN, 0.5) * sal(t, tU - 0.3, 0.3)} y={96} />
       <TituloGrande texto="como el ultrasónico… pero con luz" p={ap(t, tU, 0.5) * sal(t, tM - 0.3, 0.3)} y={96} />
@@ -246,14 +246,14 @@ export const LunaLaser3D: React.FC = () => {
   const tH = m('hoy', 17.0);
   const tSe = m('aleja', 25.0);
   const viaje = t > tH ? ((t - tH) % 2.5) / 2.5 : -1;
-  const cam: Camara = {pos: [0, 9, 30], obj: [0, 4, 0], fov: 38};
+  const cam: Camara = {pos: [0, 4.5, 30], obj: [0, 5.2, 0], fov: 36};
   return (
     <AbsoluteFill>
       <Estudio camara={cam} fondo="negro" centroLuz={[0, 4, 0]} niebla={[40, 120]} {...Q}>
         <group position={[-10, 0, 0]} scale={0.7}>
           <Tierra r={4} t={t} />
         </group>
-        <group position={[10, 0, 0]}>
+        <group position={[10, 1.2, 0]} scale={0.75}>
           <LunaReflector t={t} />
         </group>
         {viaje >= 0 && (
@@ -265,7 +265,7 @@ export const LunaLaser3D: React.FC = () => {
       </Estudio>
       <TituloGrande texto="1962: un eco de láser desde la Luna" p={ap(t, tMit, 0.5) * sal(t, tA - 0.3, 0.3)} y={96} />
       <TituloGrande texto="1969: reflectores del Apolo 11" p={ap(t, tA, 0.5) * sal(t, tH - 0.3, 0.3)} y={96} />
-      <TituloGrande texto="unos 2,5 s de ida y vuelta, precisión de milímetros" p={ap(t, tH, 0.5) * sal(t, tSe - 0.3, 0.3)} y={96} />
+      <TituloGrande texto="2,5 s de ida y vuelta" sub="y una precisión de milímetros" p={ap(t, tH, 0.5) * sal(t, tSe - 0.3, 0.3)} y={96} />
       <Dato x={960} y={760} valor="3,8 cm" sub="por año: lo que se aleja la Luna" p={ap(t, tSe, 0.5) * sal(t, dur, 0.3)} />
     </AbsoluteFill>
   );
