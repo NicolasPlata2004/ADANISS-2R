@@ -4,7 +4,8 @@ Copia esta carpeta en **`D:\Videos_Youtube`**. Todo lo que el estudio instala o 
 
 ```
 D:\Videos_Youtube
-├─ producir.bat              ← un comando para producir un episodio
+├─ producir.bat              ← un comando para producir un episodio (con su narración)
+├─ render_serie.bat          ← renderiza la Serie Sensores 3D con la tarjeta gráfica
 ├─ 00_Programas\             ← Node, ffmpeg, Python, Manim, Whisper, cachés (lo llena el instalador)
 │   ├─ instalar_windows.ps1
 │   ├─ entorno.ps1
@@ -83,6 +84,38 @@ python muestra_manim.py EP01 --escena ep01_lamina.py:RectificadoYFiltrado --desd
 ```
 
 En un PC con tarjeta gráfica, renderiza con `set REMOTION_GL=angle` para que Three.js use la GPU.
+
+## Serie Sensores (S01–S10) · videos 3D
+
+Diez episodios de ~10 minutos, todo en 3D (formato `taller3d`), con subtítulos y **sin audio** hasta que llegue la narración.
+
+```
+02_Episodios\S03_PIR\
+├─ guion.md        ← el guion verificado (el mismo del documento compartido)
+├─ plan.yaml       ← escenas 3D ancladas a frases del guion
+├─ transcripcion\  ← tiempos provisionales calculados del guion (150 palabras/min)
+├─ youtube\        ← capítulos y subtítulos .srt
+└─ final\          ← S03_PIR_3D_1080p_sin_audio.mp4
+```
+
+Versiones anteriores que se conservan: `S01_Piezo\final\S01_piezo_MIXTO_anterior_1080p_sin_audio.mp4` (3D con insertos 2D) y las tres de `EP01\final\` (Pizarra, Lámina técnica, Neón 3D). La verificación científica de los guiones, con correcciones y fuentes, está en `02_Episodios\VERIFICACION.md`.
+
+**Renderizar con la tarjeta gráfica** (mucho más rápido que en un servidor sin GPU):
+
+```bat
+D:\Videos_Youtube\render_serie.bat
+D:\Videos_Youtube\render_serie.bat S03_PIR S07_Ultrasonico
+```
+
+**Cuando tu amigo grabe la voz** (un WAV por episodio, leyendo el guion tal cual; las marcas `[pausa]` son pausas cortas):
+
+```bat
+D:\Videos_Youtube\producir.bat S03_PIR C:\ruta\S03_NARRACION.wav
+```
+
+Eso copia el audio, lo transcribe con Whisper, **alinea el texto exacto del guion con los tiempos de la voz** (los subtítulos no heredan errores de Whisper), añade `audio:` al `plan.yaml`, re-sincroniza cada escena con lo que dice la voz y renderiza `final\S03_PIR_3D_1080p.mp4` con el audio normalizado a −14 LUFS. Añade `--gpu` al final para renderizar con la tarjeta gráfica.
+
+Para cambiar una escena: `cd D:\Videos_Youtube\01_Motor\estudio` y `npx remotion studio` (composiciones `S01-3D` … `S10-3D`). Las escenas están en `01_Motor\estudio\src\formatos\taller\escenas\` y los objetos en `...\taller\modelos\`.
 
 ## Nombre del canal
 

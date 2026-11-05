@@ -9,7 +9,10 @@ Pasos (cada uno se salta si ya está hecho, salvo que pidas rehacerlo):
      (una escena "TextoClave" por frase: ya sale un video sincronizado;
       luego cambias escenas por animaciones a medida)
   4. Resuelve el plan contra la transcripción                 -> plan.json
+     (Serie Sensores: el plan ya existe; se le añade la línea audio: y, como hay guion.md,
+      los subtítulos usan el texto exacto del guion con los tiempos de la voz real)
   5. Renderiza el video con Remotion                          -> final/EP02_pizarra_1080p.mp4
+                                                                 (o final/S03_PIR_3D_1080p.mp4 en la serie 3D)
   6. Normaliza el audio a -14 LUFS (estándar de YouTube) y deja capítulos y subtítulos -> youtube/
 
 Opciones útiles:
@@ -23,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -106,14 +110,30 @@ def main() -> int:
         raise SystemExit(f"No hay audio en {carpeta / 'audio'}. Usa --audio ruta\\al\\archivo.wav")
     audio = audios[0]
 
-    # 2. transcripción
-    if args.retranscribir or not (carpeta / "transcripcion" / "transcripcion.json").exists():
+    # 2. transcripción (la provisional hecha desde el guion no cuenta: hay que oír la voz real)
+    trans = carpeta / "transcripcion" / "transcripcion.json"
+    provisional = trans.exists() and str(json.loads(trans.read_text(encoding="utf-8")).get("audio", "")).startswith("(provisional")
+    if args.retranscribir or not trans.exists() or provisional:
         subprocess.run([sys.executable, str(Path(__file__).with_name("transcribir.py")), "--audio", str(audio),
                         "--salida", str(carpeta / "transcripcion"), "--modelo", args.modelo], check=True)
+        if (carpeta / "guion.md").exists():
+            shutil.copyfile(trans, carpeta / "transcripcion" / "whisper.json")
+            subprocess.run([sys.executable, str(Path(__file__).with_name("alinear_guion.py")), args.ep], check=True)
 
     # 3. plan
     if not (carpeta / "plan.yaml").exists():
         borrador_plan(args.ep, carpeta, f"audio/{audio.name}")
+
+    # 3b. el plan de la serie se escribió sin voz: se le indica cuál es la narración
+    plan_yaml = carpeta / "plan.yaml"
+    texto_plan = plan_yaml.read_text(encoding="utf-8")
+    if not re.search(r"^audio\s*:", texto_plan, re.M):
+        linea = f"audio: audio/{audio.name}"
+        nuevo, n = re.subn(r"^(formato\s*:.*)$", lambda m: m.group(1) + "\n" + linea, texto_plan, count=1, flags=re.M)
+        plan_yaml.write_text(nuevo if n else linea + "\n" + texto_plan, encoding="utf-8")
+        texto_plan = plan_yaml.read_text(encoding="utf-8")
+        print(f"[plan] añadida la línea  {linea}")
+    tres_d = re.search(r"^formato\s*:\s*taller3d", texto_plan, re.M) is not None
 
     # 4. resolver
     resolver(args.ep)
@@ -122,7 +142,7 @@ def main() -> int:
         return 0
 
     # 5. render
-    salida = carpeta / "final" / f"{args.ep}_pizarra_1080p.mp4"
+    salida = carpeta / "final" / (f"{args.ep}_3D_1080p.mp4" if tres_d else f"{args.ep}_pizarra_1080p.mp4")
     cmd = [*_npx(), "remotion", "render", "src/index.ts", "Episodio", str(salida),
            f"--props={json.dumps({'episodio': args.ep})}"]
     env = dict(os.environ)
