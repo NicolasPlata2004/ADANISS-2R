@@ -221,7 +221,7 @@ export const Proteccion3D: React.FC = () => {
     return v;
   });
   const vista = ap(t, tRec - 0.8, 1.4, easeInOut);
-  const cam: Camara = {pos: [mix(0.5, 4.0, vista), mix(9.5, 8.5, vista), mix(12.5, 18, vista)], obj: [mix(0.5, 3.0, vista), mix(0.6, 2.0, vista), mix(0, -1.5, vista)], fov: 30};
+  const cam: Camara = {pos: [mix(1.0, 4.0, vista), mix(10.5, 8.5, vista), mix(17.5, 18, vista)], obj: [mix(0.6, 3.0, vista), mix(1.2, 2.0, vista), mix(-0.2, -1.5, vista)], fov: 30};
   const pR = proyectar([-1.0, 1.4, 1.2], cam);
   const pZ = proyectar([1.3, 1.4, 1.2], cam);
   return (
@@ -229,11 +229,12 @@ export const Proteccion3D: React.FC = () => {
       <Estudio camara={cam} fondo="negro" centroLuz={[1, 1, 0]} {...Q}>
         <Protoboard pos={[0, 0, 0.8]} />
         <ESP32 pos={[5.4, 1.15, 0.8]} rotY={Math.PI / 2} led={recorta ? 0.6 : 0} />
-        <group position={[-7.5, 0, 1.5]}>
-          <PiezoDisco />
+        {/* el piezo, acostado sobre la protoboard (antes quedaba dentro de ella) */}
+        <group position={[-6.4, 0.87, 1.6]}>
+          <PiezoDisco cables={false} />
         </group>
-        <Tubo puntos={[[-6.4, 0.1, 1.6], [-5.2, 0.4, 1.4], [-3.9, 0.9, 1.2]]} radio={0.05} material={M.color('#C62828', 0.4)} seg={20} />
-        <Tubo puntos={[[-6.4, 0.1, 2.0], [-5.2, 0.4, 2.3], [-3.9, 0.9, 2.4]]} radio={0.05} material={M.color('#1A1A1A', 0.4)} seg={20} />
+        <Tubo puntos={[[-5.5, 1.0, 1.4], [-4.7, 1.3, 1.3], [-3.9, 0.9, 1.2]]} radio={0.05} material={M.color('#C62828', 0.4)} seg={20} />
+        <Tubo puntos={[[-5.4, 1.0, 2.0], [-4.6, 1.3, 2.3], [-3.9, 0.9, 2.4]]} radio={0.05} material={M.color('#1A1A1A', 0.4)} seg={20} />
         {t >= tR - 0.3 && <ResistenciaAxial pos={[-1.0, 0.85, 1.2]} bandas={['#7A4A21', '#151515', '#E5732E', '#D4AF37']} />}
         {t >= tZ - 0.3 && <Zener pos={[1.3, 0.85, 1.2]} rotY={Math.PI / 2} />}
         <Osciloscopio3D pos={[7.8, 0, -4.0]} rotY={-0.3} muestras={muestras} recorte={0.62} etiquetaRecorte="3,3 V" titulo={recorta ? 'con protección' : 'sin protección'} />

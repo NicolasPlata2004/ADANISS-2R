@@ -447,10 +447,10 @@ export const MontajeESP32: React.FC = () => {
       <Estudio camara={cam} fondo="tapete" centroLuz={[2, 0, 1]} {...Q}>
         <Protoboard pos={[1, 0, 0]} />
         <ESP32 pos={[-3.6, yTop + 0.55, 0]} rotY={Math.PI / 2} />
-        <PiezoDisco posicion={[9.5, 0, 5.5]} cables={false} />
+        <PiezoDisco posicion={[8.0, 0, 4.4]} cables={false} />
         {/* cables del piezo a la protoboard */}
-        <Tubo puntos={[[9.0, 0.12, 5.0], [7, 0.4, 3.4], [4.0, 1.4, 1.95], [3.4, yTop + 0.25, 1.95]]} radio={0.07} material={M.goma('#141414')} progreso={negro} />
-        <Tubo puntos={[[9.4, 0.12, 4.9], [7.5, 0.5, 3.2], [5.0, 1.5, 0.95], [4.4, yTop + 0.25, 0.95]]} radio={0.07} material={M.goma('#B5121B')} progreso={rojo} />
+        <Tubo puntos={[[7.5, 0.12, 3.9], [6.2, 0.6, 3.0], [4.0, 1.4, 1.95], [3.4, yTop + 0.25, 1.95]]} radio={0.07} material={M.goma('#141414')} progreso={negro} />
+        <Tubo puntos={[[7.9, 0.12, 3.8], [6.7, 0.7, 2.8], [5.0, 1.5, 0.95], [4.4, yTop + 0.25, 0.95]]} radio={0.07} material={M.goma('#B5121B')} progreso={rojo} />
         {/* puentes a GND y a la entrada analógica */}
         <Tubo puntos={[[3.4, yTop + 0.2, 1.95], [2.0, yTop + 1.4, 0.2], [-1.9, yTop + 0.9, -1.95], [-1.9, yTop + 0.2, -1.95]]} radio={0.06} material={M.goma('#2A2A2A')} progreso={negro} />
         <Tubo puntos={[[4.4, yTop + 0.2, 0.95], [2.8, yTop + 1.7, 0.5], [-1.9, yTop + 1.1, 0.65], [-1.9, yTop + 0.2, 0.65]]} radio={0.06} material={M.goma('#E8A93A')} progreso={rojo} />
